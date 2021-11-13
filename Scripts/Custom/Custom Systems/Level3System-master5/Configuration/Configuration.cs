@@ -21,7 +21,7 @@ namespace Server
 		#region Int Variable Options
         public int StartMaxLvl			= 100;		//What is the highest level reachable without scrolls?
         public int EndMaxLvl			= 500;		//What is the highest level reachable with scrolls?
-		public int SkillCoinCap			= 70000;		//Change this to match the servers skill cap
+		public int SkillCoinCap			= 10800;		//Change this to match the servers skill cap
 		
 		public int ExpCoinValue = 100;
 		/* Example of specific value */ 
@@ -47,7 +47,7 @@ namespace Server
 		public int ExpPowerAmount		= 75;		/* How much bonus exp for power hour? */
 		public bool DisableSkillGain	= false;	/*This will Disable Normal Skill Gain Mechanics, only 
 													leveling will allow skill gain. False by default*/
-		public bool LevelBelowToon		= true;	/*Default False: In current Servuo Distro, when titles activate this disappears.
+		public bool LevelBelowToon		= false;	/*Default False: In current Servuo Distro, when titles activate this disappears.
 													In Older Distro or servers that do not use skill titles over toons head
 													this should work. */
 		public bool AttachonLogon		= true;		//Attach Level Attachment on Toon Login / This does affect ALL playermobiles. 
