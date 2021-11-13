@@ -6,6 +6,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Targeting;
+using Server.Accounting;
 
 namespace Server.Engines.Harvest
 {
@@ -174,16 +175,17 @@ namespace Server.Engines.Harvest
             {
                 QuestSystem qs = player.Quest;
 
-                foreach (BaseQuest quest in player.Quests)
+                //Iomega0318
+                /*foreach (BaseQuest quest in player.Quests)
                 {
-                    if (quest is ThePerfectCut)// && Utility.RandomDouble() < 0.1)
+                    if (quest is ThePerfectCut && Utility.RandomDouble() < 0.1)
                     {
                         Item red = new RedHerring();
                         from.AddToBackpack(red);
                         player.SendLocalizedMessage(1095047, "", 0x23); // You pull a shellfish out of the water, but it doesn't have a rainbow pearl.
                         return true;
                     }
-                }
+                }*/
 
                 if (qs is CollectorQuest)
                 {
@@ -498,6 +500,69 @@ namespace Server.Engines.Harvest
 
                         TreasureMapChest.Fill(from, chest, Math.Max(1, Math.Min(4, sos.Level)), true);
                         sos.OnSOSComplete(chest);
+
+                        //Iomega0318
+                        PlayerMobile player = from as PlayerMobile;
+
+                        if (player != null)
+                        {
+                            QuestSystem qs = player.Quest;
+
+                            foreach (BaseQuest quest in player.Quests)
+                            {
+                                if (quest is ThePerfectCut)// && Utility.RandomDouble() < 0.1)
+                                {
+                                    Mobile m = from;
+                                    PlayerMobile mobile = m as PlayerMobile;
+                                    Account acct = (Account)from.Account;
+                                    bool ThePerfectCut = Convert.ToBoolean(acct.GetTag("ThePerfectCut"));
+
+                                    if (!ThePerfectCut) //added account tag check
+                                    {
+                                        if (Utility.Random(100) < 30) // 30% chance to drop   
+                                            switch (Utility.Random(5))
+                                            {
+                                                case 0:
+                                                    chest.DropItem(new RedHerring());
+                                                    acct.SetTag("ThePerfectCut", "true"); break;
+                                                case 1:
+                                                    from.SendMessage("You dropped your map in the sea while trying to fish out the boots.");
+                                                    quest.RemoveQuest(); break;
+                                                case 2:
+                                                    from.SendMessage("You dropped your map in the sea while trying to fish out the boots.");
+                                                    quest.RemoveQuest(); break;
+                                                case 3:
+                                                    from.SendMessage("You dropped your map in the sea while trying to fish out the boots.");
+                                                    quest.RemoveQuest(); break;
+                                                case 4:
+                                                    from.SendMessage("You dropped your map in the sea while trying to fish out the boots.");
+                                                    quest.RemoveQuest(); break;
+                                            }
+                                        else
+                                        {
+                                            from.SendMessage("You dropped your map in the sea while trying to fish out the boots.");
+                                            quest.RemoveQuest();
+                                        }
+                                        //chest.DropItem(new RedHerring());
+                                        //player.SendLocalizedMessage(1095047, "", 0x23); // You pull a shellfish out of the water, but it doesn't have a rainbow pearl.
+                                        chest.Movable = true;
+                                        chest.Locked = false;
+                                        chest.TrapType = TrapType.None;
+                                        chest.TrapPower = 0;
+                                        chest.TrapLevel = 0;
+
+                                        chest.IsShipwreckedItem = false;
+
+                                        sos.Delete();
+
+                                        //acct.SetTag("ThePerfectCut", "true");
+
+                                        return chest;
+                                    }
+                                }
+                            }
+                        }
+                        //Iomega0318
 
                         if (sos.IsAncient)
                             chest.DropItem(new FabledFishingNet());
