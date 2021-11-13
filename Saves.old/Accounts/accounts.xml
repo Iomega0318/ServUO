@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<accounts count="3">
+	<account>
+		<username>Jonathan</username>
+		<newCryptPassword>30-20-80-09-FF-76-B5-5B-18-55-32-30-42-EA-76-86-AD-94-12-93</newCryptPassword>
+		<accessLevel>Owner</accessLevel>
+		<flags>2</flags>
+		<created>2021-09-17T05:26:41.3974254Z</created>
+		<lastLogin>2021-09-29T09:23:22.1377567Z</lastLogin>
+		<totalGameTime>P10DT9H44M22.1657933S</totalGameTime>
+		<chars>
+			<char index="0">1170</char>
+		</chars>
+		<tags>
+			<tag name="motd">false</tag>
+		</tags>
+		<addressList count="2">
+			<ip>24.119.49.243</ip>
+			<ip>65.132.166.166</ip>
+		</addressList>
+		<totalCurrency>0</totalCurrency>
+	</account>
+	<account>
+		<username>Jonathan2</username>
+		<newCryptPassword>A0-9E-32-66-05-D5-92-CB-4D-F9-BD-80-6C-D6-75-A4-41-89-27-1B</newCryptPassword>
+		<flags>2</flags>
+		<created>2021-09-19T03:01:27.1269452Z</created>
+		<lastLogin>2021-09-26T03:13:28.9021348Z</lastLogin>
+		<totalGameTime>P1DT13H45M29.5980998S</totalGameTime>
+		<chars>
+			<char index="0">1478</char>
+		</chars>
+		<tags>
+			<tag name="motd">false</tag>
+		</tags>
+		<addressList count="2">
+			<ip>24.119.49.243</ip>
+			<ip>65.132.166.166</ip>
+		</addressList>
+		<totalCurrency>0</totalCurrency>
+	</account>
+	<account>
+		<username>Jonathan3</username>
+		<newCryptPassword>79-FC-50-39-A8-D9-0D-8F-77-DB-89-D9-1D-D9-F5-5E-3D-94-83-E0</newCryptPassword>
+		<created>2021-09-19T22:32:06.4360009Z</created>
+		<lastLogin>2021-09-23T02:11:17.4070501Z</lastLogin>
+		<totalGameTime>PT6M23.0492294S</totalGameTime>
+		<chars>
+			<char index="0">2291</char>
+		</chars>
+		<tags>
+			<tag name="motd">false</tag>
+		</tags>
+		<addressList count="2">
+			<ip>65.132.166.166</ip>
+			<ip>24.119.49.243</ip>
+		</addressList>
+		<totalCurrency>0</totalCurrency>
+	</account>
+</accounts>

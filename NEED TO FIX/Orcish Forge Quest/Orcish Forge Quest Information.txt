@@ -1,0 +1,19 @@
+Orcish Forge Quest
+
+In this quest, the player travels to the orc cave in trammel (5136 2016 0). When the player reaches the entrance to the cave, there is an Engaged Orc Blacksmith that is located at the entrance.
+
+After talking to the Engaged Orc Blacksmith, the player needs to enter the cave and battle through the cave to the end. At the end (5355 1999 0) the player will encounter an Orc Brute that he/she needs to kill and retreive the Wedding Ring from.
+
+The player must battle his/her way back through to the entrance. Once the player reaches the entrance, he/she must give the ring to the Engaged Orc Blacksmith for the reward.
+
+The reward is an Orcish Forge. This is just simply a forge that is movable with a blaze hue.
+
+Please feel free to alter any of the scripts in this package to best suit your shard's needs.
+
+OTHER IDEAS:
+
+- Make the forge have a limited amount of charges. (I was unable to figure out how to acheive this.)
+
+- Have other orc brutes throughout the cave to cause the player to become confused at which orc brute must be killed for the ring.
+
+*EDIT* There is an auto generator now added to the package as of 12/30/05. To activate this quest on your shard, just unzip and drop the package into your custom scripts folder then type [genofq ingame. This will generate the quest for your players.

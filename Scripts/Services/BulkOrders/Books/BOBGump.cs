@@ -1,9 +1,9 @@
+using System;
+using System.Collections;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
 using Server.Prompts;
-using System;
-using System.Collections;
 
 namespace Server.Engines.BulkOrders
 {
@@ -208,7 +208,7 @@ namespace Server.Engines.BulkOrders
                         else if (name is string)
                             AddLabel(316, y, 1152, (string)name);
 
-                        AddLabel(421, y, 1152, string.Format("{0} / {1}", sub.AmountCur, e.AmountMax));
+                        AddLabel(421, y, 1152, String.Format("{0} / {1}", sub.AmountCur, e.AmountMax));
 
                         ++tableIndex;
                         y += 32;
@@ -245,7 +245,7 @@ namespace Server.Engines.BulkOrders
                     else if (name is string)
                         AddLabel(316, y, 1152, (string)name);
 
-                    AddLabel(421, y, 1152, string.Format("{0} / {1}", e.AmountCur, e.AmountMax));
+                    AddLabel(421, y, 1152, String.Format("{0} / {1}", e.AmountCur, e.AmountMax));
                 }
             }
         }
@@ -303,6 +303,42 @@ namespace Server.Engines.BulkOrders
                 return false;
             else if (f.Type == 2 && !isLarge)
                 return false;
+			
+			switch ( f.Material )
+            {
+                default:
+                case 0: return true;
+                case 1: return (deedType == BODType.Smith);
+                case 2: return (deedType == BODType.Tailor);
+
+                case 3: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Iron);
+                case 4: return (mat == BulkMaterialType.DullCopper);
+                case 5: return (mat == BulkMaterialType.ShadowIron);
+                case 6: return (mat == BulkMaterialType.Copper);
+                case 7: return (mat == BulkMaterialType.Bronze);
+                case 8: return (mat == BulkMaterialType.Gold);
+                case 9: return (mat == BulkMaterialType.Agapite);
+                case 10: return (mat == BulkMaterialType.Verite);
+                case 11: return (mat == BulkMaterialType.Valorite);
+                case 12: return (mat == BulkMaterialType.Blaze);
+                case 13: return (mat == BulkMaterialType.Ice);
+                case 14: return (mat == BulkMaterialType.Toxic);
+                case 15: return (mat == BulkMaterialType.Electrum);
+                case 16: return (mat == BulkMaterialType.Platinum);
+
+                case 17: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth);
+                case 18: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather);
+                case 19: return (mat == BulkMaterialType.Spined);
+                case 20: return (mat == BulkMaterialType.Horned);
+                case 21: return (mat == BulkMaterialType.Barbed);
+                case 22: return (mat == BulkMaterialType.Polar);
+                case 23: return (mat == BulkMaterialType.Synthetic);
+                case 24: return (mat == BulkMaterialType.BlazeL);
+                case 25: return (mat == BulkMaterialType.Daemonic);
+                case 26: return (mat == BulkMaterialType.Shadow);
+                case 27: return (mat == BulkMaterialType.Frost);
+                case 28: return (mat == BulkMaterialType.Ethereal);
+            }
 
             if (BulkOrderSystem.NewSystemEnabled)
             {
@@ -538,7 +574,7 @@ namespace Server.Engines.BulkOrders
 
         public object GetMaterialName(BulkMaterialType mat, BODType type, Type itemType)
         {
-            switch (type)
+            switch ( type )
             {
                 case BODType.Tinkering:
                 case BODType.Smith:
@@ -569,6 +605,18 @@ namespace Server.Engines.BulkOrders
                                     return 1018338;
                                 case BulkMaterialType.Valorite:
                                     return 1018339;
+								//daat9 OWLTR start - custom resources
+                           		case BulkMaterialType.Blaze:
+									 return "Blaze";
+                            	case BulkMaterialType.Ice: 
+									 return "Ice";
+                            	case BulkMaterialType.Toxic:
+									 return "Toxic";
+                           	 	case BulkMaterialType.Electrum:
+									 return "Electrum";
+                            	case BulkMaterialType.Platinum:
+									 return "Platinum";
+                            //daat9 OWLTR end - custom resources
                             }
                         }
 
@@ -576,7 +624,7 @@ namespace Server.Engines.BulkOrders
                     }
                 case BODType.Tailor:
                     {
-                        switch (mat)
+                        switch ( mat )
                         {
                             case BulkMaterialType.None:
                                 {
@@ -591,6 +639,22 @@ namespace Server.Engines.BulkOrders
                                 return 1062237;
                             case BulkMaterialType.Barbed:
                                 return 1062238;
+							//daat9 OWLTR start - custom resources
+                            case BulkMaterialType.Polar:
+								return "Polar";
+                            case BulkMaterialType.Synthetic:
+								return "Synthetic";
+                            case BulkMaterialType.BlazeL: 				
+								return "Blaze";
+                            case BulkMaterialType.Daemonic: 
+								return "Daemonic";
+                            case BulkMaterialType.Shadow: 
+								return "Shadow";
+                            case BulkMaterialType.Frost: 
+								return "Frost";
+                            case BulkMaterialType.Ethereal: 
+								return "Ethereal";
+                            //daat9 OWLTR end - custom resources
                         }
 
                         break;
@@ -617,11 +681,11 @@ namespace Server.Engines.BulkOrders
             return "";
         }
 
-        public override void OnResponse(Network.NetState sender, RelayInfo info)
+        public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
         {
             int index = info.ButtonID;
 
-            switch (index)
+            switch ( index )
             {
                 case 0: // EXIT
                     {
@@ -706,13 +770,13 @@ namespace Server.Engines.BulkOrders
                                             m_From.SendLocalizedMessage(1045152); // The bulk order deed has been placed in your backpack.
                                             m_Book.Entries.Remove(obj);
                                             m_Book.InvalidateProperties();
-
+										
                                             if (m_Book.Entries.Count / 5 < m_Book.ItemCount)
                                             {
                                                 m_Book.ItemCount--;
                                                 m_Book.InvalidateItems();
                                             }
-
+										
                                             if (m_Book.Entries.Count > 0)
                                             {
                                                 m_Page = GetPageForIndex(index, sizeOfDroppedBod);
@@ -777,7 +841,7 @@ namespace Server.Engines.BulkOrders
 
         private class SetPricePrompt : Prompt
         {
-            public override int MessageCliloc => 1062383;
+            public override int MessageCliloc { get { return 1062383; } }
             private readonly BulkOrderBook m_Book;
             private readonly object m_Object;
             private readonly int m_Page;

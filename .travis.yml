@@ -1,7 +1,3 @@
 language: csharp
 solution: ServUO.sln
 mono: latest
-
-addons:
-  sonarcloud:
-    organization: "serv-uo"

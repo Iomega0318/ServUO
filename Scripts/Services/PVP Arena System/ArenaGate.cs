@@ -1,20 +1,21 @@
+using Server;
+using System;
 using Server.Items;
 using Server.Mobiles;
-using System;
 
 namespace Server.Engines.ArenaSystem
 {
     public class ArenaGate : Item
     {
-        public override bool ForceShowProperties => true;
-        public override int LabelNumber => 1115879;  // Arena Gate
+        public override bool ForceShowProperties { get { return true; } }
+        public override int LabelNumber { get { return 1115879; } } // Arena Gate
 
         [CommandProperty(AccessLevel.GameMaster)]
         public ArenaDuel Duel { get; set; }
 
         [Constructable]
         public ArenaGate(ArenaDuel duel)
-            : base(0xF6C)
+            : base(0x4BCB)
         {
             Duel = duel;
             Movable = false;
@@ -98,7 +99,7 @@ namespace Server.Engines.ArenaSystem
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

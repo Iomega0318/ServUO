@@ -1,20 +1,26 @@
+using System;
 using System.Collections.Generic;
 
 namespace Server.Engines.BulkOrders
 {
     public class LargeFletchingBOD : LargeBOD
     {
-        public override BODType BODType => BODType.Fletching;
+        public override BODType BODType { get { return BODType.Fletching; } }
 
         public static double[] m_FletchingingMaterialChances = new double[]
         {
-            0.513718750, // None
-            0.292968750, // Oak
-            0.117187500, // Ash
-            0.046875000, // Yew
-            0.018750000, // Heartwood
-            0.007500000, // Bloodwood
-            0.003000000 // Frostwood
+            0.140, // None
+			0.130, // OakWood
+			0.120, // AshWood
+			0.110, // YewWood
+			0.100, // Heartwood
+			0.090, // Bloodwood
+			0.080, // Frostwood
+			0.070, // Ebony
+			0.060, // Bamboo
+			0.050, // PurpleHeart
+			0.030, // Redwood
+			0.020  // Petrified
         };
 
         [Constructable]
@@ -55,20 +61,20 @@ namespace Server.Engines.BulkOrders
             else
                 material = BulkMaterialType.None;
 
-            Hue = hue;
-            AmountMax = amountMax;
-            Entries = entries;
-            RequireExceptional = reqExceptional;
-            Material = material;
+            this.Hue = hue;
+            this.AmountMax = amountMax;
+            this.Entries = entries;
+            this.RequireExceptional = reqExceptional;
+            this.Material = material;
         }
 
         public LargeFletchingBOD(int amountMax, bool reqExceptional, BulkMaterialType mat, LargeBulkEntry[] entries)
         {
-            Hue = 1425;
-            AmountMax = amountMax;
-            Entries = entries;
-            RequireExceptional = reqExceptional;
-            Material = mat;
+            this.Hue = 1425;
+            this.AmountMax = amountMax;
+            this.Entries = entries;
+            this.RequireExceptional = reqExceptional;
+            this.Material = mat;
         }
 
         public LargeFletchingBOD(Serial serial)
@@ -125,7 +131,7 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

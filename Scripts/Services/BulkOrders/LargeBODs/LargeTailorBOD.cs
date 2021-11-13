@@ -1,17 +1,27 @@
+using System;
 using System.Collections.Generic;
 
 namespace Server.Engines.BulkOrders
 {
     public class LargeTailorBOD : LargeBOD
     {
-        public override BODType BODType => BODType.Tailor;
+        public override BODType BODType { get { return BODType.Tailor; } }
 
         public static double[] m_TailoringMaterialChances = new double[]
         {
-            0.857421875, // None
-            0.125000000, // Spined
-            0.015625000, // Horned
-            0.001953125  // Barbed
+				//daat99 OWLTR start - custom leather
+				0.15, // None
+				0.13, // Spined
+				0.12, // Horned
+				0.11, // Barbed
+				0.10, // Polar
+				0.09, // Synthetic
+				0.08, // Blaze
+				0.07, // Daemonic
+				0.06, // Shadow
+				0.05, // Frost
+				0.04, // Ethereal
+				//daat99 OWLTR end - custom leather
         };
         [Constructable]
         public LargeTailorBOD()
@@ -19,7 +29,7 @@ namespace Server.Engines.BulkOrders
             LargeBulkEntry[] entries;
             bool useMaterials = false;
 
-            switch (Utility.Random(14))
+            switch ( Utility.Random(14) )
             {
                 default:
                 case 0:
@@ -53,7 +63,7 @@ namespace Server.Engines.BulkOrders
                     break;
                 case 9:
                     entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.ShoeSet);
-                    useMaterials = true;
+                    useMaterials = Core.ML;
                     break;
                 case 10:
                     entries = LargeBulkEntry.ConvertEntries(this, LargeBulkEntry.StuddedSet);
@@ -82,20 +92,20 @@ namespace Server.Engines.BulkOrders
             else
                 material = BulkMaterialType.None;
 
-            Hue = hue;
-            AmountMax = amountMax;
-            Entries = entries;
-            RequireExceptional = reqExceptional;
-            Material = material;
+            this.Hue = hue;
+            this.AmountMax = amountMax;
+            this.Entries = entries;
+            this.RequireExceptional = reqExceptional;
+            this.Material = material;
         }
 
         public LargeTailorBOD(int amountMax, bool reqExceptional, BulkMaterialType mat, LargeBulkEntry[] entries)
         {
-            Hue = 0x483;
-            AmountMax = amountMax;
-            Entries = entries;
-            RequireExceptional = reqExceptional;
-            Material = mat;
+            this.Hue = 0x483;
+            this.AmountMax = amountMax;
+            this.Entries = entries;
+            this.RequireExceptional = reqExceptional;
+            this.Material = mat;
         }
 
         public LargeTailorBOD(Serial serial)
@@ -152,7 +162,7 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

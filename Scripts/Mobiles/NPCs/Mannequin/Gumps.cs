@@ -1,8 +1,8 @@
-using Server.Mobiles;
-using Server.Network;
 using System;
-using System.Collections.Generic;
+using Server.Mobiles;
 using System.Linq;
+using System.Collections.Generic;
+using Server.Network;
 
 namespace Server.Gumps
 {
@@ -187,13 +187,12 @@ namespace Server.Gumps
             AddAlphaRegion(5, 5, 594, 810);
             AddHtmlLocalized(10, 10, 584, 18, 1114513, "#1159279", 0x43F7, false, false); // <DIV ALIGN=CENTER>~1_TOKEN~</DIV>
 
-            List<ValuedProperty> lm = null;
+            List<ValuedProperty> lm = Mannequin.GetProperty(_Mannequin.Items);
             List<ItemPropDefinition> CompareItem = null;
-            List<Item> list = null;
 
             if (_Item != null)
             {
-                _SameItem = _Mannequin.Items.FirstOrDefault(x => _Mannequin.LayerValidation(x, item));
+                _SameItem = _Mannequin.Items.Where(x => _Mannequin.LayerValidation(x, item)).FirstOrDefault();
 
                 if (_SameItem != null)
                 {
@@ -202,22 +201,12 @@ namespace Server.Gumps
                         new ItemPropDefinition(_Item, _SameItem)
                     };
 
-                    list = _Mannequin.Items.Where(x => x != _SameItem).ToList();
+                    List<Item> list = _Mannequin.Items.Where(x => x != _SameItem).ToList();
                     list.Add(_Item);
-                }
-                else
-                {
-                    list = _Mannequin.Items.ToList();
-                    list.Add(_Item);
-                }
 
-                lm = Mannequin.GetProperty(list);
+                    lm = Mannequin.GetProperty(list);
+                }
             }
-            else
-            {
-                lm = Mannequin.GetProperty(_Mannequin.Items);
-            }
-
 
             AddHtmlLocalized(479, 10, 75, 18, 1114514, "#1158215", 0x42FF, false, false); // <DIV ALIGN=RIGHT>~1_TOKEN~</DIV>
 
@@ -296,7 +285,7 @@ namespace Server.Gumps
             if (list == null)
                 return 0;
 
-            ItemPropDefinition l = list.FirstOrDefault();
+            var l = list.FirstOrDefault();
 
             double v1 = 0;
             double v2 = 0;

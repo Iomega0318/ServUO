@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Server.Mobiles
@@ -17,7 +18,13 @@ namespace Server.Mobiles
         {
         }
 
-        protected override List<SBInfo> SBInfos => m_SBInfos;
+        protected override List<SBInfo> SBInfos
+        {
+            get
+            {
+                return m_SBInfos;
+            }
+        }
         public override void InitSBInfo()
         {
             m_SBInfos.Add(new SBMiner());
@@ -25,10 +32,10 @@ namespace Server.Mobiles
 
         public override void InitOutfit()
         {
-            AddItem(new Items.FancyShirt(0x3E4));
-            AddItem(new Items.LongPants(0x192));
-            AddItem(new Items.Pickaxe());
-            AddItem(new Items.ThighBoots(0x283));
+            AddItem(new Server.Items.FancyShirt(0x3E4));
+            AddItem(new Server.Items.LongPants(0x192));
+            AddItem(new Server.Items.Pickaxe());
+            AddItem(new Server.Items.ThighBoots(0x283));
 
             base.InitOutfit();
         }
@@ -37,7 +44,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

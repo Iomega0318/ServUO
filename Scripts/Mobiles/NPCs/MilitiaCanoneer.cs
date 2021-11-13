@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
 
@@ -51,10 +52,8 @@ namespace Server.Engines.Quests.Haven
             AddItem(new PlateGloves());
             AddItem(new PlateLegs());
 
-            Torch torch = new Torch
-            {
-                Movable = false
-            };
+            Torch torch = new Torch();
+            torch.Movable = false;
             AddItem(torch);
             torch.Ignite();
         }
@@ -101,9 +100,9 @@ namespace Server.Engines.Quests.Haven
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
 
-            writer.Write(m_Active);
+            writer.Write((bool)m_Active);
         }
 
         public override void Deserialize(GenericReader reader)

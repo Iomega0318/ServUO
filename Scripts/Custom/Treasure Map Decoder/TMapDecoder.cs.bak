@@ -1,0 +1,140 @@
+using System;
+using Server.Network;
+using Server.Prompts;
+using Server.Items;
+using Server.Targeting;
+using Server.Engines.XmlSpawner2;
+
+namespace Server.Items
+{
+	public class TMapDecoder : Item
+	{
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int Uses{ get; private set; }
+		
+		[Constructable]
+		public TMapDecoder() : base( 0x2831 )
+		{
+			Weight = 1.0;
+			Hue = 741;
+			Name = "Treasure Map Decoder";
+			LootType = LootType.Blessed;
+			Uses = 10;
+		}
+		
+		public override void GetProperties( ObjectPropertyList list )
+		{
+			base.GetProperties( list );
+			list.Add("Uses: {0}", this.Uses);
+		}
+		
+		public override void OnDoubleClick( Mobile from )
+		{
+			if ( !IsChildOf( from.Backpack ) )
+			{
+				 from.SendLocalizedMessage( 1042001 );
+			}
+			else if( this.Uses <= 0 )
+			{
+				from.SendMessage( "The decoder has no more uses left" ); 
+				this.Delete();
+			}
+			else
+			{
+				from.SendMessage( "What Treasure Map would you like to decode?" ); 
+				from.Target = new TMapDecoderTarget( this );
+			}
+		}
+		
+		public void AddAtt(TreasureMap item, Mobile from)
+		{
+			TMapDecoderXmlAtt tmd = (TMapDecoderXmlAtt)XmlAttach.FindAttachment(item, typeof(TMapDecoderXmlAtt));
+			
+			if ( tmd == null &&  this.Uses > 0 ) 
+			{
+				XmlAttach.AttachTo(item, new TMapDecoderXmlAtt());
+				this.Uses--;
+				this.InvalidateProperties();
+				
+				if( this.Uses <= 0 )
+				{
+					from.SendMessage( "The decoder has no more uses left" ); 
+					this.Delete();
+					
+				}
+			}
+			
+			
+		}
+
+		public TMapDecoder( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 ); // version
+			
+			writer.Write(Uses);
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+			int version = reader.ReadInt();
+			
+			Uses = reader.ReadInt();
+		}
+
+		
+		
+		public class TMapDecoderTarget : Target
+		{
+			private TMapDecoder _decoder;
+
+			public TMapDecoderTarget( TMapDecoder item ) : base( 1, false, TargetFlags.None )
+			{
+				_decoder = item;
+			}
+
+			protected override void OnTarget( Mobile from, object target )
+			{
+				if ( target is TreasureMap )
+				{
+					TreasureMap item = (TreasureMap)target;
+					if( item.RootParent != from ) // Make sure its in their pack
+					{
+						from.SendMessage( "The treasure map must be in your backpack");
+					}
+					else if( item.Decoder != null && from != item.Decoder )
+					{
+						from.SendMessage( "That treasure map belongs to another player!");
+					}
+					else if( from == item.Decoder )
+					{
+						from.SendMessage( "You suddenly remember that you've already decoded that one");
+					}
+					else if( item.Completed == true )
+					{
+						from.SendMessage( "You decide that decoding a map you've already completed is quite silly");
+					}
+					else
+					{
+						from.SendMessage( "You have decoded the treasure map!" );
+						item.Decoder = from;
+						_decoder.AddAtt(item, from);
+					}
+				}
+				else
+				{
+					from.SendMessage( "You can not use this on that!" );
+				}
+			}
+		}
+	}
+}
+
+
+

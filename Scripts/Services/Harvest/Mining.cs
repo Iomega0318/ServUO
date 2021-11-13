@@ -1,8 +1,10 @@
+using System;
+using Server;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
-using System;
 using System.Linq;
+using daat99;
 
 namespace Server.Engines.Harvest
 {
@@ -59,7 +61,7 @@ namespace Server.Engines.Harvest
             oreAndStone.ConsumedPerFeluccaHarvest = 2;
 
             // The digging effect
-            oreAndStone.EffectActions = new int[] { 3 };
+            oreAndStone.EffectActions = new int[] { Core.SA ? 3 : 11 };
             oreAndStone.EffectSounds = new int[] { 0x125, 0x126 };
             oreAndStone.EffectCounts = new int[] { 1 };
             oreAndStone.EffectDelay = TimeSpan.FromSeconds(1.6);
@@ -75,48 +77,65 @@ namespace Server.Engines.Harvest
 
             res = new HarvestResource[]
             {
-                new HarvestResource(00.0, 00.0, 100.0, 1007072, typeof(IronOre), typeof(Granite)),
-                new HarvestResource(65.0, 25.0, 105.0, 1007073, typeof(DullCopperOre),  typeof(DullCopperGranite), typeof(DullCopperElemental)),
-                new HarvestResource(70.0, 30.0, 110.0, 1007074, typeof(ShadowIronOre),  typeof(ShadowIronGranite), typeof(ShadowIronElemental)),
-                new HarvestResource(75.0, 35.0, 115.0, 1007075, typeof(CopperOre), typeof(CopperGranite), typeof(CopperElemental)),
-                new HarvestResource(80.0, 40.0, 120.0, 1007076, typeof(BronzeOre), typeof(BronzeGranite), typeof(BronzeElemental)),
-                new HarvestResource(85.0, 45.0, 125.0, 1007077, typeof(GoldOre), typeof(GoldGranite), typeof(GoldenElemental)),
-                new HarvestResource(90.0, 50.0, 130.0, 1007078, typeof(AgapiteOre), typeof(AgapiteGranite), typeof(AgapiteElemental)),
-                new HarvestResource(95.0, 55.0, 135.0, 1007079, typeof(VeriteOre), typeof(VeriteGranite), typeof(VeriteElemental)),
-                new HarvestResource(99.0, 59.0, 139.0, 1007080, typeof(ValoriteOre), typeof(ValoriteGranite), typeof(ValoriteElemental))
+                //daat99 OWLTR start - custom ores		
+				new HarvestResource( 00.0, 00.0, 95.0, "You put some Iron ore in your backpack",			typeof( IronOre ),				typeof( Granite ) ),
+				new HarvestResource( 60.0, 20.0, 100.0, "You put some Dull Copper ore in your backpack",	typeof( DullCopperOre ),		typeof( DullCopperGranite ),	typeof( DullCopperOreElemental ) ),
+				new HarvestResource( 65.0, 25.0, 105.0, "You put some Shadow Iron ore in your backpack",	typeof( ShadowIronOre ),		typeof( ShadowIronGranite ),	typeof( ShadowIronOreElemental ) ),
+				new HarvestResource( 70.0, 30.0, 110.0, "You put some Copper ore in your backpack",			typeof( CopperOre ),			typeof( CopperGranite ),		typeof( CopperOreElemental ) ),
+				new HarvestResource( 75.0, 35.0, 115.0, "You put some Bronze ore in your backpack",			typeof( BronzeOre ),			typeof( BronzeGranite ),		typeof( BronzeOreElemental ) ),
+				new HarvestResource( 80.0, 40.0, 120.0, "You put some Gold ore in your backpack",			typeof( GoldOre ),				typeof( GoldGranite ),			typeof( GoldenOreElemental ) ),
+				new HarvestResource( 85.0, 45.0, 125.0, "You put some Agapite ore in your backpack",		typeof( AgapiteOre ),			typeof( AgapiteGranite ),		typeof( AgapiteOreElemental ) ),
+				new HarvestResource( 90.0, 50.0, 130.0, "You put some Verite ore in your backpack",			typeof( VeriteOre ),			typeof( VeriteGranite ),		typeof( VeriteOreElemental ) ),
+				new HarvestResource( 95.0, 55.0, 135.0, "You put some Valorite ore in your backpack",		typeof( ValoriteOre ),			typeof( ValoriteGranite ),		typeof( ValoriteOreElemental ) ),
+				new HarvestResource( 100.0, 60.0, 140.0, "You put some Blaze ore in your backpack",			typeof( BlazeOre ),				typeof( BlazeGranite ),			typeof( BlazeOreElemental ) ),
+				new HarvestResource( 105.0, 65.0, 145.0, "You put some Ice ore in your backpack", 			typeof( IceOre ),				typeof( IceGranite ),			typeof( IceOreElemental ) ),
+				new HarvestResource( 110.0, 70.0, 150.0, "You put some Toxic ore in your backpack",			typeof( ToxicOre ),				typeof( ToxicGranite ),			typeof( ToxicOreElemental ) ),
+				new HarvestResource( 115.0, 75.0, 155.0, "You put some Electrum ore in your backpack",		typeof( ElectrumOre ),			typeof( ElectrumGranite ),		typeof( ElectrumOreElemental ) ),
+				new HarvestResource( 119.0, 79.0, 159.0, "You put some Platinum ore in your backpack",		typeof( PlatinumOre ),			typeof( PlatinumGranite ),		typeof( PlatinumOreElemental ) )
+				//daat99 OWLTR end - custom ores
             };
 
             veins = new HarvestVein[]
             {
-                new HarvestVein(49.6, 0.0, res[0], null), // Iron
-                new HarvestVein(11.2, 0.5, res[1], res[0]), // Dull Copper
-                new HarvestVein(09.8, 0.5, res[2], res[0]), // Shadow Iron
-                new HarvestVein(08.4, 0.5, res[3], res[0]), // Copper
-                new HarvestVein(07.0, 0.5, res[4], res[0]), // Bronze
-                new HarvestVein(05.6, 0.5, res[5], res[0]), // Gold
-                new HarvestVein(04.2, 0.5, res[6], res[0]), // Agapite
-                new HarvestVein(02.8, 0.5, res[7], res[0]), // Verite
-                new HarvestVein(01.4, 0.5, res[8], res[0]), // Valorite
+                //daat99 OWLTR start - custom ores
+ 				new HarvestVein( 22.0, 0.0, res[0], null   ), // Iron
+				new HarvestVein( 09.0, 0.5, res[1], res[0] ), // Dull Copper
+				new HarvestVein( 08.5, 0.5, res[2], res[0] ), // Shadow Iron
+				new HarvestVein( 08.0, 0.5, res[3], res[0] ), // Copper
+				new HarvestVein( 07.5, 0.5, res[4], res[0] ), // Bronze
+				new HarvestVein( 07.0, 0.5, res[5], res[0] ), // Gold
+				new HarvestVein( 06.5, 0.5, res[6], res[0] ), // Agapite
+				new HarvestVein( 06.0, 0.5, res[7], res[0] ), // Verite
+				new HarvestVein( 05.5, 0.5, res[8], res[0] ),  // Valorite
+				new HarvestVein( 05.0, 0.5, res[9], res[0] ), // Blaze
+				new HarvestVein( 04.5, 0.5, res[10], res[0] ), // Ice
+				new HarvestVein( 04.0, 0.5, res[11], res[0] ), // Toxic
+				new HarvestVein( 03.5, 0.5, res[12], res[0] ), // Electrum
+				new HarvestVein( 03.0, 0.5, res[13], res[0] ) // Platinum
+				//daat99 OWLTR end - custom ores
             };
 
             oreAndStone.Resources = res;
             oreAndStone.Veins = veins;
 
-            oreAndStone.BonusResources = new BonusHarvestResource[]
+            if (Core.ML)
             {
-                new BonusHarvestResource(0, 99.2, null, null), //Nothing
-                new BonusHarvestResource(100, .1, 1072562, typeof(BlueDiamond)),
-                new BonusHarvestResource(100, .1, 1072567, typeof(DarkSapphire)),
-                new BonusHarvestResource(100, .1, 1072570, typeof(EcruCitrine)),
-                new BonusHarvestResource(100, .1, 1072564, typeof(FireRuby)),
-                new BonusHarvestResource(100, .1, 1072566, typeof(PerfectEmerald)),
-                new BonusHarvestResource(100, .1, 1072568, typeof(Turquoise)),
-                new BonusHarvestResource(100, .1, 1077180, typeof(SmallPieceofBlackrock)),
-                new BonusHarvestResource(100, .1, 1113344, typeof(CrystallineBlackrock), Map.TerMur)
-            };
+                oreAndStone.BonusResources = new BonusHarvestResource[]
+                {
+                    new BonusHarvestResource(0, 99.2, null, null), //Nothing
+                    new BonusHarvestResource(100, .1, 1072562, typeof(BlueDiamond)),
+                    new BonusHarvestResource(100, .1, 1072567, typeof(DarkSapphire)),
+                    new BonusHarvestResource(100, .1, 1072570, typeof(EcruCitrine)),
+                    new BonusHarvestResource(100, .1, 1072564, typeof(FireRuby)),
+                    new BonusHarvestResource(100, .1, 1072566, typeof(PerfectEmerald)),
+                    new BonusHarvestResource(100, .1, 1072568, typeof(Turquoise)),
+                    new BonusHarvestResource(100, .1, 1077180, typeof(SmallPieceofBlackrock)),
+                    new BonusHarvestResource(100, .1, 1113344, typeof(CrystallineBlackrock), Map.TerMur)
+				};
+            }
 
-            oreAndStone.RaceBonus = true;
-            oreAndStone.RandomizeVeins = true;
+            oreAndStone.RaceBonus = Core.ML;
+            oreAndStone.RandomizeVeins = Core.ML;
 
             Definitions.Add(oreAndStone);
             #endregion
@@ -150,7 +169,7 @@ namespace Server.Engines.Harvest
             sand.ConsumedPerFeluccaHarvest = 2;
 
             // The digging effect
-            sand.EffectActions = new int[] { 3 };
+            sand.EffectActions = new int[] { Core.SA ? 3 : 11 };
             sand.EffectSounds = new int[] { 0x125, 0x126 };
             sand.EffectCounts = new int[] { 6 };
             sand.EffectDelay = TimeSpan.FromSeconds(1.6);
@@ -237,9 +256,9 @@ namespace Server.Engines.Harvest
                 from.SendLocalizedMessage(1112233); // You carefully extract a glistening gem from the vein!
             else if (item != null)
             {
-                foreach (HarvestResource res in OreAndStone.Resources.Where(r => r.Types != null))
+                foreach (var res in OreAndStone.Resources.Where(r => r.Types != null))
                 {
-                    foreach (Type type in res.Types)
+                    foreach (var type in res.Types)
                     {
                         if (item.GetType() == type)
                         {
@@ -324,7 +343,8 @@ namespace Server.Engines.Harvest
             1, 1
         };
 
-        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
+		//daat99 added Type type
+        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
         {
             if (tool is GargoylesPickaxe && def == OreAndStone && 0.1 > Utility.RandomDouble() && HarvestMap.CheckMapOnHarvest(from, harvested, def) == null)
             {
@@ -338,8 +358,25 @@ namespace Server.Engines.Harvest
 
                         if (map == null)
                             return;
-
-                        if (Activator.CreateInstance(res.Types[2]) is BaseCreature spawned)
+						
+						//BaseCreature spawned = Activator.CreateInstance(res.Types[2], new object[] { 25 }) as BaseCreature;
+						
+						//daat99 OWLTR start - gargoyle spawn
+                        BaseCreature spawned = null;
+                        try
+                        {
+                            int i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 1;
+                            if (i_Level > 1)
+                                spawned = new Elementals(i_Level);
+                        }
+                        catch { }
+                        if (spawned == null)
+							 spawned = Activator.CreateInstance(res.Types[2], new object[] { 25 }) as BaseCreature; ;
+                        //daat99 OWLTR end - gargoyle spawn
+						
+						//BaseCreature spawned = Activator.CreateInstance(res.Types[2], new object[] { 25 }) as BaseCreature;
+						
+                        if (spawned != null)
                         {
                             int offset = Utility.Random(8) * 2;
 
@@ -374,9 +411,8 @@ namespace Server.Engines.Harvest
                             spawned.Combatant = from;
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        Diagnostics.ExceptionLogging.LogException(e);
                     }
                 }
             }
@@ -385,6 +421,9 @@ namespace Server.Engines.Harvest
         #region High Seas
         public override bool SpecialHarvest(Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc)
         {
+            if (!Core.HS)
+                return base.SpecialHarvest(from, tool, def, map, loc);
+
             HarvestBank bank = def.GetBank(map, loc.X, loc.Y);
 
             if (bank == null)
@@ -418,7 +457,7 @@ namespace Server.Engines.Harvest
 
                     if (!dungeon)
                     {
-                        niter.MoveToWorld(new Point3D(loc.X, loc.Y, from.Z), from.Map);
+                        niter.MoveToWorld(new Point3D(loc.X, loc.Y, from.Z + 3), from.Map);
                         from.SendLocalizedMessage(1149918, niter.Size.ToString()); //You have uncovered a ~1_SIZE~ deposit of niter! Mine it to obtain saltpeter.
                         NiterDeposit.AddBank(bank);
                         return true;
@@ -476,7 +515,8 @@ namespace Server.Engines.Harvest
         {
             base.OnHarvestStarted(from, tool, def, toHarvest);
 
-            from.RevealingAction();
+            if (Core.ML)
+                from.RevealingAction();
         }
 
         public override void OnBadHarvestTarget(Mobile from, Item tool, object toHarvest)
@@ -484,7 +524,7 @@ namespace Server.Engines.Harvest
             if (toHarvest is LandTarget)
             {
                 from.SendLocalizedMessage(501862); // You can't mine there.
-            }
+            }            
             else if (!(toHarvest is LandTarget))
             {
                 from.SendLocalizedMessage(501863); // You can't mine that.

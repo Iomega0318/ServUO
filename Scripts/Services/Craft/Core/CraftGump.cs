@@ -1,8 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
-using System;
-using System.Collections.Generic;
+
+using daat99; // OWLTR
 
 namespace Server.Engines.Craft
 {
@@ -18,7 +20,7 @@ namespace Server.Engines.Craft
         private const int LabelColor = 0x7FFF;
         private const int FontColor = 0xFFFFFF;
 
-        public bool Locked => AutoCraftTimer.HasTimer(m_From);
+        public bool Locked { get { return AutoCraftTimer.HasTimer(m_From); } }
 
         private enum CraftPage
         {
@@ -26,6 +28,10 @@ namespace Server.Engines.Craft
             PickResource,
             PickResource2
         }
+
+        /*public CraftGump( Mobile from, CraftSystem craftSystem, ITool tool ): this( from, craftSystem, -1, -1, tool, null )
+        {
+        }*/
 
         public CraftGump(Mobile from, CraftSystem craftSystem, ITool tool, object notice)
             : this(from, craftSystem, tool, notice, CraftPage.None)
@@ -95,8 +101,9 @@ namespace Server.Engines.Craft
             }
             // ****************************************
 
+            #region SA
             // Alter option
-            if (m_CraftSystem.CanAlter)
+            if (Core.SA && m_CraftSystem.CanAlter)
             {
                 AddButton(270, 402, 4005, 4007, GetButtonID(6, 9), GumpButtonType.Reply, 0);
                 AddHtmlLocalized(304, 405, 250, 18, 1094726, LabelColor, false, false); // ALTER ITEM (Gargoyle)
@@ -104,13 +111,18 @@ namespace Server.Engines.Craft
             // ****************************************
 
             // Quest item
-            AddButton(270, 422, 4005, 4007, GetButtonID(6, 10), GumpButtonType.Reply, 0);
-            AddHtmlLocalized(305, 425, 150, 18, context != null && context.QuestOption == CraftQuestOption.QuestItem ? 1112534 : 1112533, LabelColor, false, false); // QUEST ITEM
+            if (Core.SA)
+            {
+                AddButton(270, 422, 4005, 4007, GetButtonID(6, 10), GumpButtonType.Reply, 0);
+                AddHtmlLocalized(305, 425, 150, 18, context != null && context.QuestOption == CraftQuestOption.QuestItem ? 1112534 : 1112533, LabelColor, false, false); // QUEST ITEM
+            }
             // ****************************************
+            #endregion
 
             AddButton(270, 442, 4005, 4007, GetButtonID(6, 2), GumpButtonType.Reply, 0);
             AddHtmlLocalized(305, 445, 150, 18, 1044013, LabelColor, false, false); // MAKE LAST
 
+            #region Stygian Abyss
             int total = 1;
             int made = 0;
 
@@ -130,9 +142,10 @@ namespace Server.Engines.Craft
                 }
             }
 
-            string args = string.Format("{0}\t{1}", made.ToString(), total.ToString());
+            string args = String.Format("{0}\t{1}", made.ToString(), total.ToString());
 
             AddHtmlLocalized(270, 468, 150, 18, 1079443, args, LabelColor, false, false); //~1_DONE~/~2_TOTAL~ COMPLETED
+            #endregion
 
             // Resmelt option
             if (m_CraftSystem.Resmelt)
@@ -145,7 +158,7 @@ namespace Server.Engines.Craft
             if (notice is int && (int)notice > 0)
                 AddHtmlLocalized(170, 295, 350, 40, (int)notice, LabelColor, false, false);
             else if (notice is string)
-                AddHtml(170, 295, 350, 40, string.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", FontColor, notice), false, false);
+                AddHtml(170, 295, 350, 40, String.Format("<BASEFONT COLOR=#{0:X6}>{1}</BASEFONT>", FontColor, notice), false, false);
 
             // If the system has more than one resource
             if (craftSystem.CraftSubRes.Init)
@@ -183,6 +196,16 @@ namespace Server.Engines.Craft
                         for (int i = 0; i < items2.Length; ++i)
                             resourceCount += items2[i].Amount;
                     }
+					//daat99 OWLTR start - craft from storage
+					ulong storageCount = MasterStorageUtils.GetPlayersStorageItemCount(from as Mobiles.PlayerMobile, resourceType);
+					if (storageCount > 0)
+                    {
+						if (storageCount < int.MaxValue && storageCount + (ulong)resourceCount < int.MaxValue)
+							resourceCount += (int)storageCount;
+						else
+							resourceCount = int.MaxValue;
+                    }
+					//daat99 OWLTR end - craft from storage
                 }
 
                 AddButton(15, 362, 4005, 4007, GetButtonID(6, 0), GumpButtonType.Reply, 0);
@@ -195,7 +218,7 @@ namespace Server.Engines.Craft
                     AddHtmlLocalized(50 + (context.DoNotColor ? 13 : 0), 365, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
                 }
                 else
-                    AddLabel(50, 362, LabelHue, (context.DoNotColor ? "*" : "") + string.Format("{0} ({1} Available)", nameString, resourceCount));
+                    AddLabel(50, 362, LabelHue, (context.DoNotColor ? "*" : "") + String.Format("{0} ({1} Available)", nameString, resourceCount));
             }
             // ****************************************
 
@@ -226,6 +249,17 @@ namespace Server.Engines.Craft
 
                     for (int i = 0; i < items.Length; ++i)
                         resourceCount += items[i].Amount;
+						
+					//daat99 OWLTR start - craft from storage
+					ulong storageCount = MasterStorageUtils.GetPlayersStorageItemCount(from as Mobiles.PlayerMobile, resourceType);
+					if (storageCount > 0)
+					{
+						if (storageCount < int.MaxValue && storageCount + (ulong)resourceCount < int.MaxValue)
+							resourceCount += (int)storageCount;
+						else
+							resourceCount = int.MaxValue;
+					}
+					//daat99 OWLTR end - craft from storage
                 }
 
                 AddButton(15, 382, 4005, 4007, GetButtonID(6, 7), GumpButtonType.Reply, 0);
@@ -233,7 +267,7 @@ namespace Server.Engines.Craft
                 if (nameNumber > 0)
                     AddHtmlLocalized(50, 385, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
                 else
-                    AddLabel(50, 385, LabelHue, string.Format("{0} ({1} Available)", nameString, resourceCount));
+                    AddLabel(50, 385, LabelHue, String.Format("{0} ({1} Available)", nameString, resourceCount));
             }
             // ****************************************
 
@@ -261,74 +295,189 @@ namespace Server.Engines.Craft
             return null;
         }
 
-        private readonly Type[][] m_TypesTable = new Type[][]
+        private Type[][] m_TypesTable = new Type[][]
         {
-            new Type[]{ typeof( Log ), typeof( Board ) },
-            new Type[]{ typeof( HeartwoodLog ), typeof( HeartwoodBoard ) },
-            new Type[]{ typeof( BloodwoodLog ), typeof( BloodwoodBoard ) },
-            new Type[]{ typeof( FrostwoodLog ), typeof( FrostwoodBoard ) },
-            new Type[]{ typeof( OakLog ), typeof( OakBoard ) },
-            new Type[]{ typeof( AshLog ), typeof( AshBoard ) },
-            new Type[]{ typeof( YewLog ), typeof( YewBoard ) },
-            new Type[]{ typeof( Leather ), typeof( Hides ) },
-            new Type[]{ typeof( SpinedLeather ), typeof( SpinedHides ) },
-            new Type[]{ typeof( HornedLeather ), typeof( HornedHides ) },
-            new Type[]{ typeof( BarbedLeather ), typeof( BarbedHides ) },
+            /* new Type[]{ typeof( Log ), typeof( Board ) },
+			new Type[]{ typeof( Board ), typeof( Log )  },
+			 
+			new Type[]{ typeof( HeartwoodLog ), typeof( HeartwoodBoard ) },
+			new Type[]{ typeof( HeartwoodBoard ), typeof( HeartwoodLog ) },
+			
+			new Type[]{ typeof( BloodwoodLog ), typeof( BloodwoodBoard ) },
+			new Type[]{ typeof( BloodwoodBoard ), typeof( BloodwoodLog ) },
+			
+			new Type[]{ typeof( FrostwoodLog ), typeof( FrostwoodBoard ) },
+			new Type[]{ typeof( FrostwoodBoard ), typeof( FrostwoodLog ) },
+			
+			new Type[]{ typeof( OakLog ), typeof( OakBoard ) },
+			new Type[]{ typeof( OakBoard ), typeof( OakLog ) },
+			
+			new Type[]{ typeof( AshLog ), typeof( AshBoard ) },
+			new Type[]{ typeof( AshBoard ), typeof( AshLog ) },
+			
+			new Type[]{ typeof( YewLog ), typeof( YewBoard ) },
+			new Type[]{ typeof( YewBoard ), typeof( YewLog ) },
+			
+			new Type[]{ typeof( EbonyLog ), typeof( EbonyBoard ) },
+			new Type[]{ typeof( EbonyBoard ), typeof( EbonyLog ) },
+			
+			new Type[]{ typeof( BambooLog ), typeof( BambooBoard ) },
+			new Type[]{ typeof( BambooBoard ), typeof( BambooLog ) },
+			
+			new Type[]{ typeof( PurpleHeartLog), typeof( PurpleHeartBoard ) },
+			new Type[]{ typeof( PurpleHeartBoard ), typeof( PurpleHeartLog ) },
+			
+			new Type[]{ typeof( RedwoodLog ), typeof( RedwoodBoard ) },
+			new Type[]{ typeof( RedwoodBoard ), typeof( RedwoodLog ) },
+			
+			new Type[]{ typeof( PetrifiedLog ), typeof( PetrifiedBoard ) },
+			new Type[]{ typeof( PetrifiedBoard ), typeof( PetrifiedLog ) }, */
+			
+            //OSI woods
+			new Type[]{ typeof( Log ), 				typeof( Board ) },
+			new Type[]{ typeof( OakLog ), 			typeof( OakBoard ) },
+			new Type[]{ typeof( AshLog ), 			typeof( AshBoard ) },
+			new Type[]{ typeof( YewLog ), 			typeof( YewBoard ) },
+			new Type[]{ typeof( HeartwoodLog ), 	typeof( HeartwoodBoard ) },
+			new Type[]{ typeof( BloodwoodLog ), 	typeof( BloodwoodBoard ) },
+			new Type[]{ typeof( FrostwoodLog ), 	typeof( FrostwoodBoard ) },
+			//OWLTR custom woods
+			new Type[]{ typeof( EbonyLog ), 		typeof( EbonyBoard ) },
+			new Type[]{ typeof( BambooLog ), 		typeof( BambooBoard ) },
+			new Type[]{ typeof( PurpleHeartLog ), 	typeof( PurpleHeartBoard ) },
+			new Type[]{ typeof( RedwoodLog ), 		typeof( RedwoodBoard ) },
+			new Type[]{ typeof( PetrifiedLog ), 	typeof( PetrifiedBoard ) },
+			//OSI leathers
+			new Type[]{ typeof( Leather ), 			typeof( Hides ) },
+			new Type[]{ typeof( SpinedLeather ), 	typeof( SpinedHides ) },
+			new Type[]{ typeof( HornedLeather ), 	typeof( HornedHides ) },
+			new Type[]{ typeof( BarbedLeather ), 	typeof( BarbedHides ) },
+			//OWLTR leathers
+			new Type[]{ typeof( PolarLeather ), 	typeof( PolarHides ) },
+			new Type[]{ typeof( SyntheticLeather ), typeof( SyntheticHides ) },
+			new Type[]{ typeof( BlazeLeather ), 	typeof( BlazeHides ) },
+			new Type[]{ typeof( DaemonicLeather ), 	typeof( DaemonicHides ) },
+			new Type[]{ typeof( ShadowLeather ), 	typeof( ShadowHides ) },
+			new Type[]{ typeof( FrostLeather ), 	typeof( FrostHides ) },
+			new Type[]{ typeof( EtherealLeather ), 	typeof( EtherealHides ) },
         };
 
         public void CreateResList(bool opt, Mobile from)
         {
-            CraftSubResCol res = (opt ? m_CraftSystem.CraftSubRes2 : m_CraftSystem.CraftSubRes);
+            CraftSubResCol res = (opt ? this.m_CraftSystem.CraftSubRes2 : this.m_CraftSystem.CraftSubRes);
+			
+			//daat99 OWLTR start - recipe craft
+			bool b_RecipeCraft = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT),
+				b_Blacksmithy = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.BLACKSMITH_RECIPES),
+				b_BowFletching = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.BOWFLETCH_RECIPES),
+				b_Carpentry = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CARPENTRY_RECIPES),
+				b_Masonry = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.MASONRY_RECIPES),
+				b_Tailoring = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.TAILORING_RECIPES),
+				b_Tinkering = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.TINKERING_RECIPES);
+				if ( b_RecipeCraft )
+				{
+					NewDaat99Holder dh = (NewDaat99Holder)daat99.Daat99OWLTR.TempHolders[m_From];
+					int	i_Length = 0;
+					for ( int i = 0; i < res.Count; ++i )
+					{
+						int index = i_Length % 10;
 
-            for (int i = 0; i < res.Count; ++i)
-            {
-                int index = i % 10;
+						CraftSubRes subResource = res.GetAt( i );
+						if ( !dh.Resources.Contains(CraftResources.GetFromType( subResource.ItemType )) || (!b_Blacksmithy && m_CraftSystem is DefBlacksmithy)
+							|| (!b_BowFletching && m_CraftSystem is DefBowFletching) || (!b_Carpentry && m_CraftSystem is DefCarpentry)
+							|| (!b_Masonry && m_CraftSystem is DefMasonry) || (!b_Tailoring && m_CraftSystem is DefTailoring)
+							|| (!b_Tinkering && m_CraftSystem is DefTinkering) )
+						{
+							if ( index == 0 )
+							{
+											if ( i > 0 )
+												AddButton( 485, 260, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1 );
 
-                CraftSubRes subResource = res.GetAt(i);
+											AddPage( (i / 10) + 1 );
 
-                if (index == 0)
-                {
-                    if (i > 0)
-                        AddButton(485, 290, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1);
+											if ( i > 0 )
+												AddButton( 455, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10 );
 
-                    AddPage((i / 10) + 1);
+											CraftContext context = m_CraftSystem.GetContext( m_From );
 
-                    if (i > 0)
-                        AddButton(455, 290, 4014, 4015, 0, GumpButtonType.Page, i / 10);
+											AddButton( 220, 260, 4005, 4007, GetButtonID( 6, 4 ), GumpButtonType.Reply, 0 );
+											AddHtmlLocalized( 255, 263, 200, 18, (context == null || !context.DoNotColor) ? 1061591 : 1061590, LabelColor, false, false );
+							}
 
-                    CraftContext context = m_CraftSystem.GetContext(m_From);
+										AddButton( 220, 60 + (index * 20), 4005, 4007, GetButtonID( 5, i ), GumpButtonType.Reply, 0 );
 
-                    AddButton(220, 260, 4005, 4007, GetButtonID(6, 4), GumpButtonType.Reply, 0);
-                    AddHtmlLocalized(255, 260, 200, 18, (context == null || !context.DoNotColor) ? 1061591 : 1061590, LabelColor, false, false);
-                }
+										if ( subResource.NameNumber > 0 )
+											AddHtmlLocalized( 255, 63 + (index * 20), 250, 18, subResource.NameNumber, LabelColor, false, false );
+										else
+											AddLabel( 255, 60 + (index * 20), LabelHue, subResource.NameString );
+										i_Length++;
+						}
+					}	
+				}
+			else 
+			{
+			//daat99 OWLTR end - recipe craft
+			
+				for (int i = 0; i < res.Count; ++i)
+				{
+					int index = i % 10;
 
-                int resourceCount = 0;
+					CraftSubRes subResource = res.GetAt(i);
 
-                if (from.Backpack != null)
-                {
-                    Item[] items = from.Backpack.FindItemsByType(subResource.ItemType, true);
+					if (index == 0)
+					{
+						if (i > 0)
+							this.AddButton(485, 290, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1);
 
-                    for (int j = 0; j < items.Length; ++j)
-                        resourceCount += items[j].Amount;
+						this.AddPage((i / 10) + 1);
 
-                    Type alt = GetAltType(subResource.ItemType);
+						if (i > 0)
+							this.AddButton(455, 290, 4014, 4015, 0, GumpButtonType.Page, i / 10);
 
-                    if (alt != null)
-                    {
-                        Item[] items2 = m_From.Backpack.FindItemsByType(alt, true);
+						CraftContext context = this.m_CraftSystem.GetContext(this.m_From);
 
-                        for (int j = 0; j < items2.Length; ++j)
-                            resourceCount += items2[j].Amount;
-                    }
-                }
+						this.AddButton(220, 260, 4005, 4007, GetButtonID(6, 4), GumpButtonType.Reply, 0);
+						this.AddHtmlLocalized(255, 260, 200, 18, (context == null || !context.DoNotColor) ? 1061591 : 1061590, LabelColor, false, false);
+					}
 
-                AddButton(220, 60 + (index * 20), 4005, 4007, GetButtonID(5, i), GumpButtonType.Reply, 0);
+					int resourceCount = 0;
 
-                if (subResource.NameNumber > 0)
-                    AddHtmlLocalized(255, 63 + (index * 20), 250, 18, subResource.NameNumber, resourceCount.ToString(), LabelColor, false, false);
-                else
-                    AddLabel(255, 60 + (index * 20), LabelHue, string.Format("{0} ({1})", subResource.NameString, resourceCount));
-            }
+					if (from.Backpack != null)
+					{
+						Item[] items = from.Backpack.FindItemsByType(subResource.ItemType, true);
+
+						for (int j = 0; j < items.Length; ++j)
+							resourceCount += items[j].Amount;
+
+						Type alt = GetAltType(subResource.ItemType);
+
+						if (alt != null)
+						{
+							Item[] items2 = m_From.Backpack.FindItemsByType(alt, true);
+
+							for (int j = 0; j < items2.Length; ++j)
+								resourceCount += items2[j].Amount;
+						}
+						//daat99 OWLTR start - craft from storage
+						ulong storageCount = MasterStorageUtils.GetPlayersStorageItemCount(from as Mobiles.PlayerMobile, subResource.ItemType);
+						if (storageCount > 0)
+						{
+							if (storageCount < int.MaxValue && storageCount + (ulong)resourceCount < int.MaxValue)
+								resourceCount += (int)storageCount;
+							else
+								resourceCount = int.MaxValue;
+						}
+						//daat99 OWLTR end - craft from storage
+					}
+
+					this.AddButton(220, 60 + (index * 20), 4005, 4007, GetButtonID(5, i), GumpButtonType.Reply, 0);
+
+					if (subResource.NameNumber > 0)
+						this.AddHtmlLocalized(255, 63 + (index * 20), 250, 18, subResource.NameNumber, resourceCount.ToString(), LabelColor, false, false);
+					else
+						this.AddLabel(255, 60 + (index * 20), LabelHue, String.Format("{0} ({1})", subResource.NameString, resourceCount));
+				}
+			}
         }
 
         public void CreateMakeLastList()
@@ -397,39 +546,121 @@ namespace Server.Engines.Craft
                 return;
 
             CraftItemCol craftItemCol = craftGroup.CraftItems;
+			
+			//daat99 OWLTR start - recipe craft
+			bool b_BankHive = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFTING_BANK_HIVE),
+				b_StorageDeeds = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFTING_STORAGE_DEEDS),
+				b_Forge = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFTING_MOBILE_FORGE),
+				b_RecipeCraft = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT),
+				b_Alchemy = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.ALCHEMY_RECIPES),
+				b_Blacksmithy = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.BLACKSMITH_RECIPES),
+				b_BowFletching = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.BOWFLETCH_RECIPES),
+				b_Carpentry = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CARPENTRY_RECIPES),
+				b_Cooking = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.COOKING_RECIPES),
+				b_Glassblowing = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.GLASSBLOWING_RECIPES),
+				b_Inscription = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.INSCRIPTION_RECIPES),
+				b_Masonry = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.MASONRY_RECIPES),
+				b_Tailoring = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.TAILORING_RECIPES),
+				b_Tinkering = OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.TINKERING_RECIPES);
+			if ( b_RecipeCraft )
+			{
+				NewDaat99Holder dh = (NewDaat99Holder)daat99.Daat99OWLTR.TempHolders[m_From];
 
-            for (int i = 0; i < craftItemCol.Count; ++i)
-            {
-                int index = i % 10;
+				int i, i_Length = 0;
+				
+				for ( i = 0; i < craftItemCol.Count; ++i )
+				{
+					int index = i_Length % 10;
 
-                CraftItem craftItem = craftItemCol.GetAt(i);
+					CraftItem craftItem = craftItemCol.GetAt( i );
 
-                if (index == 0)
-                {
-                    if (i > 0)
-                    {
-                        AddButton(370, 260, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1);
-                        AddHtmlLocalized(405, 263, 100, 18, 1044045, LabelColor, false, false); // NEXT PAGE
-                    }
+					if ( !dh.ItemTypeList.Contains( craftItem.ItemType ) || (!b_Alchemy && m_CraftSystem is DefAlchemy)
+						|| (!b_Blacksmithy && m_CraftSystem is DefBlacksmithy) || (!b_BowFletching && m_CraftSystem is DefBowFletching)
+						|| (!b_Carpentry && m_CraftSystem is DefCarpentry) || (!b_Cooking && m_CraftSystem is DefCooking)
+						|| (!b_Glassblowing && m_CraftSystem is DefGlassblowing) || (!b_Inscription && m_CraftSystem is DefInscription)
+						|| (!b_Masonry && m_CraftSystem is DefMasonry) || (!b_Tailoring && m_CraftSystem is DefTailoring)
+						|| (!b_Tinkering && m_CraftSystem is DefTinkering) )
+					{
+						if ( index == 0 )
+						{
+							if ( i_Length > 0 )
+							{
+								AddButton( 370, 260, 4005, 4007, 0, GumpButtonType.Page, (i_Length / 10) + 1 );
+								AddHtmlLocalized( 405, 263, 100, 18, 1044045, LabelColor, false, false ); // NEXT PAGE
+							}
 
-                    AddPage((i / 10) + 1);
+							AddPage( (i_Length / 10) + 1 );
 
-                    if (i > 0)
-                    {
-                        AddButton(220, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10);
-                        AddHtmlLocalized(255, 263, 100, 18, 1044044, LabelColor, false, false); // PREV PAGE
-                    }
-                }
+							if ( i_Length > 0 )
+							{
+								AddButton( 220, 260, 4014, 4015, 0, GumpButtonType.Page, i_Length / 10 );
+								AddHtmlLocalized( 255, 263, 100, 18, 1044044, LabelColor, false, false ); // PREV PAGE
+							}
+						}
 
-                AddButton(220, 60 + (index * 20), 4005, 4007, GetButtonID(1, i), GumpButtonType.Reply, 0);
+						if (craftItem.ItemType == typeof(BankHive) && !b_BankHive)
+							continue;
+						else if (craftItem.ItemType == typeof(MobileForge) && !b_Forge)
+							continue;
+						else if (craftItem.ItemType == typeof(BaseStorageDeed) && !b_StorageDeeds)
+							continue; 
+						
+						AddButton( 220, 60 + (index * 20), 4005, 4007, GetButtonID( 1, i ), GumpButtonType.Reply, 0 );
 
-                if (craftItem.NameNumber > 0)
-                    AddHtmlLocalized(255, 63 + (index * 20), 220, 18, craftItem.NameNumber, LabelColor, false, false);
-                else
-                    AddLabel(255, 60 + (index * 20), LabelHue, craftItem.NameString);
+						if ( craftItem.NameNumber > 0 )
+							AddHtmlLocalized( 255, 63 + (index * 20), 220, 18, craftItem.NameNumber, LabelColor, false, false );
+						else
+							AddLabel( 255, 60 + (index * 20), LabelHue, craftItem.NameString );
 
-                AddButton(480, 60 + (index * 20), 4011, 4012, GetButtonID(2, i), GumpButtonType.Reply, 0);
-            }
+						AddButton( 480, 60 + (index * 20), 4011, 4012, GetButtonID( 2, i ), GumpButtonType.Reply, 0 );
+						i_Length++;
+					}
+				}
+			}
+			else //daat99 OWLTR end - recipe craft
+			{
+				for (int i = 0; i < craftItemCol.Count; ++i)
+				{
+					int index = i % 10;
+
+					CraftItem craftItem = craftItemCol.GetAt(i);
+
+					if (index == 0)
+					{
+						if (i > 0)
+						{
+							this.AddButton(370, 260, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1);
+							this.AddHtmlLocalized(405, 263, 100, 18, 1044045, LabelColor, false, false); // NEXT PAGE
+						}
+
+						this.AddPage((i / 10) + 1);
+
+						if (i > 0)
+						{
+							this.AddButton(220, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10);
+							this.AddHtmlLocalized(255, 263, 100, 18, 1044044, LabelColor, false, false); // PREV PAGE
+						}
+					}
+					
+					//daat99 OWLTR start - custom craftables
+					if ( craftItem.ItemType == typeof(BankHive) && !b_BankHive )
+						continue;
+					else if ( craftItem.ItemType == typeof(MobileForge) && !b_Forge )
+						continue;
+					else if ( craftItem.ItemType == typeof(BaseStorageDeed) && !b_StorageDeeds )
+						continue;
+					//daat99 OWLTR end - custom craftables
+
+					this.AddButton(220, 60 + (index * 20), 4005, 4007, GetButtonID(1, i), GumpButtonType.Reply, 0);
+
+					if (craftItem.NameNumber > 0)
+						this.AddHtmlLocalized(255, 63 + (index * 20), 220, 18, craftItem.NameNumber, LabelColor, false, false);
+					else
+						this.AddLabel(255, 60 + (index * 20), LabelHue, craftItem.NameString);
+
+					this.AddButton(480, 60 + (index * 20), 4011, 4012, GetButtonID(2, i), GumpButtonType.Reply, 0);
+				}
+			}
         }
 
         public int CreateGroupList()
@@ -505,17 +736,19 @@ namespace Server.Engines.Craft
             CraftGroupCol groups = system.CraftGroups;
             CraftContext context = system.GetContext(m_From);
 
-            if (Locked)
-            {
-                if (type == 6 && index == 11)
-                {
-                    // Cancel Make
-                    AutoCraftTimer.EndTimer(m_From);
-                }
-                return;
-            }
+            #region Stygian Abyss
+			if (Locked)
+			{
+				if (type == 6 && index == 11)
+				{
+					// Cancel Make
+					AutoCraftTimer.EndTimer(m_From);
+				}
+				return;
+			}
+            #endregion
 
-            switch (type)
+            switch ( type )
             {
                 case 0: // Show group
                     {
@@ -631,7 +864,7 @@ namespace Server.Engines.Craft
                     }
                 case 6: // Misc. buttons
                     {
-                        switch (index)
+                        switch ( index )
                         {
                             case 0: // Resource selection
                                 {
@@ -694,7 +927,7 @@ namespace Server.Engines.Craft
                                     if (context == null || !system.MarkOption)
                                         break;
 
-                                    switch (context.MarkOption)
+                                    switch ( context.MarkOption )
                                     {
                                         case CraftMarkOption.MarkItem:
                                             context.MarkOption = CraftMarkOption.DoNotMark;
@@ -729,20 +962,20 @@ namespace Server.Engines.Craft
                                 {
                                     if (system.CanAlter)
                                     {
-                                        if (SkillHandlers.Imbuing.CheckSoulForge(m_From, 1, false))
+                                        if (Server.SkillHandlers.Imbuing.CheckSoulForge(m_From, 1, false))
                                         {
                                             AlterItem.BeginTarget(m_From, system, m_Tool);
                                         }
                                         else
                                             m_From.SendLocalizedMessage(1111867); // You must be near a soulforge to alter an item.
                                     }
-                                    break;
+									break;
                                 }
                             case 10: // Quest Item/Non Quest Item toggle
                                 {
                                     //if (context == null || !system.QuestOption)
                                     //break;
-                                    switch (context.QuestOption)
+                                    switch ( context.QuestOption )
                                     {
                                         case CraftQuestOption.QuestItem:
                                             context.QuestOption = CraftQuestOption.NonQuestItem;

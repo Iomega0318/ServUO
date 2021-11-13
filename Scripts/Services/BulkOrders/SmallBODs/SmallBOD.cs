@@ -1,7 +1,7 @@
-using Server.Items;
-using Server.Mobiles;
 using System;
 using System.Collections.Generic;
+using Server.Items;
+using Server.Mobiles;
 
 namespace Server.Engines.BulkOrders
 {
@@ -20,7 +20,7 @@ namespace Server.Engines.BulkOrders
 
         [Constructable]
         public SmallBOD(int hue, int amountMax, Type type, int number, int graphic, bool requireExeptional, BulkMaterialType material, int graphichue = 0)
-            : base(0x2258)
+            : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             Weight = 1.0;
             Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
@@ -36,7 +36,7 @@ namespace Server.Engines.BulkOrders
         }
 
         public SmallBOD()
-            : base(0x2258)
+            : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             Weight = 1.0;
             LootType = LootType.Blessed;
@@ -149,8 +149,20 @@ namespace Server.Engines.BulkOrders
             }
         }
         [CommandProperty(AccessLevel.GameMaster)]
-        public bool Complete => (m_AmountCur == m_AmountMax);
-        public override int LabelNumber => 1045151;// a bulk order deed
+        public bool Complete
+        {
+            get
+            {
+                return (m_AmountCur == m_AmountMax);
+            }
+        }
+        public override int LabelNumber
+        {
+            get
+            {
+                return 1045151;
+            }
+        }// a bulk order deed
         public static BulkMaterialType GetRandomMaterial(BulkMaterialType start, double[] chances)
         {
             double random = Utility.RandomDouble();
@@ -168,42 +180,44 @@ namespace Server.Engines.BulkOrders
 
         public static BulkMaterialType GetMaterial(CraftResource resource)
         {
-            switch (resource)
+            switch ( resource )
             {
-                case CraftResource.DullCopper:
-                    return BulkMaterialType.DullCopper;
-                case CraftResource.ShadowIron:
-                    return BulkMaterialType.ShadowIron;
-                case CraftResource.Copper:
-                    return BulkMaterialType.Copper;
-                case CraftResource.Bronze:
-                    return BulkMaterialType.Bronze;
-                case CraftResource.Gold:
-                    return BulkMaterialType.Gold;
-                case CraftResource.Agapite:
-                    return BulkMaterialType.Agapite;
-                case CraftResource.Verite:
-                    return BulkMaterialType.Verite;
-                case CraftResource.Valorite:
-                    return BulkMaterialType.Valorite;
-                case CraftResource.SpinedLeather:
-                    return BulkMaterialType.Spined;
-                case CraftResource.HornedLeather:
-                    return BulkMaterialType.Horned;
-                case CraftResource.BarbedLeather:
-                    return BulkMaterialType.Barbed;
-                case CraftResource.OakWood:
-                    return BulkMaterialType.OakWood;
-                case CraftResource.YewWood:
-                    return BulkMaterialType.YewWood;
-                case CraftResource.AshWood:
-                    return BulkMaterialType.AshWood;
-                case CraftResource.Heartwood:
-                    return BulkMaterialType.Heartwood;
-                case CraftResource.Bloodwood:
-                    return BulkMaterialType.Bloodwood;
-                case CraftResource.Frostwood:
-                    return BulkMaterialType.Frostwood;
+                //daat99 OWLTR start - custom resources
+                case CraftResource.DullCopper: return BulkMaterialType.DullCopper;
+                case CraftResource.ShadowIron: return BulkMaterialType.ShadowIron;
+                case CraftResource.Copper: return BulkMaterialType.Copper;
+                case CraftResource.Bronze: return BulkMaterialType.Bronze;
+                case CraftResource.Gold: return BulkMaterialType.Gold;
+                case CraftResource.Agapite: return BulkMaterialType.Agapite;
+                case CraftResource.Verite: return BulkMaterialType.Verite;
+                case CraftResource.Valorite: return BulkMaterialType.Valorite;
+                case CraftResource.Blaze: return BulkMaterialType.Blaze;
+                case CraftResource.Ice: return BulkMaterialType.Ice;
+                case CraftResource.Toxic: return BulkMaterialType.Toxic;
+                case CraftResource.Electrum: return BulkMaterialType.Electrum;
+                case CraftResource.Platinum: return BulkMaterialType.Platinum;
+                case CraftResource.SpinedLeather: return BulkMaterialType.Spined;
+                case CraftResource.HornedLeather: return BulkMaterialType.Horned;
+                case CraftResource.BarbedLeather: return BulkMaterialType.Barbed;
+                case CraftResource.PolarLeather: return BulkMaterialType.Polar;
+                case CraftResource.SyntheticLeather: return BulkMaterialType.Synthetic;
+                case CraftResource.BlazeLeather: return BulkMaterialType.BlazeL;
+                case CraftResource.DaemonicLeather: return BulkMaterialType.Daemonic;
+                case CraftResource.ShadowLeather: return BulkMaterialType.Shadow;
+                case CraftResource.FrostLeather: return BulkMaterialType.Frost;
+                case CraftResource.EtherealLeather: return BulkMaterialType.Ethereal;
+                case CraftResource.OakWood: return BulkMaterialType.OakWood;
+                case CraftResource.AshWood: return BulkMaterialType.AshWood;
+                case CraftResource.YewWood: return BulkMaterialType.YewWood;
+                case CraftResource.Heartwood: return BulkMaterialType.Heartwood;
+                case CraftResource.Bloodwood: return BulkMaterialType.Bloodwood;
+                case CraftResource.Frostwood: return BulkMaterialType.Frostwood;
+                case CraftResource.Ebony: return BulkMaterialType.Ebony;
+                case CraftResource.Bamboo: return BulkMaterialType.Bamboo;
+                case CraftResource.PurpleHeart: return BulkMaterialType.PurpleHeart;
+                case CraftResource.Redwood: return BulkMaterialType.Redwood;
+                case CraftResource.Petrified: return BulkMaterialType.Petrified;
+                //daat99 OWLTR end - custom resources
             }
 
             return BulkMaterialType.None;
@@ -220,6 +234,9 @@ namespace Server.Engines.BulkOrders
 
             if (m_Material != BulkMaterialType.None)
                 list.Add(SmallBODGump.GetMaterialNumberFor(m_Material)); // All items must be made with x material.
+				//daat99 OWLTR start - custom resource
+                list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(Material));
+            	//daat99 OWLTR end - custom resource
 
             list.Add(1060656, m_AmountMax.ToString()); // amount to make: ~1_val~
             list.Add(1060658, "#{0}\t{1}", m_Number, m_AmountCur); // ~1_val~: ~2_val~
@@ -228,15 +245,15 @@ namespace Server.Engines.BulkOrders
         public override void OnDoubleClick(Mobile from)
         {
             if (IsChildOf(from.Backpack) || InSecureTrade || RootParent is PlayerVendor)
-            {
-                EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
-                from.SendGump(new SmallBODGump(from, this));
-            }
+			{
+				EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
+				from.SendGump(new SmallBODGump(from, this));
+			}
             else
-            {
-                from.SendLocalizedMessage(1045156); // You must have the deed in your backpack to use it.
-            }
-        }
+			{
+				from.SendLocalizedMessage(1045156); // You must have the deed in your backpack to use it.
+			}
+		}
 
         public override void OnDoubleClickNotAccessible(Mobile from)
         {
@@ -321,6 +338,21 @@ namespace Server.Engines.BulkOrders
                     {
                         from.SendLocalizedMessage(1157310); // The item is not made from the requested resource.
                     }
+	
+					//daat99 OWLTR start - custom resource
+                    if (m_Material >= BulkMaterialType.DullCopper && m_Material <= BulkMaterialType.Platinum && material != m_Material)
+                    {
+                        from.SendLocalizedMessage(1045168); // The item is not made from the requested ore.
+                    }
+                    else if (m_Material >= BulkMaterialType.Spined && m_Material <= BulkMaterialType.Ethereal && material != m_Material)
+                    {
+                        from.SendLocalizedMessage(1049352); // The item is not made from the requested leather type.
+                    }
+                    else if (m_Material >= BulkMaterialType.OakWood && m_Material <= BulkMaterialType.Petrified && material != m_Material)
+                    {
+                        from.SendMessage("The item is not made from the requested wood type."); // The item is not made from the requested leather type.
+                    }
+                    //daat99 OWLTR end - custom resource
                     else
                     {
                         bool isExceptional = false;
@@ -431,7 +463,7 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(1); // version
+            writer.Write((int)1); // version
 
             writer.Write(m_GraphicHue);
 
@@ -450,7 +482,7 @@ namespace Server.Engines.BulkOrders
 
             int version = reader.ReadInt();
 
-            switch (version)
+            switch ( version )
             {
                 case 1:
                     {
@@ -475,6 +507,12 @@ namespace Server.Engines.BulkOrders
                         break;
                     }
             }
+
+            if (Weight == 0.0)
+                Weight = 1.0;
+
+            if (Core.AOS && ItemID == 0x14EF)
+                ItemID = 0x2258;
 
             if (Parent == null && Map == Map.Internal && Location == Point3D.Zero)
                 Delete();

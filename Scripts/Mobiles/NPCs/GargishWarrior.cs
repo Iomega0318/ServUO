@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -6,34 +7,34 @@ namespace Server.Mobiles
     {
         [Constructable]
         public GargishWarrior()
-            : base(AIType.AI_Melee, FightMode.None, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Animal, FightMode.None, 10, 1, 0.2, 0.4)
         {
-            Name = "Warrior";
-            if (Female = Utility.RandomBool())
+            this.Name = "Warrior";
+            if (this.Female = Utility.RandomBool())
             {
-                Body = 667;
-                HairItemID = 17067;
-                HairHue = 1762;
-                AddItem(new FemaleGargishPlateChest());
-                AddItem(new FemaleGargishPlateKilt());
-                AddItem(new FemaleGargishPlateLegs());
-                AddItem(new FemaleGargishPlateArms());
-                AddItem(new PlateTalons());
-
-                AddItem(new GlassSword());
+                this.Body = 667;
+                this.HairItemID = 17067;
+                this.HairHue = 1762;
+                this.AddItem(new FemaleGargishPlateChest());
+                this.AddItem(new FemaleGargishPlateKilt());
+                this.AddItem(new FemaleGargishPlateLegs());
+                this.AddItem(new FemaleGargishPlateArms());
+                this.AddItem(new PlateTalons());
+               
+                this.AddItem(new GlassSword());
             }
             else
             {
-                Body = 666;
-                HairItemID = 16987;
-                HairHue = 1801;
-                AddItem(new GargishPlateChest());
-                AddItem(new GargishPlateKilt());
-                AddItem(new GargishPlateLegs());
-                AddItem(new GargishPlateArms());
-                AddItem(new PlateTalons());
-
-                AddItem(new GlassSword());
+                this.Body = 666;
+                this.HairItemID = 16987;
+                this.HairHue = 1801;
+                this.AddItem(new GargishPlateChest());
+                this.AddItem(new GargishPlateKilt());
+                this.AddItem(new GargishPlateLegs());
+                this.AddItem(new GargishPlateArms());
+                this.AddItem(new PlateTalons());
+           
+                this.AddItem(new GlassSword());
             }
         }
 
@@ -46,7 +47,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

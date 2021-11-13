@@ -1,19 +1,28 @@
-using Server.Engines.Craft;
 using System;
 using System.Collections.Generic;
+using Server.Engines.Craft;
 
 namespace Server.Engines.BulkOrders
 {
     public class SmallTailorBOD : SmallBOD
     {
-        public override BODType BODType => BODType.Tailor;
+        public override BODType BODType { get { return BODType.Tailor; } }
 
         public static double[] m_TailoringMaterialChances = new double[]
         {
-            0.857421875, // None
-            0.125000000, // Spined
-            0.015625000, // Horned
-            0.001953125  // Barbed
+				//daat99 OWLTR start - custom resources
+				0.15, // None
+				0.13, // Spined
+				0.12, // Horned
+				0.11, // Barbed
+				0.10, // Polar
+				0.09, // Synthetic
+				0.08, // Blaze
+				0.07, // Daemonic
+				0.06, // Shadow
+				0.05, // Frost
+				0.04, // Ethereal
+				//daat99 OWLTR end - custom resources
         };
         [Constructable]
         public SmallTailorBOD()
@@ -42,28 +51,28 @@ namespace Server.Engines.BulkOrders
 
                 SmallBulkEntry entry = entries[Utility.Random(entries.Length)];
 
-                Hue = hue;
-                AmountMax = amountMax;
-                Type = entry.Type;
-                Number = entry.Number;
-                Graphic = entry.Graphic;
-                RequireExceptional = reqExceptional;
-                Material = material;
-                GraphicHue = entry.Hue;
+                this.Hue = hue;
+                this.AmountMax = amountMax;
+                this.Type = entry.Type;
+                this.Number = entry.Number;
+                this.Graphic = entry.Graphic;
+                this.RequireExceptional = reqExceptional;
+                this.Material = material;
+                this.GraphicHue = entry.Hue;
             }
         }
 
         public SmallTailorBOD(int amountCur, int amountMax, Type type, int number, int graphic, bool reqExceptional, BulkMaterialType mat, int hue)
         {
-            Hue = 0x483;
-            AmountMax = amountMax;
-            AmountCur = amountCur;
-            Type = type;
-            Number = number;
-            Graphic = graphic;
-            RequireExceptional = reqExceptional;
-            Material = mat;
-            GraphicHue = hue;
+            this.Hue = 0x483;
+            this.AmountMax = amountMax;
+            this.AmountCur = amountCur;
+            this.Type = type;
+            this.Number = number;
+            this.Graphic = graphic;
+            this.RequireExceptional = reqExceptional;
+            this.Material = mat;
+            this.GraphicHue = hue;
         }
 
         public SmallTailorBOD(Serial serial)
@@ -73,13 +82,13 @@ namespace Server.Engines.BulkOrders
 
         private SmallTailorBOD(SmallBulkEntry entry, BulkMaterialType material, int amountMax, bool reqExceptional)
         {
-            Hue = 0x483;
-            AmountMax = amountMax;
-            Type = entry.Type;
-            Number = entry.Number;
-            Graphic = entry.Graphic;
-            RequireExceptional = reqExceptional;
-            Material = material;
+            this.Hue = 0x483;
+            this.AmountMax = amountMax;
+            this.Type = entry.Type;
+            this.Number = entry.Number;
+            this.Graphic = entry.Graphic;
+            this.RequireExceptional = reqExceptional;
+            this.Material = material;
         }
 
         public static SmallTailorBOD CreateRandomFor(Mobile m)
@@ -112,6 +121,46 @@ namespace Server.Engines.BulkOrders
                     {
                         BulkMaterialType check = GetRandomMaterial(BulkMaterialType.Spined, m_TailoringMaterialChances);
                         double skillReq = GetRequiredSkill(check);
+
+						switch ( check )
+                        {
+                            //daat99 OWLTR start - custom resources
+                            case BulkMaterialType.DullCopper: skillReq = 52.0; break;
+                            case BulkMaterialType.ShadowIron: skillReq = 56.0; break;
+                            case BulkMaterialType.Copper: skillReq = 60.0; break;
+                            case BulkMaterialType.Bronze: skillReq = 64.0; break;
+                            case BulkMaterialType.Gold: skillReq = 68.0; break;
+                            case BulkMaterialType.Agapite: skillReq = 72.0; break;
+                            case BulkMaterialType.Verite: skillReq = 76.0; break;
+                            case BulkMaterialType.Valorite: skillReq = 80.0; break;
+                            case BulkMaterialType.Blaze: skillReq = 84.0; break;
+                            case BulkMaterialType.Ice: skillReq = 88.0; break;
+                            case BulkMaterialType.Toxic: skillReq = 92.0; break;
+                            case BulkMaterialType.Electrum: skillReq = 96.0; break;
+                            case BulkMaterialType.Platinum: skillReq = 100.0; break;
+                            case BulkMaterialType.Spined: skillReq = 64.0; break;
+                            case BulkMaterialType.Horned: skillReq = 68.0; break;
+                            case BulkMaterialType.Barbed: skillReq = 72.0; break;
+                            case BulkMaterialType.Polar: skillReq = 76.0; break;
+                            case BulkMaterialType.Synthetic: skillReq = 80.0; break;
+                            case BulkMaterialType.BlazeL: skillReq = 84.0; break;
+                            case BulkMaterialType.Daemonic: skillReq = 88.0; break;
+                            case BulkMaterialType.Shadow: skillReq = 92.0; break;
+                            case BulkMaterialType.Frost: skillReq = 96.0; break;
+                            case BulkMaterialType.Ethereal: skillReq = 100.0; break;
+                            case BulkMaterialType.Heartwood: skillReq = 60.0; break;
+                            case BulkMaterialType.Bloodwood: skillReq = 64.0; break;
+                            case BulkMaterialType.Frostwood: skillReq = 68.0; break;
+                            case BulkMaterialType.OakWood: skillReq = 72.0; break;
+                            case BulkMaterialType.AshWood: skillReq = 76.0; break;
+                            case BulkMaterialType.YewWood: skillReq = 80.0; break;
+                            case BulkMaterialType.Ebony: skillReq = 84.0; break;
+                            case BulkMaterialType.Bamboo: skillReq = 88.0; break;
+                            case BulkMaterialType.PurpleHeart: skillReq = 92.0; break;
+                            case BulkMaterialType.Redwood: skillReq = 96.0; break;
+                            case BulkMaterialType.Petrified: skillReq = 100.0; break;
+                            //daat99 OWLTR end - custom resources
+                        }
 
                         if (theirSkill >= skillReq)
                         {
@@ -211,7 +260,7 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

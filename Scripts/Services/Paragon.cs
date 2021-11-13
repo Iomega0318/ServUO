@@ -1,15 +1,19 @@
-using Server.Items;
 using System;
+using Server.Items;
 
 namespace Server.Mobiles
 {
     public class Paragon
     {
-        public static double ChestChance = 0.10;// Chance that a paragon will carry a paragon chest
-        public static double ChocolateIngredientChance = 0.20;// Chance that a paragon will drop a chocolatiering ingredient
+        public static double ChestChance = .05;// Chance that a paragon will carry a paragon chest
+        public static double ChocolateIngredientChance = .10;// Chance that a paragon will drop a chocolatiering ingredient
         public static Map[] Maps = new Map[]                   // Maps that paragons will spawn on
         {
-            Map.Ilshenar
+			Map.Ilshenar, //Iomega0318 - Additional spawn maps, reduced chest and ingredient chance.
+			Map.Trammel,
+			Map.Felucca,
+			Map.Tokuno,
+			Map.Malas
         };
         public static Type[] Artifacts = new Type[]
         {
@@ -29,20 +33,19 @@ namespace Server.Mobiles
         public static int Hue = 0x501;// Paragon hue
 
         // Buffs
-        public static double HitsBuff = 5.0;
-        public static double StrBuff = 1.05;
-        public static double IntBuff = 1.20;
-        public static double DexBuff = 1.20;
-        public static double SkillsBuff = 1.20;
-        public static double SpeedBuff = 1.20;
-        public static double FameBuff = 1.40;
-        public static double KarmaBuff = 1.40;
-        public static int DamageBuff = 5;
-
+        public static double HitsBuff = 10.0; // Iomega0318 - Increaese stat buff.
+        public static double StrBuff = 2.05;
+        public static double IntBuff = 2.20;
+        public static double DexBuff = 2.20;
+        public static double SkillsBuff = 2.20;
+        public static double SpeedBuff = 2.20;
+        public static double FameBuff = 2.40;
+        public static double KarmaBuff = 2.40;
+        public static int DamageBuff = 10;
         public static void Convert(BaseCreature bc)
         {
             if (bc.IsParagon ||
-                !bc.CanBeParagon)
+				!bc.CanBeParagon)
                 return;
 
             bc.Hue = Hue;
@@ -60,7 +63,7 @@ namespace Server.Mobiles
 
             for (int i = 0; i < bc.Skills.Length; i++)
             {
-                Skill skill = bc.Skills[i];
+                Skill skill = (Skill)bc.Skills[i];
 
                 if (skill.Base > 0.0)
                     skill.Base *= SkillsBuff;
@@ -110,7 +113,7 @@ namespace Server.Mobiles
 
             for (int i = 0; i < bc.Skills.Length; i++)
             {
-                Skill skill = bc.Skills[i];
+                Skill skill = (Skill)bc.Skills[i];
 
                 if (skill.Base > 0.0)
                     skill.Base /= SkillsBuff;
@@ -136,10 +139,13 @@ namespace Server.Mobiles
 
         public static bool CheckConvert(BaseCreature bc, Point3D location, Map m)
         {
+            if (!Core.AOS)
+                return false;
+
             if (Array.IndexOf(Maps, m) == -1)
                 return false;
 
-            if (bc is BaseChampion || bc is Harrower || bc is BaseVendor || bc is Clone || bc.IsParagon)
+            if (bc is BaseChampion || bc is Harrower || bc is BaseVendor || bc is BaseEscortable || bc is Clone || bc.IsParagon)
                 return false;
 
             int fame = bc.Fame;
@@ -154,7 +160,10 @@ namespace Server.Mobiles
 
         public static bool CheckArtifactChance(Mobile m, BaseCreature bc)
         {
-            double fame = bc.Fame;
+            if (!Core.AOS)
+                return false;
+
+            double fame = (double)bc.Fame;
 
             if (fame > 32000)
                 fame = 32000;

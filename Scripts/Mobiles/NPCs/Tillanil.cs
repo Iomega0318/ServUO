@@ -1,14 +1,14 @@
-using Server.Items;
 using System;
+using Server.Items;
 
 namespace Server.Engines.Quests
-{
+{ 
     public class Tillanil : MondainQuester
-    {
+    { 
         [Constructable]
         public Tillanil()
             : base("Tillanil", "the wine tender")
-        {
+        { 
             SetSkill(SkillName.Meditation, 60.0, 83.0);
             SetSkill(SkillName.Focus, 60.0, 83.0);
         }
@@ -18,19 +18,25 @@ namespace Server.Engines.Quests
         {
         }
 
-        public override Type[] Quests => new Type[]
+        public override Type[] Quests
+        { 
+            get
+            {
+                return new Type[] 
                 {
                     typeof(TheSongOfTheWindQuest),
                     typeof(BeerGogglesQuest),
                     typeof(MessageInBottleQuest)
                 };
+            }
+        }
         public override void InitBody()
         {
             InitStats(100, 100, 25);
-
+			
             Female = true;
             Race = Race.Elf;
-
+			
             Hue = 0x8383;
             HairItemID = 0x2FD0;
             HairHue = 0x127;
@@ -47,7 +53,7 @@ namespace Server.Engines.Quests
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

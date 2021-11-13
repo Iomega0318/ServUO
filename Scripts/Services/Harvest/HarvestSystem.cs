@@ -1,11 +1,13 @@
-using Server.Engines.Quests;
-using Server.Engines.Quests.Hag;
-using Server.Items;
-using Server.Mobiles;
-using Server.Targeting;
 using System;
 using System.Collections.Generic;
+using Server.Items;
+using Server.Targeting;
+using Server.Engines.Quests;
+using Server.Engines.Quests.Hag;
+using Server.Mobiles;
 using System.Linq;
+
+using daat99; //OWLTR
 
 namespace Server.Engines.Harvest
 {
@@ -93,7 +95,7 @@ namespace Server.Engines.Harvest
             if (!CheckHarvest(from, tool))
                 return false;
 
-            EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
+			EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
             from.Target = new HarvestTarget(tool, this);
             return true;
         }
@@ -110,8 +112,7 @@ namespace Server.Engines.Harvest
                 OnBadHarvestTarget(from, tool, toHarvest);
                 return;
             }
-
-            if (!def.Validate(tileID) && !def.ValidateSpecial(tileID))
+            else if (!def.Validate(tileID) && !def.ValidateSpecial(tileID))
             {
                 OnBadHarvestTarget(from, tool, toHarvest);
                 return;
@@ -119,9 +120,9 @@ namespace Server.Engines.Harvest
 
             if (!CheckRange(from, tool, def, map, loc, true))
                 return;
-            if (!CheckResources(from, tool, def, map, loc, true))
+            else if (!CheckResources(from, tool, def, map, loc, true))
                 return;
-            if (!CheckHarvest(from, tool, def, toHarvest))
+            else if (!CheckHarvest(from, tool, def, toHarvest))
                 return;
 
             if (SpecialHarvest(from, tool, def, map, loc))
@@ -148,13 +149,27 @@ namespace Server.Engines.Harvest
 
             Type type = null;
 
-            if (CheckHarvestSkill(map, loc, from, resource, def))
-            {
-                type = GetResourceType(from, tool, def, map, loc, resource);
+            if(CheckHarvestSkill(map, loc, from, resource, def))
+			{   //daat99 OWLTR start - daat99 harvesting
+			    type = GetResourceType(from, tool, def, map, loc, resource);
+			    bool daatHarvesting = false;
+			    if (type != null && daat99.OWLTROptionsManager.IsEnabled(daat99.OWLTROptionsManager.OPTIONS_ENUM.DAAT99_MINING) && (type.IsSubclassOf(typeof(BaseOre)) || type.IsSubclassOf(typeof(BaseGranite))))
+				daatHarvesting = true;
+			    else if (type != null && daat99.OWLTROptionsManager.IsEnabled(daat99.OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING) && type.IsSubclassOf(typeof(BaseLog)))
+				daatHarvesting = true;
+		        if ( daatHarvesting || (skillBase >= resource.ReqSkill && from.CheckSkill( def.Skill, resource.MinSkill, resource.MaxSkill )) )
+			    
+				type = GetResourceType( from, tool, def, map, loc, resource );
 
-                if (type != null)
-                    type = MutateType(type, from, tool, def, map, loc, resource);
-
+				if ( type != null )
+					type = MutateType( type, from, tool, def, map, loc, resource );
+				if (daatHarvesting)
+				{
+					//type = ResourceHelper.GetDaat99HarvestedType(type, bank.Vein.IsProspected, skillValue);
+					from.CheckSkill(def.Skill, 0.0, from.Skills[def.Skill].Cap + (vein.IsProspected?10.0:0.0));
+				}
+				//daat99 OWLTR end - daat99 harvesting
+				
                 if (type != null)
                 {
                     Item item = Construct(type, from, tool);
@@ -199,6 +214,52 @@ namespace Server.Engines.Harvest
                         {
                             bank.Consume(amount, from);
                         }
+						
+						//daat99 OWLTR start - custom harvesting
+						CraftResource craftResourceFromType = CraftResources.GetFromType(type);
+						string s_Type = "UNKNOWN";
+						int i_Tokens = 1;
+						if (craftResourceFromType != CraftResource.None)
+						{
+							s_Type = CraftResources.GetInfo(craftResourceFromType).Name;
+							i_Tokens = CraftResources.GetIndex(craftResourceFromType) + 1;
+						}
+						if (craftResourceFromType != CraftResource.None && daat99.OWLTROptionsManager.IsEnabled(daat99.OWLTROptionsManager.OPTIONS_ENUM.DAAT99_MINING) && def.Skill == SkillName.Mining && (type.IsSubclassOf(typeof(Server.Items.BaseOre)) || type.IsSubclassOf(typeof(Server.Items.BaseGranite))))
+						{
+							if (type.IsSubclassOf(typeof(Server.Items.BaseOre)))
+							{
+								if ( Give( from, item, def.PlaceAtFeetIfFull ) )
+									from.SendMessage("You dig some {0} ore and placed it in your backpack.", s_Type);
+								else
+								{
+									from.SendMessage("Your backpack is full, so the ore you mined is lost.");
+									item.Delete();
+								}
+							}
+							else
+							{
+								if ( Give( from, item, def.PlaceAtFeetIfFull ) )
+									from.SendMessage("You carefully extract some workable stone from the ore vein.");
+								else
+								{
+									from.SendMessage("Your backpack is full, so the ore you mined is lost.");
+									item.Delete();
+								}
+							}
+						}
+						else if (craftResourceFromType != CraftResource.None && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING) && def.Skill == SkillName.Lumberjacking)
+						{
+							if ( Give( from, item, def.PlaceAtFeetIfFull ) )
+								from.SendMessage("You placed some {0} logs in your backpack.", s_Type);
+							else
+							{
+								from.SendMessage("You can't place any wood into your backpack!");
+								item.Delete();
+							}
+						}
+						else
+						{
+						//daat99 OWLTR end - custom harvesting
 
                         if (Give(from, item, def.PlaceAtFeetIfFull))
                         {
@@ -209,26 +270,32 @@ namespace Server.Engines.Harvest
                             SendPackFullTo(from, item, def, resource);
                             item.Delete();
                         }
-
+						//daat99 OWLTR start - custom harvesting
+						}
+						if (from.Map == Map.Felucca)
+							i_Tokens = (int)(i_Tokens*1.5);
+						if ( OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.HARVEST_GIVE_TOKENS) )
+							TokenSystem.GiveTokensToPlayer(from as Server.Mobiles.PlayerMobile, i_Tokens);
+						//daat99 OWLTR end - custom harvesting
                         BonusHarvestResource bonus = def.GetBonusResource();
                         Item bonusItem = null;
 
                         if (bonus != null && bonus.Type != null && skillBase >= bonus.ReqSkill)
                         {
-                            if (bonus.RequiredMap == null || bonus.RequiredMap == from.Map)
-                            {
-                                bonusItem = Construct(bonus.Type, from, tool);
+							if (bonus.RequiredMap == null || bonus.RequiredMap == from.Map)
+							{
+							    bonusItem = Construct(bonus.Type, from, tool);
                                 Caddellite.OnHarvest(from, tool, this, bonusItem);
 
-                                if (Give(from, bonusItem, true))    //Bonuses always allow placing at feet, even if pack is full irregrdless of def
-                                {
+                                if (Give(from, bonusItem, true))	//Bonuses always allow placing at feet, even if pack is full irregrdless of def
+								{
                                     bonus.SendSuccessTo(from);
-                                }
-                                else
-                                {
+								}
+								else
+								{
                                     bonusItem.Delete();
-                                }
-                            }
+								}
+							}
                         }
 
                         EventSink.InvokeResourceHarvestSuccess(new ResourceHarvestSuccessEventArgs(from, tool, item, bonusItem, this));
@@ -259,9 +326,19 @@ namespace Server.Engines.Harvest
 
             if (type == null)
                 def.SendMessageTo(from, def.FailMessage);
+			//daat99 OWLTR start - custom harvesting
+			if ( this is Lumberjacking || this is Mining )
+				OnHarvestFinished( from, tool, def, vein, bank, resource, toHarvest, type );
+			else
+			//daat99 OWLTR end - custom harvesting
+			OnHarvestFinished( from, tool, def, vein, bank, resource, toHarvest );
+		}
 
-            OnHarvestFinished(from, tool, def, vein, bank, resource, toHarvest);
-        }
+		//daat99 OWLTR start - custom resources
+		public virtual void OnHarvestFinished( Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type )
+		{
+		}
+		//daat99 OWLTR end - custom resources
 
         public virtual bool CheckHarvestSkill(Map map, Point3D loc, Mobile from, HarvestResource resource, HarvestDefinition def)
         {
@@ -287,9 +364,8 @@ namespace Server.Engines.Harvest
             {
                 return Activator.CreateInstance(type) as Item;
             }
-            catch (Exception e)
+            catch
             {
-                Diagnostics.ExceptionLogging.LogException(e);
                 return null;
             }
         }
@@ -387,27 +463,23 @@ namespace Server.Engines.Harvest
                 OnBadHarvestTarget(from, tool, toHarvest);
                 return false;
             }
-
-            if (!def.Validate(tileID) && !def.ValidateSpecial(tileID))
+            else if (!def.Validate(tileID) && !def.ValidateSpecial(tileID))
             {
                 from.EndAction(locked);
                 OnBadHarvestTarget(from, tool, toHarvest);
                 return false;
             }
-
-            if (!CheckRange(from, tool, def, map, loc, true))
+            else if (!CheckRange(from, tool, def, map, loc, true))
             {
                 from.EndAction(locked);
                 return false;
             }
-
-            if (!CheckResources(from, tool, def, map, loc, true))
+            else if (!CheckResources(from, tool, def, map, loc, true))
             {
                 from.EndAction(locked);
                 return false;
             }
-
-            if (!CheckHarvest(from, tool, def, toHarvest))
+            else if (!CheckHarvest(from, tool, def, toHarvest))
             {
                 from.EndAction(locked);
                 return false;
@@ -432,7 +504,14 @@ namespace Server.Engines.Harvest
 
             if (!from.Mounted)
             {
-                from.Animate(AnimationType.Attack, Utility.RandomList(def.EffectActions));
+                if (Core.SA)
+                {
+                    from.Animate(AnimationType.Attack, Utility.RandomList(def.EffectActions));
+                }
+                else
+                {
+                    from.Animate(Utility.RandomList(def.EffectActions), 5, 1, true, false, 0);
+                }
             }
         }
 
@@ -494,9 +573,9 @@ namespace Server.Engines.Harvest
 
             if (!CheckRange(from, tool, def, map, loc, false))
                 return;
-            if (!CheckResources(from, tool, def, map, loc, false))
+            else if (!CheckResources(from, tool, def, map, loc, false))
                 return;
-            if (!CheckHarvest(from, tool, def, toHarvest))
+            else if (!CheckHarvest(from, tool, def, toHarvest))
                 return;
 
             object toLock = GetLock(from, tool, def, toHarvest);
@@ -601,7 +680,7 @@ namespace Server.Engines.Harvest
             Map map = m.Map;
             toHarvest = null;
 
-            if (map == null || map == Map.Internal)
+            if (m == null || map == null || map == Map.Internal)
                 return false;
 
             for (int x = m.X - 1; x <= m.X + 1; x++)
@@ -612,7 +691,7 @@ namespace Server.Engines.Harvest
 
                     if (tiles.Length > 0)
                     {
-                        foreach (StaticTile tile in tiles)
+                        foreach (var tile in tiles)
                         {
                             int id = (tile.ID & 0x3FFF) | 0x4000;
 
@@ -650,7 +729,7 @@ namespace Server.Engines.Harvest
                 {
                     StaticTile[] tiles = map.Tiles.GetStaticTiles(x, y, false);
 
-                    foreach (StaticTile tile in tiles)
+                    foreach (var tile in tiles)
                     {
                         int itemID = tile.ID;
 
@@ -692,7 +771,7 @@ namespace Server.Engines.Harvest
                 {
                     StaticTile[] tiles = map.Tiles.GetStaticTiles(x, y, false);
 
-                    foreach (StaticTile tile in tiles)
+                    foreach (var tile in tiles)
                     {
                         int itemID = tile.ID;
 
@@ -740,18 +819,19 @@ namespace Server
     [AttributeUsage(AttributeTargets.Class)]
     public class FurnitureAttribute : Attribute
     {
+        public FurnitureAttribute()
+        {
+        }        
+
         private static bool IsNotChoppables(Item item)
         {
             return _NotChoppables.Any(t => t == item.GetType());
         }
 
-        private static readonly Type[] _NotChoppables =
+        private static Type[] _NotChoppables = new Type[]
         {
             typeof(CommodityDeedBox), typeof(ChinaCabinet), typeof(PieSafe), typeof(AcademicBookCase), typeof(JewelryBox),
-            typeof(WoodenBookcase), typeof(Countertop), typeof(Mailbox), typeof(DecorativeMagesCrystalBall), typeof(DecorativeMageThrone),
-            typeof(DecorativeMagicBookStand), typeof(DecorativeSpecimenShelve), typeof(Feedbag), typeof(ChestOfDrawers), typeof(BarrelMailbox),
-            typeof(DolphinMailbox), typeof(ScarecrowMailbox), typeof(SquirrelMailbox), typeof(FootedChestOfDrawers), typeof(CustomizableRoundedDoorMat),
-            typeof(CowStatue), typeof(DecorativeStableFencing), typeof(OrnateBedDeed), typeof(FourPostBedDeed), typeof(FormalDiningTableDeed)
+            typeof(WoodenBookcase), typeof(Countertop), typeof(Mailbox)
         };
 
         public static bool Check(Item item)
@@ -760,18 +840,18 @@ namespace Server
             {
                 return false;
             }
-
-            if (IsNotChoppables(item))
-            {
-                return false;
-            }
+			
+			if (IsNotChoppables(item))
+			{
+				return false;
+			}
 
             if (item.GetType().IsDefined(typeof(FurnitureAttribute), false))
             {
                 return true;
             }
 
-            if ((item as AddonComponent)?.Addon != null && ((AddonComponent)item).Addon.GetType().IsDefined(typeof(FurnitureAttribute), false))
+            if (item is AddonComponent && ((AddonComponent)item).Addon != null && ((AddonComponent)item).Addon.GetType().IsDefined(typeof(FurnitureAttribute), false))
             {
                 return true;
             }

@@ -1,6 +1,6 @@
-using Server.Mobiles;
 using System;
 using System.Collections.Generic;
+using Server.Mobiles;
 
 namespace Server.Engines.BulkOrders
 {
@@ -15,7 +15,7 @@ namespace Server.Engines.BulkOrders
         private LargeBulkEntry[] m_Entries;
 
         public LargeBOD(int hue, int amountMax, bool requireExeptional, BulkMaterialType material, LargeBulkEntry[] entries)
-            : base(0x2258)
+            : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             Weight = 1.0;
             Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
@@ -28,7 +28,7 @@ namespace Server.Engines.BulkOrders
         }
 
         public LargeBOD()
-            : base(0x2258)
+            : base(Core.AOS ? 0x2258 : 0x14EF)
         {
             Weight = 1.0;
             LootType = LootType.Blessed;
@@ -114,7 +114,13 @@ namespace Server.Engines.BulkOrders
                 }
             }
         }
-        public override int LabelNumber => 1045151;// a bulk order deed
+        public override int LabelNumber
+        {
+            get
+            {
+                return 1045151;
+            }
+        }// a bulk order deed
         public static BulkMaterialType GetRandomMaterial(BulkMaterialType start, double[] chances)
         {
             double random = Utility.RandomDouble();
@@ -168,8 +174,10 @@ namespace Server.Engines.BulkOrders
             if (m_RequireExceptional)
                 list.Add(1045141); // All items must be exceptional.
 
+            //daat99 OWLTR start - custom resource
             if (m_Material != BulkMaterialType.None)
-                list.Add(SmallBODGump.GetMaterialNumberFor(m_Material)); // All items must be made with x material.
+                list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(m_Material)); // All items must be made with x material.
+            //daat99 OWLTR end - custom resource.
 
             list.Add(1060656, m_AmountMax.ToString()); // amount to make: ~1_val~
 
@@ -190,15 +198,15 @@ namespace Server.Engines.BulkOrders
         public override void OnDoubleClick(Mobile from)
         {
             if (IsChildOf(from.Backpack) || InSecureTrade || RootParent is PlayerVendor)
-            {
-                EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
-                from.SendGump(new LargeBODGump(from, this));
-            }
-            else
-            {
-                from.SendLocalizedMessage(1045156); // You must have the deed in your backpack to use it.
-            }
-        }
+			{
+				EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
+				from.SendGump(new LargeBODGump(from, this));
+			}
+			else
+			{
+				from.SendLocalizedMessage(1045156); // You must have the deed in your backpack to use it.
+			}
+		}
 
         public void BeginCombine(Mobile from)
         {
@@ -236,7 +244,26 @@ namespace Server.Engines.BulkOrders
                     {
                         from.SendLocalizedMessage(1157311); // Both orders must use the same resource type.
                     }
-                    else if (m_AmountMax != small.AmountMax)
+					//daat99 OWLTR start - custom ores
+					else if ( m_Material >= BulkMaterialType.DullCopper && m_Material <= BulkMaterialType.Platinum && small.Material != m_Material )
+					//daat99 OWLTR end - custom ores
+					{
+						from.SendLocalizedMessage( 1045162 ); // Both orders must use the same ore type.
+					}
+					//daat99 OWLTR start - custom leather
+					else if ( m_Material >= BulkMaterialType.Spined && m_Material <= BulkMaterialType.Ethereal && small.Material != m_Material )
+					//daat99 OWLTR end - custom leather
+					{
+						from.SendLocalizedMessage( 1049351 ); // Both orders must use the same leather type.
+					}
+					//daat99 OWLTR start - custom wood
+					else if ( m_Material >= BulkMaterialType.OakWood && m_Material <= BulkMaterialType.Petrified && small.Material != m_Material )
+					{
+						from.SendMessage( "Both orders must use the same wood type." ); // Both orders must use the same leather type.
+					}
+					//daat99 OWLTR end - custom wood
+					//}
+                    else if (this.m_AmountMax != small.AmountMax)
                     {
                         from.SendLocalizedMessage(1045163); // The two orders have different requested amounts and cannot be combined.
                     }
@@ -281,13 +308,13 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(1); // version
+            writer.Write((int)1); // version
 
             writer.Write(m_AmountMax);
             writer.Write(m_RequireExceptional);
             writer.Write((int)m_Material);
 
-            writer.Write(m_Entries.Length);
+            writer.Write((int)m_Entries.Length);
 
             for (int i = 0; i < m_Entries.Length; ++i)
                 m_Entries[i].Serialize(writer);
@@ -299,7 +326,7 @@ namespace Server.Engines.BulkOrders
 
             int version = reader.ReadInt();
 
-            switch (version)
+            switch ( version )
             {
                 case 1:
                 case 0:
@@ -315,6 +342,12 @@ namespace Server.Engines.BulkOrders
                         break;
                     }
             }
+
+            if (Weight == 0.0)
+                Weight = 1.0;
+
+            if (Core.AOS && ItemID == 0x14EF)
+                ItemID = 0x2258;
 
             if (Parent == null && Map == Map.Internal && Location == Point3D.Zero)
                 Delete();

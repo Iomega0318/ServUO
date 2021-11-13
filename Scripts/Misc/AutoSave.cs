@@ -1,21 +1,26 @@
-using Server.Commands;
 using System;
 using System.IO;
+
+using Server.Commands;
 
 namespace Server.Misc
 {
     public static class AutoSave
     {
-        private static readonly string[] m_Backups = new[]
+		private static readonly string[] m_Backups = new string[]
         {
+            "Seventh Backup",
+            "Sixth Backup",
+            "Fifth Backup",
+            "Fourth Backup",
             "Third Backup",
             "Second Backup",
             "Most Recent"
         };
 
-        private static readonly TimeSpan m_Delay;
+		private static readonly TimeSpan m_Delay;
         private static readonly TimeSpan m_Warning;
-
+		
         private static readonly Timer m_Timer;
 
         public static bool SavesEnabled { get; set; }
@@ -24,8 +29,8 @@ namespace Server.Misc
         {
             SavesEnabled = Config.Get("AutoSave.Enabled", true);
 
-            m_Delay = Config.Get("AutoSave.Frequency", TimeSpan.FromMinutes(5.0));
-            m_Warning = Config.Get("AutoSave.WarningTime", TimeSpan.Zero);
+            m_Delay = Config.Get("AutoSave.Frequency", TimeSpan.FromMinutes(30.0));
+            m_Warning = Config.Get("AutoSave.WarningTime", TimeSpan.FromMinutes(1.0));
 
             m_Timer = Timer.DelayCall(m_Delay - m_Warning, m_Delay, Tick);
             m_Timer.Stop();
@@ -72,7 +77,6 @@ namespace Server.Misc
             catch (Exception e)
             {
                 Console.WriteLine("WARNING: Automatic backup FAILED:\n{0}", e);
-                Diagnostics.ExceptionLogging.LogException(e);
             }
 
             World.Save(true, permitBackgroundWrite);
@@ -80,7 +84,7 @@ namespace Server.Misc
 
         private static void Tick()
         {
-            if (!SavesEnabled || AutoRestart.Restarting || CreateWorld.WorldCreating)
+            if (!SavesEnabled || AutoRestart.Restarting || Commands.CreateWorld.WorldCreating)
                 return;
 
             if (m_Warning == TimeSpan.Zero)
@@ -92,11 +96,11 @@ namespace Server.Misc
                 s %= 60;
 
                 if (m > 0 && s > 0)
-                    World.Broadcast(0x35, false, "The world will save in {0} minute{1} and {2} second{3}.", m, m != 1 ? "s" : "", s, s != 1 ? "s" : "");
+                    World.Broadcast(0x35, true, "The world will save in {0} minute{1} and {2} second{3}.", m, m != 1 ? "s" : "", s, s != 1 ? "s" : "");
                 else if (m > 0)
-                    World.Broadcast(0x35, false, "The world will save in {0} minute{1}.", m, m != 1 ? "s" : "");
+                    World.Broadcast(0x35, true, "The world will save in {0} minute{1}.", m, m != 1 ? "s" : "");
                 else
-                    World.Broadcast(0x35, false, "The world will save in {0} second{1}.", s, s != 1 ? "s" : "");
+                    World.Broadcast(0x35, true, "The world will save in {0} second{1}.", s, s != 1 ? "s" : "");
 
                 Timer.DelayCall(m_Warning, Save);
             }
@@ -116,7 +120,7 @@ namespace Server.Misc
 
             if (Directory.Exists(tempRoot))
                 Directory.Delete(tempRoot, true);
-
+            
             string[] existing = Directory.GetDirectories(root);
 
             bool anySuccess = existing.Length == 0;
@@ -136,7 +140,7 @@ namespace Server.Misc
 
                         anySuccess = true;
                     }
-                    catch (Exception e) { Diagnostics.ExceptionLogging.LogException(e); }
+                    catch { }
                 }
                 else
                 {
@@ -148,12 +152,12 @@ namespace Server.Misc
 
                         delete = !ArchivedSaves.Process(tempRoot);
                     }
-                    catch (Exception e) { Diagnostics.ExceptionLogging.LogException(e); }
+                    catch { }
 
                     if (delete)
                     {
                         try { dir.Delete(true); }
-                        catch (Exception e) { Diagnostics.ExceptionLogging.LogException(e); }
+                        catch { }
                     }
                 }
             }

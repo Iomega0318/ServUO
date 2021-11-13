@@ -1,6 +1,5 @@
-using Server.Items;
-using Server.Mobiles;
 using System;
+using Server.Items;
 
 namespace Server.Engines.Quests
 {
@@ -17,10 +16,16 @@ namespace Server.Engines.Quests
         {
         }
 
-        public override Type[] Quests => new Type[]
+        public override Type[] Quests
         {
-            typeof(Missing)
-        };
+            get
+            {
+                return new Type[] 
+                {
+                    typeof(Missing)
+                };
+            }
+        }
 
         public override void InitBody()
         {
@@ -37,43 +42,6 @@ namespace Server.Engines.Quests
             Direction = Direction.Left;
         }
 
-        public override void OnDoubleClick(Mobile m)
-        {
-            if (m is PlayerMobile pm && m.InRange(Location, 5))
-            {
-                if (QuestHelper.CheckDoneOnce(pm, typeof(Missing), null, false))
-                {
-                    if (QuestHelper.CheckDoneOnce(pm, typeof(EscortToDugan), null, false))
-                    {
-                        var q = QuestHelper.GetQuest<EndingtheThreat>(pm);
-
-                        if (q == null)
-                        {
-                            var quest = QuestHelper.RandomQuest(pm, new Type[] { typeof(EndingtheThreat) }, this);
-
-                            if (quest != null)
-                            {
-                                pm.CloseGump(typeof(MondainQuestGump));
-                                pm.SendGump(new MondainQuestGump(quest));
-                            }
-                        }
-                        else
-                        {
-                            OnTalk(pm);
-                        }
-                    }
-                    else
-                    {
-                        OnOfferFailed();
-                    }
-                }
-                else
-                {
-                    OnTalk(pm);
-                }
-            }
-        }
-
         public override void InitOutfit()
         {
             AddItem(new Backpack());
@@ -88,13 +56,27 @@ namespace Server.Engines.Quests
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(1); // version
+
+            writer.Write((int)1); // version
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-            reader.ReadInt();
+
+            int version = reader.ReadInt();
+
+            if (version == 0)
+            {
+                Female = true;
+                CantWalk = true;
+
+                Direction = Direction.Left;
+
+                var item = FindItemOnLayer(Layer.Shoes);
+                if (item != null)
+                    item.Hue = 1819;
+            }
         }
     }
 }

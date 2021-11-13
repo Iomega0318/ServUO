@@ -1,12 +1,111 @@
+using System;
 using Server.Items;
 using Server.Network;
-using System;
 using System.Linq;
+using Server.Mobiles; //daat99 OWLTR
+using daat99;
 
 namespace Server.Engines.Harvest
 {
     public class Lumberjacking : HarvestSystem
     {
+		 //daat99 OWLTR start - gargoyle axe
+        public override HarvestVein MutateVein(Mobile from, Item tool, HarvestDefinition def, HarvestBank bank, object toHarvest, HarvestVein vein)
+        {
+            if (tool is GargoylesAxe)
+            {
+                int veinIndex = Array.IndexOf(def.Veins, vein);
+
+                if (veinIndex >= 0 && veinIndex < (def.Veins.Length - 1))
+                    return def.Veins[veinIndex + 1];
+            }
+
+            return base.MutateVein(from, tool, def, bank, toHarvest, vein);
+        }
+
+        private static int[] m_Offsets = new int[]
+			{
+				-1, -1,
+				-1,  0,
+				-1,  1,
+				0, -1,
+				0,  1,
+				1, -1,
+				1,  0,
+				1,  1
+			};
+
+        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
+        {
+            if (tool is GargoylesAxe && 0.1 < Utility.RandomDouble())
+            {
+                HarvestResource res = vein.PrimaryResource;
+
+                Map map = from.Map;
+                if (map == null)
+                    return;
+                BaseCreature spawned = null;
+
+                int i_Level = 0;
+                if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING))
+                    i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 301;
+                else if (res == resource)
+                {
+                    try
+                    {
+                        i_Level = Array.IndexOf(def.Veins, vein) + 301;
+                    }
+                    catch { }
+                }
+				
+                if (i_Level > 300 && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.HARVEST_GIVE_TOKENS))
+                	TokenSystem.GiveTokensToPlayer(from as PlayerMobile, (i_Level - 300)*10);
+				
+                if (i_Level > 301)
+                    spawned = new Elementals(i_Level);
+                else
+                    spawned = null;
+
+                try
+                {
+                    if (spawned != null)
+                    {
+                        int offset = Utility.Random(8) * 2;
+
+                        for (int i = 0; i < m_Offsets.Length; i += 2)
+                        {
+                            int x = from.X + m_Offsets[(offset + i) % m_Offsets.Length];
+                            int y = from.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+
+                            if (map.CanSpawnMobile(x, y, from.Z))
+                            {
+                                spawned.MoveToWorld(new Point3D(x, y, from.Z), map);
+                                spawned.Combatant = from;
+                                return;
+                            }
+                            else
+                            {
+                                int z = map.GetAverageZ(x, y);
+
+                                if (map.CanSpawnMobile(x, y, z))
+                                {
+                                    spawned.MoveToWorld(new Point3D(x, y, z), map);
+                                    spawned.Combatant = from;
+                                    return;
+                                }
+                            }
+                        }
+                        spawned.MoveToWorld(from.Location, from.Map);
+                        spawned.Combatant = from;
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
+        //daat99 OWLTR end - gargoyle axe
+		
         private static Lumberjacking m_System;
 
         public static Lumberjacking System
@@ -22,7 +121,13 @@ namespace Server.Engines.Harvest
 
         private readonly HarvestDefinition m_Definition;
 
-        public HarvestDefinition Definition => m_Definition;
+        public HarvestDefinition Definition
+        {
+            get
+            {
+                return this.m_Definition;
+            }
+        }
 
         private Lumberjacking()
         {
@@ -30,97 +135,122 @@ namespace Server.Engines.Harvest
             HarvestVein[] veins;
 
             #region Lumberjacking
-            HarvestDefinition lumber = new HarvestDefinition
+            HarvestDefinition lumber = new HarvestDefinition();
+
+            // Resource banks are every 4x3 tiles
+            lumber.BankWidth = 4;
+            lumber.BankHeight = 3;
+
+            // Every bank holds from 20 to 45 logs
+            lumber.MinTotal = 20;
+            lumber.MaxTotal = 45;
+
+            // A resource bank will respawn its content every 20 to 30 minutes
+            lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
+            lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
+
+            // Skill checking is done on the Lumberjacking skill
+            lumber.Skill = SkillName.Lumberjacking;
+
+            // Set the list of harvestable tiles
+            lumber.Tiles = m_TreeTiles;
+
+            // Players must be within 2 tiles to harvest
+            lumber.MaxRange = 2;
+
+            // Ten logs per harvest action
+            lumber.ConsumedPerHarvest = 10;
+            lumber.ConsumedPerFeluccaHarvest = 20;
+
+            // The chopping effect
+            lumber.EffectActions = new int[] { Core.SA ? 7 : 13 };
+            lumber.EffectSounds = new int[] { 0x13E };
+            lumber.EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 });
+            lumber.EffectDelay = TimeSpan.FromSeconds(1.6);
+            lumber.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
+
+            lumber.NoResourcesMessage = 500493; // There's not enough wood here to harvest.
+            lumber.FailMessage = 500495; // You hack at the tree for a while, but fail to produce any useable wood.
+            lumber.OutOfRangeMessage = 500446; // That is too far away.
+            lumber.PackFullMessage = 500497; // You can't place any wood into your backpack!
+            lumber.ToolBrokeMessage = 500499; // You broke your axe.
+
+            if (Core.ML)
             {
+				//daat99
+                res = new HarvestResource[]
+                {
+                    new HarvestResource( 00.0, 00.0, 95.0, "You put some Regular logs in your backpack",		typeof( Log ) ),
+					new HarvestResource( 20.0, 10.0, 100.0, "You put some Oak logs in your backpack",			typeof( OakLog ) ),
+					new HarvestResource( 30.0, 20.0, 105.0, "You put some Ash logs in your backpack",			typeof( AshLog ) ),
+					new HarvestResource( 40.0, 30.0, 110.0, "You put some Yew logs in your backpack",			typeof( YewLog ) ),
+					new HarvestResource( 50.0, 40.0, 115.0, "You put some Heartwood logs in your backpack",		typeof( HeartwoodLog ) ),
+					new HarvestResource( 60.0, 50.0, 120.0, "You put some Bloodwood logs in your backpack",		typeof( BloodwoodLog ) ),
+					new HarvestResource( 70.0, 60.0, 125.0, "You put some Frostwood logs in your backpack",		typeof( FrostwoodLog ) ),
+					new HarvestResource( 80.0, 70.0, 130.0, "You put some Ebony logs in your backpack",			typeof( EbonyLog ) ),
+					new HarvestResource( 90.0, 80.0, 135.0, "You put some Bamboo logs in your backpack",		typeof( BambooLog ) ),
+					new HarvestResource( 100.0, 90.0, 140.0, "You put some Purple Heart logs in your backpack",	typeof( PurpleHeartLog ) ),
+					new HarvestResource( 110.0, 100.0, 145.0, "You put some Redwood logs in your backpack",		typeof( RedwoodLog ) ),
+					new HarvestResource( 119.0, 110.0, 150.0, "You put some Petrified logs in your backpack",	typeof( PetrifiedLog ) )
+                };
 
-                // Resource banks are every 4x3 tiles
-                BankWidth = 4,
-                BankHeight = 3,
+                veins = new HarvestVein[]
+                {
+                    new HarvestVein( 17.0, 0.0, res[0], null ), // this line should replace the original line
+					new HarvestVein( 13.0, 0.5, res[1], res[0] ), 	// OakLog
+					new HarvestVein( 12.0, 0.5, res[2], res[0] ), 	// AshLog
+					new HarvestVein( 11.0, 0.5, res[3], res[0] ), 	// YewLog 
+					new HarvestVein( 10.0, 0.5, res[4], res[0] ), 	// HeartwoodLog
+					new HarvestVein( 09.0, 0.5, res[5], res[0] ), 	// BloodwoodLog
+					new HarvestVein( 08.0, 0.5, res[6], res[0] ), 	// FrostwoodLog 
+					new HarvestVein( 07.0, 0.5, res[7], res[0] ), 	// EbonyLog
+					new HarvestVein( 06.0, 0.5, res[8], res[0] ), 	// BambooLog
+					new HarvestVein( 05.0, 0.5, res[9], res[0] ), 	// PurpleHeartLog
+					new HarvestVein( 04.0, 0.5, res[10], res[0] ),	// RedwoodLog
+					new HarvestVein( 03.0, 0.5, res[11], res[0] ),	// PetrifiedLog
+                };
+				//daat99
 
-                // Every bank holds from 20 to 45 logs
-                MinTotal = 20,
-                MaxTotal = 45,
-
-                // A resource bank will respawn its content every 20 to 30 minutes
-                MinRespawn = TimeSpan.FromMinutes(20.0),
-                MaxRespawn = TimeSpan.FromMinutes(30.0),
-
-                // Skill checking is done on the Lumberjacking skill
-                Skill = SkillName.Lumberjacking,
-
-                // Set the list of harvestable tiles
-                Tiles = m_TreeTiles,
-
-                // Players must be within 2 tiles to harvest
-                MaxRange = 2,
-
-                // Ten logs per harvest action
-                ConsumedPerHarvest = 10,
-                ConsumedPerFeluccaHarvest = 20,
-
-                // The chopping effect
-                EffectActions = new int[] { 7 },
-                EffectSounds = new int[] { 0x13E },
-                EffectCounts = (new int[] { 1 }),
-                EffectDelay = TimeSpan.FromSeconds(1.6),
-                EffectSoundDelay = TimeSpan.FromSeconds(0.9),
-
-                NoResourcesMessage = 500493, // There's not enough wood here to harvest.
-                FailMessage = 500495, // You hack at the tree for a while, but fail to produce any useable wood.
-                OutOfRangeMessage = 500446, // That is too far away.
-                PackFullMessage = 500497, // You can't place any wood into your backpack!
-                ToolBrokeMessage = 500499 // You broke your axe.
-            };
-
-            res = new HarvestResource[]
+                lumber.BonusResources = new BonusHarvestResource[]
+                {
+                    new BonusHarvestResource(0, 82.0, null, null), //Nothing
+                    new BonusHarvestResource(100, 10.0, 1072548, typeof(BarkFragment)),
+                    new BonusHarvestResource(100, 03.0, 1072550, typeof(LuminescentFungi)),
+                    new BonusHarvestResource(100, 02.0, 1072547, typeof(SwitchItem)),
+                    new BonusHarvestResource(100, 01.0, 1072549, typeof(ParasiticPlant)),
+                    new BonusHarvestResource(100, 01.0, 1072551, typeof(BrilliantAmber)),
+                    new BonusHarvestResource(100, 01.0, 1113756, typeof(CrystalShards), Map.TerMur),
+                };
+            }
+            else
             {
-                new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)),
-                new HarvestResource(65.0, 25.0, 105.0, 1072541, typeof(OakLog)),
-                new HarvestResource(80.0, 40.0, 120.0, 1072542, typeof(AshLog)),
-                new HarvestResource(95.0, 55.0, 135.0, 1072543, typeof(YewLog)),
-                new HarvestResource(100.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)),
-                new HarvestResource(100.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)),
-                new HarvestResource(100.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog)),
-            };
+                res = new HarvestResource[]
+                {
+                    new HarvestResource(00.0, 00.0, 100.0, 500498, typeof(Log))
+                };
 
-            veins = new HarvestVein[]
-            {
-                new HarvestVein(49.0, 0.0, res[0], null), // Ordinary Logs
-                new HarvestVein(30.0, 0.5, res[1], res[0]), // Oak
-                new HarvestVein(10.0, 0.5, res[2], res[0]), // Ash
-                new HarvestVein(05.0, 0.5, res[3], res[0]), // Yew
-                new HarvestVein(03.0, 0.5, res[4], res[0]), // Heartwood
-                new HarvestVein(02.0, 0.5, res[5], res[0]), // Bloodwood
-                new HarvestVein(01.0, 0.5, res[6], res[0]), // Frostwood
-            };
-
-            lumber.BonusResources = new BonusHarvestResource[]
-            {
-                new BonusHarvestResource(0, 82.0, null, null), //Nothing
-                new BonusHarvestResource(100, 10.0, 1072548, typeof(BarkFragment)),
-                new BonusHarvestResource(100, 03.0, 1072550, typeof(LuminescentFungi)),
-                new BonusHarvestResource(100, 02.0, 1072547, typeof(SwitchItem)),
-                new BonusHarvestResource(100, 01.0, 1072549, typeof(ParasiticPlant)),
-                new BonusHarvestResource(100, 01.0, 1072551, typeof(BrilliantAmber)),
-                new BonusHarvestResource(100, 01.0, 1113756, typeof(CrystalShards), Map.TerMur),
-            };
+                veins = new HarvestVein[]
+                {
+                    new HarvestVein(100.0, 0.0, res[0], null)
+                };
+            }
 
             lumber.Resources = res;
             lumber.Veins = veins;
 
-            lumber.RaceBonus = true;
-            lumber.RandomizeVeins = true;
+            lumber.RaceBonus = Core.ML;
+            lumber.RandomizeVeins = Core.ML;
 
-            m_Definition = lumber;
-            Definitions.Add(lumber);
+            this.m_Definition = lumber;
+            this.Definitions.Add(lumber);
             #endregion
         }
 
         public override Type MutateType(Type type, Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource)
         {
-            Type newType = type;
+            var newType = type;
 
-            if (tool is HarvestersAxe axe && axe.Charges > 0 || tool is GargishHarvestersAxe gaxe && gaxe.Charges > 0)
+            if (tool is HarvestersAxe && ((HarvestersAxe)tool).Charges > 0)
             {
                 if (type == typeof(Log))
                     newType = typeof(Board);
@@ -139,14 +269,7 @@ namespace Server.Engines.Harvest
 
                 if (newType != type)
                 {
-                    if (tool is HarvestersAxe)
-                    {
-                        ((HarvestersAxe)tool).Charges--;
-                    }
-                    else if (tool is GargishHarvestersAxe)
-                    {
-                        ((GargishHarvestersAxe)tool).Charges--;
-                    }
+                    ((HarvestersAxe)tool).Charges--;
                 }
             }
 
@@ -164,9 +287,9 @@ namespace Server.Engines.Harvest
                 }
                 else
                 {
-                    foreach (HarvestResource res in m_Definition.Resources.Where(r => r.Types != null))
+                    foreach (var res in m_Definition.Resources.Where(r => r.Types != null))
                     {
-                        foreach (Type type in res.Types)
+                        foreach (var type in res.Types)
                         {
                             if (item.GetType() == type)
                             {
@@ -194,13 +317,13 @@ namespace Server.Engines.Harvest
             if (!base.CheckHarvest(from, tool, def, toHarvest))
                 return false;
 
-            if (tool.Parent != from && from.Backpack != null && !tool.IsChildOf(from.Backpack))
-            {
-                from.SendLocalizedMessage(1080058); // This must be in your backpack to use it.
-                return false;
-            }
+			if (tool.Parent != from && from.Backpack != null && !tool.IsChildOf(from.Backpack))
+			{
+				from.SendLocalizedMessage(1080058); // This must be in your backpack to use it.
+				return false;
+			}
 
-            return true;
+			return true;
         }
 
         public override Type GetResourceType(Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource)
@@ -247,7 +370,8 @@ namespace Server.Engines.Harvest
         {
             base.OnHarvestStarted(from, tool, def, toHarvest);
 
-            from.RevealingAction();
+            if (Core.ML)
+                from.RevealingAction();
         }
 
         public static void Initialize()

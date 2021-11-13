@@ -1,5 +1,5 @@
-using Server.Items;
 using System;
+using Server.Items;
 using System.Linq;
 
 namespace Server
@@ -240,7 +240,7 @@ namespace Server
                         }
 
                         setItem.SetEquipped = true;
-                        Timer.DelayCall(item => item.InvalidateProperties(), to.Items[i]);
+                        Timer.DelayCall<Item>(item => item.InvalidateProperties(), to.Items[i]);
                     }
                 }
             }

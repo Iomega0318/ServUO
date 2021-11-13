@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -6,30 +7,30 @@ namespace Server.Mobiles
     {
         [Constructable]
         public Artist()
-            : base(AIType.AI_Melee, FightMode.None, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Animal, FightMode.None, 10, 1, 0.2, 0.4)
         {
-            InitStats(31, 41, 51);
+            this.InitStats(31, 41, 51);
 
-            SetSkill(SkillName.Healing, 36, 68);
+            this.SetSkill(SkillName.Healing, 36, 68);
 
-            SpeechHue = Utility.RandomDyedHue();
-            Title = "the artist";
-            Hue = Utility.RandomSkinHue();
+            this.SpeechHue = Utility.RandomDyedHue();
+            this.Title = "the artist";
+            this.Hue = Utility.RandomSkinHue();
 
-            if (Female = Utility.RandomBool())
+            if (this.Female = Utility.RandomBool())
             {
-                Body = 0x191;
-                Name = NameList.RandomName("female");
+                this.Body = 0x191;
+                this.Name = NameList.RandomName("female");
             }
             else
             {
-                Body = 0x190;
-                Name = NameList.RandomName("male");
+                this.Body = 0x190;
+                this.Name = NameList.RandomName("male");
             }
-            AddItem(new Doublet(Utility.RandomDyedHue()));
-            AddItem(new Sandals(Utility.RandomNeutralHue()));
-            AddItem(new ShortPants(Utility.RandomNeutralHue()));
-            AddItem(new HalfApron(Utility.RandomDyedHue()));
+            this.AddItem(new Doublet(Utility.RandomDyedHue()));
+            this.AddItem(new Sandals(Utility.RandomNeutralHue()));
+            this.AddItem(new ShortPants(Utility.RandomNeutralHue()));
+            this.AddItem(new HalfApron(Utility.RandomDyedHue()));
 
             Utility.AssignRandomHair(this);
 
@@ -39,7 +40,7 @@ namespace Server.Mobiles
 
             pack.Movable = false;
 
-            AddItem(pack);
+            this.AddItem(pack);
         }
 
         public Artist(Serial serial)
@@ -47,13 +48,25 @@ namespace Server.Mobiles
         {
         }
 
-        public override bool CanTeach => true;
-        public override bool ClickTitle => false;
+        public override bool CanTeach
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public override bool ClickTitle
+        {
+            get
+            {
+                return false;
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version 
+            writer.Write((int)0); // version 
         }
 
         public override void Deserialize(GenericReader reader)

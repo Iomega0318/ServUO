@@ -1,3 +1,4 @@
+using System;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -6,13 +7,13 @@ namespace Server.Mobiles
     {
         [Constructable]
         public Gypsy()
-            : base(AIType.AI_Melee, FightMode.None, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Animal, FightMode.None, 10, 1, 0.2, 0.4)
         {
             InitStats(31, 41, 51);
 
             SpeechHue = Utility.RandomDyedHue();
 
-            SetSkill(SkillName.Begging, 64.0, 100.0);
+			SetSkill(SkillName.Begging, 64.0, 100.0);
             SetSkill(SkillName.Cooking, 65, 88);
             SetSkill(SkillName.Snooping, 65, 88);
             SetSkill(SkillName.Stealing, 65, 88);
@@ -49,7 +50,7 @@ namespace Server.Mobiles
 
             pack.Movable = false;
 
-            AddItem(pack);
+            this.AddItem(pack);
         }
 
         public Gypsy(Serial serial)
@@ -57,13 +58,25 @@ namespace Server.Mobiles
         {
         }
 
-        public override bool CanTeach => true;
-        public override bool ClickTitle => false;
+        public override bool CanTeach
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public override bool ClickTitle
+        {
+            get
+            {
+                return false;
+            }
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version 
+            writer.Write((int)0); // version 
         }
 
         public override void Deserialize(GenericReader reader)

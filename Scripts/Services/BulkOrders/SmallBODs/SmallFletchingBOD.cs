@@ -1,6 +1,7 @@
-using Server.Engines.Craft;
 using System;
 using System.Collections.Generic;
+using Server.Engines.Craft;
+using Server.Items;
 
 namespace Server.Engines.BulkOrders
 {
@@ -8,16 +9,21 @@ namespace Server.Engines.BulkOrders
     {
         public static double[] m_FletchingMaterialChances = new double[]
         {
-            0.513718750, // None
-            0.292968750, // Oak
-            0.117187500, // Ash
-            0.046875000, // Yew
-            0.018750000, // Heartwood
-            0.007500000, // Bloodwood
-            0.003000000 // Frostwood
+            0.140, // None
+				0.130, // OakWood
+				0.120, // AshWood
+				0.110, // YewWood
+				0.100, // Heartwood
+				0.090, // Bloodwood
+				0.080, // Frostwood
+				0.070, // Ebony
+				0.060, // Bamboo
+				0.050, // PurpleHeart
+				0.030, // Redwood
+				0.020  // Petrified
         };
 
-        public override BODType BODType => BODType.Fletching;
+        public override BODType BODType { get { return BODType.Fletching; } }
 
         [Constructable]
         public SmallFletchingBOD()
@@ -37,7 +43,7 @@ namespace Server.Engines.BulkOrders
 
             if (entries.Length > 0)
             {
-                SmallBulkEntry entry = entries[Utility.Random(entries.Length)];
+                 SmallBulkEntry entry = entries[Utility.Random(entries.Length)];
 
                 int amountMax = Utility.RandomList(10, 15, 20);
 
@@ -50,31 +56,31 @@ namespace Server.Engines.BulkOrders
 
                 bool reqExceptional = false;
 
-                if (useMaterials)
+                if(useMaterials)
                     reqExceptional = Utility.RandomBool() || (material == BulkMaterialType.None);
 
-                Hue = 1425;
-                AmountMax = amountMax;
-                Type = entry.Type;
-                Number = entry.Number;
-                Graphic = entry.Graphic;
-                RequireExceptional = reqExceptional;
-                Material = material;
-                GraphicHue = entry.Hue;
+                this.Hue = 1425;
+                this.AmountMax = amountMax;
+                this.Type = entry.Type;
+                this.Number = entry.Number;
+                this.Graphic = entry.Graphic;
+                this.RequireExceptional = reqExceptional;
+                this.Material = material;
+                this.GraphicHue = entry.Hue;
             }
         }
 
         public SmallFletchingBOD(int amountCur, int amountMax, Type type, int number, int graphic, bool reqExceptional, BulkMaterialType mat, int hue)
         {
-            Hue = 1425;
-            AmountMax = amountMax;
-            AmountCur = amountCur;
-            Type = type;
-            Number = number;
-            Graphic = graphic;
-            RequireExceptional = reqExceptional;
-            Material = mat;
-            GraphicHue = hue;
+            this.Hue = 1425;
+            this.AmountMax = amountMax;
+            this.AmountCur = amountCur;
+            this.Type = type;
+            this.Number = number;
+            this.Graphic = graphic;
+            this.RequireExceptional = reqExceptional;
+            this.Material = mat;
+            this.GraphicHue = hue;
         }
 
         public SmallFletchingBOD(Serial serial)
@@ -84,13 +90,13 @@ namespace Server.Engines.BulkOrders
 
         private SmallFletchingBOD(SmallBulkEntry entry, BulkMaterialType material, int amountMax, bool reqExceptional)
         {
-            Hue = 1425;
-            AmountMax = amountMax;
-            Type = entry.Type;
-            Number = entry.Number;
-            Graphic = entry.Graphic;
-            RequireExceptional = reqExceptional;
-            Material = material;
+            this.Hue = 1425;
+            this.AmountMax = amountMax;
+            this.Type = entry.Type;
+            this.Number = entry.Number;
+            this.Graphic = entry.Graphic;
+            this.RequireExceptional = reqExceptional;
+            this.Material = material;
         }
 
         public static SmallFletchingBOD CreateRandomFor(Mobile m)
@@ -130,6 +136,44 @@ namespace Server.Engines.BulkOrders
                         BulkMaterialType check = GetRandomMaterial(BulkMaterialType.OakWood, m_FletchingMaterialChances);
                         double skillReq = GetRequiredSkill(check);
 
+						switch ( check )
+						{
+							case BulkMaterialType.DullCopper:	skillReq = 52.0; break;
+							case BulkMaterialType.ShadowIron:	skillReq = 56.0; break;
+							case BulkMaterialType.Copper:		skillReq = 60.0; break;
+							case BulkMaterialType.Bronze:		skillReq = 64.0; break;
+							case BulkMaterialType.Gold:			skillReq = 68.0; break;
+							case BulkMaterialType.Agapite:		skillReq = 72.0; break;
+							case BulkMaterialType.Verite:		skillReq = 76.0; break;
+							case BulkMaterialType.Valorite:		skillReq = 80.0; break;
+							case BulkMaterialType.Blaze:		skillReq = 84.0; break;
+							case BulkMaterialType.Ice:			skillReq = 88.0; break;
+							case BulkMaterialType.Toxic:		skillReq = 92.0; break;
+							case BulkMaterialType.Electrum:		skillReq = 96.0; break;
+							case BulkMaterialType.Platinum:		skillReq = 100.0; break;
+							case BulkMaterialType.Spined:		skillReq = 64.0; break;
+							case BulkMaterialType.Horned:		skillReq = 68.0; break;
+							case BulkMaterialType.Barbed:		skillReq = 72.0; break;
+							case BulkMaterialType.Polar:		skillReq = 76.0; break;
+							case BulkMaterialType.Synthetic:	skillReq = 80.0; break;
+							case BulkMaterialType.BlazeL:		skillReq = 84.0; break;
+							case BulkMaterialType.Daemonic:		skillReq = 88.0; break;
+							case BulkMaterialType.Shadow:		skillReq = 92.0; break;
+							case BulkMaterialType.Frost:		skillReq = 96.0; break;
+							case BulkMaterialType.Ethereal:		skillReq = 100.0; break;
+                            case BulkMaterialType.OakWood: 		skillReq = 60.0; break;
+                            case BulkMaterialType.AshWood:		skillReq = 64.0; break;
+                            case BulkMaterialType.YewWood:		skillReq = 68.0; break;
+                            case BulkMaterialType.Heartwood: 	skillReq = 72.0; break;
+                            case BulkMaterialType.Bloodwood: 	skillReq = 76.0; break;
+                            case BulkMaterialType.Frostwood: 	skillReq = 80.0; break;
+							case BulkMaterialType.Ebony:		skillReq = 84.0; break;
+							case BulkMaterialType.Bamboo:		skillReq = 88.0; break;
+							case BulkMaterialType.PurpleHeart:	skillReq = 92.0; break;
+							case BulkMaterialType.Redwood:		skillReq = 96.0; break;
+							case BulkMaterialType.Petrified:	skillReq = 100.0; break;
+						}
+						
                         if (theirSkill >= skillReq)
                         {
                             material = check;
@@ -228,7 +272,7 @@ namespace Server.Engines.BulkOrders
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)

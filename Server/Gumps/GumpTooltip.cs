@@ -18,6 +18,7 @@
  *
  ***************************************************************************/
 
+using System;
 using Server.Network;
 
 namespace Server.Gumps
@@ -25,48 +26,34 @@ namespace Server.Gumps
 	public class GumpTooltip : GumpEntry
 	{
 		private int m_Number;
-		private string m_Args;
-
-		public GumpTooltip(int number)
-			: this(number, null)
-		{
-		}
-
-		public GumpTooltip(int number, string args)
+        public GumpTooltip( int number )
 		{
 			m_Number = number;
-			m_Args = args;
 		}
 
-		public int Number
+        public int Number
 		{
-			get => m_Number;
-			set => Delta(ref m_Number, value);
+			get
+			{
+				return m_Number;
+			}
+			set
+			{
+				Delta( ref m_Number, value );
+			}
 		}
 
-		public string Args
+        public override string Compile()
 		{
-			get => m_Args;
-			set => Delta(ref m_Args, value);
-		}
+            return string.Format("{{ tooltip {0} }}", m_Number);
+        }
 
-		public override string Compile()
+		private static byte[] m_LayoutName = Gump.StringToBuffer( "tooltip" );
+
+		public override void AppendTo( IGumpWriter disp )
 		{
-			if (System.String.IsNullOrEmpty(m_Args))
-				return System.String.Format("{{ tooltip {0} }}", m_Number);
-
-			return System.String.Format("{{ tooltip {0} @{1}@ }}", m_Number, m_Args);
-		}
-
-		private static readonly byte[] m_LayoutName = Gump.StringToBuffer("tooltip");
-
-		public override void AppendTo(IGumpWriter disp)
-		{
-			disp.AppendLayout(m_LayoutName);
-			disp.AppendLayout(m_Number);
-
-			if (!System.String.IsNullOrEmpty(m_Args))
-				disp.AppendLayout(m_Args);
-		}
+			disp.AppendLayout( m_LayoutName );
+			disp.AppendLayout( m_Number );
+        }
 	}
 }

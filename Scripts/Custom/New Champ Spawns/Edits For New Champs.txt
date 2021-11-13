@@ -1,0 +1,65 @@
+Reworked Scripts and Edits  by EchoMoon  Thanks to Daat99 as I used some scripts from his Master Of the Arts as a Template and  for learning to add to the Champ System. As always he does a wonderful job and making things go a bit smoother! 
+
+
+To Add WinterSolstice and Brimstone to Champion spawner
+go to ChampionSpawnType.cs
+Look for This:
+
+ public enum ChampionSpawnType
+    {
+        Abyss,
+        Arachnid,
+        ColdBlood,
+        ForestLord,
+        VerminHorde,
+        UnholyTerror,
+        SleepingDragon,
+        Glade,
+        Corrupt,
+		
+Add This: 
+
+		WinterSolstice,
+		Brimstone,
+
+
+Then Scroll down and look for This:
+			
+               new ChampionSpawnInfo("Corrupt", typeof(Ilhenir), new string[] { "Cleanser", "Expunger", "Depurator" }, new Type[][]
+                { // Corrupt
+                new Type[] { typeof(PlagueSpawn), typeof(Bogling) },
+                new Type[] { typeof(PlagueBeast), typeof(BogThing) },
+                new Type[] { typeof(PlagueBeastLord), typeof(InterredGrizzle) },
+                new Type[] { typeof(FetidEssence), typeof(PestilentBandage) }
+            }),
+			
+Add This:
+			
+			new ChampionSpawnInfo("WinterSolstice", typeof(Hodur), new string[] { "Cleanser", "Expunger", "Depurator" }, new Type[][]
+            { // WinterSolstice
+                new Type[] { typeof(GiantIceWorm), typeof(IcyMyrmidex) },
+                new Type[] { typeof(IceStorm), typeof(IceGuardians) },
+                new Type[] { typeof(RabidPolarBear1), typeof(SnowDrake) },
+                new Type[] { typeof(IceDaemon), typeof(IceGiant) }
+            }),
+			new ChampionSpawnInfo("BrimStone", typeof(FireSpirit), new string[] { "Cleanser", "Expunger", "Depurator" }, new Type[][]
+            { // WinterSolstice
+                new Type[] { typeof(FireStorm), typeof(SalamanderOfFire) },
+                new Type[] { typeof(Fuerety), typeof(FireDemon) },
+                new Type[] { typeof(BurningEmberSpider), typeof(FieryDragon) },
+                new Type[] { typeof(Balroq), typeof(FireSpiritMinion) }
+            }),
+			
+			
+Then In Championspawn.cs look for this:
+
+                        case 10:
+                        this.Type = ChampionSpawnType.Infuse; break;
+					
+Add This :
+                        case 11:
+					    this.Type = ChampionSpawnType.WinterSolstice; break;
+					    case 12:
+						this.Type = ChampionSpawnType.Brimstone; break;	
+
+Drag and Drop Added Files into Custom Mobile Folder. 

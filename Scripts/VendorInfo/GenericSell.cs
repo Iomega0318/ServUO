@@ -1,7 +1,8 @@
-using Server.Items;
 using System;
 using System.Collections.Generic;
+using Server.Items;
 using System.Linq;
+using daat99;
 
 namespace Server.Mobiles
 {
@@ -9,6 +10,9 @@ namespace Server.Mobiles
     {
         private readonly Dictionary<Type, int> m_Table = new Dictionary<Type, int>();
         private Type[] m_Types;
+        public GenericSellInfo()
+        {
+        }
 
         public Type[] Types
         {
@@ -46,7 +50,7 @@ namespace Server.Mobiles
                 if (buyInfo != null)
                 {
                     int sold = buyInfo.TotalSold;
-                    price = (int)(buyInfo.Price * .75);
+                    price = (int)((double)buyInfo.Price * .75);
 
                     return Math.Max(1, price);
                 }
@@ -61,9 +65,27 @@ namespace Server.Mobiles
                 else if (armor.Quality == ItemQuality.Exceptional)
                     price = (int)(price * 1.25);
 
-                price += 5 * armor.ArmorAttributes.DurabilityBonus;
+                price += 100 * (int)armor.Durability;
 
-                if (price < 1)
+                price += 100 * (int)armor.ProtectionLevel;
+
+				//daat99 OWLTR start - resources cost more
+				if ( OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RESOURCE_COST) )
+				{
+					double d_Mult = (int)armor.Resource;
+					if ( d_Mult > 1 && d_Mult < 101 )
+						d_Mult = 10+(d_Mult - 1);
+					else if ( d_Mult > 101 && d_Mult < 201 )
+						d_Mult = 10+(d_Mult - 101);
+					else if ( d_Mult > 201 && d_Mult < 300 )
+						d_Mult = 10+(d_Mult - 201);
+					else
+						d_Mult = 10;
+					price = (int)((d_Mult*price)/10);
+				}
+				//daat99 OWLTR end - resources cost more
+
+				if (price < 1)
                     price = 1;
             }
             else if (item is BaseWeapon)
@@ -75,9 +97,23 @@ namespace Server.Mobiles
                 else if (weapon.Quality == ItemQuality.Exceptional)
                     price = (int)(price * 1.25);
 
-                price += 100 * weapon.WeaponAttributes.DurabilityBonus;
+                price += 100 * (int)weapon.DurabilityLevel;
 
-                price += 10 * weapon.Attributes.WeaponDamage;
+				price += 100 * (int)weapon.DamageLevel;
+
+				//daat99 OWLTR start - resources cost more
+				if ( OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RESOURCE_COST) )
+				{
+					double d_Mult = (int)weapon.Resource;
+					if ( d_Mult > 1 && d_Mult < 101 )
+						d_Mult = 10+(d_Mult - 1);
+					else if ( d_Mult > 300 && d_Mult < 400 )
+						d_Mult = 10+(d_Mult - 300);
+					else
+						d_Mult = 10;
+					price = (int)((d_Mult*price)/10);
+				}
+				//daat99 OWLTR end - resources cost more
 
                 if (price < 1)
                     price = 1;

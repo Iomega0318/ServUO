@@ -1,3 +1,4 @@
+using System;
 using Server.Engines.Craft;
 
 namespace Server.Items
@@ -6,17 +7,18 @@ namespace Server.Items
     public class ColoredAnvil : Item
     {
         [Constructable]
-        public ColoredAnvil()
-            : this(CraftResources.GetHue((CraftResource)Utility.RandomMinMax((int)CraftResource.DullCopper, (int)CraftResource.Valorite)))
-        {
-        }
+		//daat99 OWLTR start - custom resource
+		public ColoredAnvil() : this( CraftResources.GetHue( (CraftResource)Utility.RandomMinMax( (int)CraftResource.DullCopper, (int)CraftResource.Platinum ) ) )
+		//daat99 OWLTR end - custom resource
+		{
+		}
 
         [Constructable]
         public ColoredAnvil(int hue)
             : base(0xFAF)
         {
-            Hue = hue;
-            Weight = 20;
+            this.Hue = hue;
+            this.Weight = 20;
         }
 
         public ColoredAnvil(Serial serial)
@@ -27,7 +29,7 @@ namespace Server.Items
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write(0);
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)

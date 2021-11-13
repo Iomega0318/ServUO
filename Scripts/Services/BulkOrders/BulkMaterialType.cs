@@ -1,6 +1,6 @@
-using Server.Engines.Craft;
-using Server.Items;
 using System;
+using Server.Items;
+using Server.Engines.Craft;
 
 namespace Server.Engines.BulkOrders
 {
@@ -15,15 +15,33 @@ namespace Server.Engines.BulkOrders
         Agapite,
         Verite,
         Valorite,
+        Blaze,
+        Ice,
+        Toxic,
+        Electrum,
+        Platinum,
         Spined,
         Horned,
         Barbed,
+        Polar,
+        Synthetic,
+        BlazeL,
+        Daemonic,
+        Shadow,
+        Frost,
+        Ethereal,
         OakWood,
         AshWood,
         YewWood,
         Heartwood,
         Bloodwood,
         Frostwood,
+        Ebony,
+        Bamboo,
+        PurpleHeart,
+        Redwood,
+        Petrified
+        //daat99 OWLTR end - custom resources
     }
 
     public enum BulkGenericType
@@ -32,6 +50,7 @@ namespace Server.Engines.BulkOrders
         Cloth,
         Leather,
         Wood
+        //RegularWood
     }
 
     public class BGTClassifier
@@ -47,7 +66,7 @@ namespace Server.Engines.BulkOrders
             }
             else if (deedType == BODType.Tinkering && itemType != null)
             {
-                if (itemType == typeof(Clock) || itemType.IsSubclassOf(typeof(Clock)))
+                if(itemType == typeof(Clock) || itemType.IsSubclassOf(typeof(Clock)))
                     return BulkGenericType.Wood;
 
                 CraftItem item = DefTinkering.CraftSystem.CraftItems.SearchFor(itemType);
@@ -63,6 +82,7 @@ namespace Server.Engines.BulkOrders
             else if (deedType == BODType.Fletching || deedType == BODType.Carpentry)
             {
                 return BulkGenericType.Wood;
+                //return BulkGenericType.RegularWood;
             }
 
             return BulkGenericType.Iron;

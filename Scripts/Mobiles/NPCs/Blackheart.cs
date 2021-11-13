@@ -1,6 +1,6 @@
+using System;
 using Server.Items;
 using Server.Mobiles;
-using System;
 
 namespace Server.Engines.Quests.Hag
 {
@@ -19,43 +19,39 @@ namespace Server.Engines.Quests.Hag
 
         public override void InitBody()
         {
-            InitStats(100, 100, 25);
+            this.InitStats(100, 100, 25);
 
-            Hue = 0x83EF;
+            this.Hue = 0x83EF;
 
-            Female = false;
-            Body = 0x190;
-            Name = "Captain Blackheart";
+            this.Female = false;
+            this.Body = 0x190;
+            this.Name = "Captain Blackheart";
         }
 
         public override void InitOutfit()
         {
-            AddItem(new FancyShirt());
-            AddItem(new LongPants(0x66D));
-            AddItem(new ThighBoots());
-            AddItem(new TricorneHat(0x1));
-            AddItem(new BodySash(0x66D));
+            this.AddItem(new FancyShirt());
+            this.AddItem(new LongPants(0x66D));
+            this.AddItem(new ThighBoots());
+            this.AddItem(new TricorneHat(0x1));
+            this.AddItem(new BodySash(0x66D));
 
-            LeatherGloves gloves = new LeatherGloves
-            {
-                Hue = 0x66D
-            };
-            AddItem(gloves);
+            LeatherGloves gloves = new LeatherGloves();
+            gloves.Hue = 0x66D;
+            this.AddItem(gloves);
 
-            FacialHairItemID = 0x203E; // Long Beard
-            FacialHairHue = 0x455;
+            this.FacialHairItemID = 0x203E; // Long Beard
+            this.FacialHairHue = 0x455;
 
-            Item sword = new Cutlass
-            {
-                Movable = false
-            };
-            AddItem(sword);
+            Item sword = new Cutlass();
+            sword.Movable = false;
+            this.AddItem(sword);
         }
 
         public override void OnTalk(PlayerMobile player, bool contextMenu)
         {
-            Direction = GetDirectionTo(player);
-            Animate(33, 20, 1, true, false, 0);
+            this.Direction = this.GetDirectionTo(player);
+            this.Animate(33, 20, 1, true, false, 0);
 
             QuestSystem qs = player.Quest;
 
@@ -65,7 +61,7 @@ namespace Server.Engines.Quests.Hag
 
                 if (obj != null && !obj.Completed && obj.Ingredient == Ingredient.Whiskey)
                 {
-                    PlaySound(Utility.RandomBool() ? 0x42E : 0x43F);
+                    this.PlaySound(Utility.RandomBool() ? 0x42E : 0x43F);
 
                     Item hat = player.FindItemOnLayer(Layer.Helm);
                     bool tricorne = hat is TricorneHat;
@@ -94,15 +90,15 @@ namespace Server.Engines.Quests.Hag
                 }
             }
 
-            PlaySound(0x42C);
-            SayTo(player, 1055041); // The drunken pirate shakes his fist at you and goes back to drinking.
+            this.PlaySound(0x42C);
+            this.SayTo(player, 1055041); // The drunken pirate shakes his fist at you and goes back to drinking.
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write(0); // version
+            writer.Write((int)0); // version
         }
 
         public override void Deserialize(GenericReader reader)
@@ -111,14 +107,14 @@ namespace Server.Engines.Quests.Hag
 
             int version = reader.ReadInt();
 
-            Heave();
+            this.Heave();
         }
 
         private void Heave()
         {
-            PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, 500849); // *hic*
+            this.PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, 500849); // *hic*
 
-            Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(60, 180)), Heave);
+            Timer.DelayCall(TimeSpan.FromSeconds(Utility.RandomMinMax(60, 180)), new TimerCallback(Heave));
         }
     }
 }
