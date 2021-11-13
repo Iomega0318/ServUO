@@ -576,14 +576,15 @@ namespace Server.Accounting
 
 				return count;
 			}
-		}
+        }
 
-		/// <summary>
-		///     Gets the maximum amount of characters allowed to be created on this account. Values other than 1, 5, 6, or 7 are
-		///     not supported by the client.
-		/// </summary>
-		[CommandProperty(AccessLevel.Administrator)]
-		public int Limit { get { return (Siege.SiegeShard ? Siege.CharacterSlots : Core.SA ? 7 : Core.AOS ? 6 : 5); } }
+        /// <summary>
+        ///     Gets the maximum amount of characters allowed to be created on this account. Values other than 1, 5, 6, or 7 are
+        ///     not supported by the client.
+        /// </summary>
+        //Iomega0318
+        [CommandProperty(AccessLevel.Administrator)]
+		public int Limit { get { return (Convert.ToInt32(GetTag("maxChars"))); } }
 
 		/// <summary>
 		///     Gets the maxmimum amount of characters that this account can hold.
@@ -1503,7 +1504,8 @@ namespace Server.Accounting
 
 			acc.m_YoungTimer = new YoungTimer(acc);
 			acc.m_YoungTimer.Start();
-		}
+
+        }
 
 		private static void EventSink_Disconnected(DisconnectedEventArgs e)
 		{
@@ -1543,8 +1545,13 @@ namespace Server.Accounting
 			{
 				return;
 			}
-
-			if (!m.Young || !acc.Young)
+            //Iomega0318
+            if (acc.GetTag("maxChars") == null)
+            {
+                acc.SetTag("maxChars", "01");
+            }
+            //Iomega0318
+            if (!m.Young || !acc.Young)
 			{
 				return;
 			}
