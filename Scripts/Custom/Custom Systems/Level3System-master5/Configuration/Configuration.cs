@@ -51,7 +51,7 @@ namespace Server
 													In Older Distro or servers that do not use skill titles over toons head
 													this should work. */
 		public bool AttachonLogon		= true;		//Attach Level Attachment on Toon Login / This does affect ALL playermobiles. 
-		public bool PaperdollLevel		= true;		//Show Players Level In Paperdoll?
+		public bool PaperdollLevel		= false;		//Show Players Level In Paperdoll?
         public bool PetKillGivesExp		= true;     //When players pet kills something player gets exp
         public bool CraftGivesExp		= true;		//A sucessful craft gives players exp. (EXPTables.cs for changes) 
         public bool AdvancedSkillExp	= true;	//Only fighting skills give exp?
