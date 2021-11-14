@@ -9,7 +9,6 @@ using Server.Regions;
 using Server.Services.Virtues;
 using daat99;
 using Server.Network; //daat99 OWLTR - Gatherer
-using System.Linq;
 using Server.Spells.Necromancy;
 
 namespace Server.Engines.CannedEvil
@@ -341,13 +340,13 @@ namespace Server.Engines.CannedEvil
 				int l = Level;
                 return ChampionSystem.MaxKillsForLevel(l);
 
-                //daat99 OWLTR start - champ 1/6
-                if (m_Type == ChampionSpawnType.Crafter)
-                    return 125 - (Level * 6);
-                else
+    //            //daat99 OWLTR start - champ 1/6
+    //            if (m_Type == ChampionSpawnType.Crafter)
+    //                return 125 - (Level * 6);
+    //            else
                     
-                return 250 - (Level * 12);
-				//daat99 OWLTR end - champ 1/6
+    //            return 250 - (Level * 12);
+				////daat99 OWLTR end - champ 1/6
             }
         }
 

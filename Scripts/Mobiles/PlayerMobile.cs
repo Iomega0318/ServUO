@@ -44,7 +44,6 @@ using Server.Spells.Spellweaving;
 using Server.Engines.SphynxFortune;
 using Server.Engines.VendorSearching;
 using Server.Targeting;
-using Server.Engines.XmlSpawner2;
 
 using RankDefinition = Server.Guilds.RankDefinition;
 using Server.Engines.Fellowship;
