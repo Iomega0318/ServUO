@@ -1,4 +1,4 @@
-﻿#region References
+#region References
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,6 @@ using Server;
 using Server.Gumps;
 using Server.Network;
 using System.Collections;
-using System.Collections.Generic;
 
 //using Services.Toolbar.Core;
 using Server.Engines.XmlSpawner2;
@@ -51,7 +50,7 @@ namespace Services.Toolbar.Gumps
 			AddResponses();
 			//AddEntries();
 
-			const int buffer = 2;
+			//const int buffer = 2;
 
 			int entryX = _ExpandedInt * 149; 
 			int entryY = _ExpandedInt * 20;
