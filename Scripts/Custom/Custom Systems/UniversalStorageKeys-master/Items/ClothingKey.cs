@@ -106,6 +106,7 @@ namespace Server.Items
         {
             ItemID = 9435; //2476; Original auto opens when dropped in pack.
             Name = "Clothing Hamper";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

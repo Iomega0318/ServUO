@@ -69,6 +69,7 @@ namespace Server.Items
         {
             ItemID = 3997;          //sewingkit
             Name = "Tailor Store";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

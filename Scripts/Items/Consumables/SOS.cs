@@ -14,6 +14,11 @@ namespace Server.Items
                     return 1063450; // an ancient SOS
 
                 return 1041081; // a waterstained SOS
+
+                if (keyQuest)
+                {
+                    Name = "A Hastily Drawn Map";
+                }
             }
         }
 
@@ -21,6 +26,7 @@ namespace Server.Items
         private Map m_TargetMap;
         private Point3D m_TargetLocation;
         private int m_MessageIndex;
+        public readonly bool keyQuest;
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool IsAncient
@@ -106,7 +112,7 @@ namespace Server.Items
         }
 
         [Constructable]
-        public SOS(Map map, int level)
+        public SOS(Map map, int level, bool isKeyQuest = false)
             : base(0x14EE)
         {
             Weight = 1.0;
@@ -115,6 +121,7 @@ namespace Server.Items
             m_MessageIndex = Utility.Random(MessageEntry.Entries.Length);
             m_TargetMap = map;
             m_TargetLocation = FindLocation(m_TargetMap);
+            keyQuest = isKeyQuest;
 
             UpdateHue();
         }
@@ -143,7 +150,7 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            switch ( version )
+            switch (version)
             {
                 case 4:
                 case 3:
@@ -183,7 +190,7 @@ namespace Server.Items
             if (version < 4 && m_TargetMap == Map.Tokuno)
                 m_TargetMap = Map.Trammel;
         }
-		
+
         public override void OnDoubleClick(Mobile from)
         {
             if (IsChildOf(from.Backpack))
@@ -206,6 +213,11 @@ namespace Server.Items
 
         public virtual void OnSOSComplete(Container chest)
         {
+            //This adds the key to the chest every time. It should be changed to whatever you want the probability to be
+            if (keyQuest && Utility.RandomDouble() < 0.1)
+            {
+                chest.AddItem(new AdventurerKey());
+            }
         }
 
         private static readonly int[] m_WaterTiles = new int[]
@@ -281,7 +293,7 @@ namespace Server.Items
             return water;
         }
 
-        #if false
+#if false
 		private class MessageGump : Gump
 		{
 			public MessageGump( MessageEntry entry, Map map, Point3D loc ) : base( (640 - entry.Width) / 2, (480 - entry.Height) / 2 )
@@ -301,7 +313,7 @@ namespace Server.Items
 				AddHtml( 38, 38, entry.Width - 83, entry.Height - 86, String.Format( entry.Message, fmt ), false, false );
 			}
 		}
-        #else
+#else
         private class MessageGump : Gump
         {
             public MessageGump(MessageEntry entry, Map map, Point3D loc)
@@ -342,7 +354,7 @@ namespace Server.Items
                 }
             }
         }
-        #endif
+#endif
 
         private class MessageEntry
         {

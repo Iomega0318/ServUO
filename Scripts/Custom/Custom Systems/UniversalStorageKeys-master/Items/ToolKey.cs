@@ -53,6 +53,7 @@ namespace Server.Items
         {
             ItemID = 7867;          //toolbox
             Name = "Tool Box";
+            LootType = LootType.Cursed;
 
             //tools withdrawn can have no less than 50 charges on them.
             _Store.MinWithdrawAmount = 50;

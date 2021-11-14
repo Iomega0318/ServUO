@@ -40,6 +40,7 @@ namespace Server.Items
         {
             ItemID = 0x9AA7;
             Name = "Ultimate Power Scroll Book";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

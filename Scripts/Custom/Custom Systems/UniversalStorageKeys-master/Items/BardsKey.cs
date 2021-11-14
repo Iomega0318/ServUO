@@ -42,6 +42,7 @@ namespace Server.Items
         {
             ItemID = 0xEB6;         //music stand
             Name = "Bard's Stand";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

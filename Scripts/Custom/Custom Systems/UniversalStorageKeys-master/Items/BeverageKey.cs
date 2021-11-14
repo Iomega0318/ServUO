@@ -40,6 +40,7 @@ namespace Server.Items
         {
             ItemID = 0x9A96;            //Machine Coffee
             Name = "Beverage Store";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device
