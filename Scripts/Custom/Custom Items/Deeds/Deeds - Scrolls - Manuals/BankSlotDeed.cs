@@ -10,7 +10,7 @@ namespace Server.Items
     public class BankStorageIncreaseDeed : Item, IRewardItem
 	{
 		// Maximum bonus these deeds can give is...
-		public const int BonusCap = 50;
+		public const int BonusCap = 1000;
 
 		// Standard private member with public access a GM can manipulate.
 		private int m_BonusSlots;
