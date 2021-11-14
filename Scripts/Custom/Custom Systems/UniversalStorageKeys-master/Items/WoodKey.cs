@@ -56,6 +56,7 @@ namespace Server.Items
         {
             ItemID = 0x1BD9;            //pile of wood
             Name = "Wood Storage";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

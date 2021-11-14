@@ -70,6 +70,7 @@ namespace Server.Items
         public JewelersKey() : base(0x0)        //hue 1154
         {
             Name = "Jeweler's Keys";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

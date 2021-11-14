@@ -358,6 +358,7 @@ namespace Server.Items
         public LargeItemCountTestKey() : base(0x0)      //hue 1154
         {
             Name = "Large Item Count Test Keys";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

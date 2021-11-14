@@ -43,6 +43,7 @@ namespace Server.Items
         {
             ItemID = 0x170B;                // crate
             Name = "Adventurer's Boots";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

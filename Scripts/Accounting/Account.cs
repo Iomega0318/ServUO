@@ -19,8 +19,30 @@ namespace Server.Accounting
 {
 	[PropertyObject]
 	public class Account : IAccount, IComparable, IComparable<Account>
-	{
-		public static readonly TimeSpan YoungDuration = TimeSpan.FromHours(40.0);
+    {
+        // Use 'ExtraAccountHouses' to find the other 2 edit regions in this file.
+        #region ExtraAccountHouses
+
+        private int m_ExtraAccountHouses = 0;
+
+        [CommandProperty(AccessLevel.Counselor, AccessLevel.Administrator)]
+        public int ExtraAccountHouses
+        {
+            get
+            {
+                return m_ExtraAccountHouses;
+            }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+
+                m_ExtraAccountHouses = value;
+            }
+        }
+        #endregion ExtraAccountHouses
+
+        public static readonly TimeSpan YoungDuration = TimeSpan.FromHours(40.0);
 		public static readonly TimeSpan InactiveDuration = TimeSpan.FromDays(180.0);
 		public static readonly TimeSpan EmptyInactiveDuration = TimeSpan.FromDays(30.0);
 
@@ -187,8 +209,14 @@ namespace Server.Accounting
 		}
 
 		public Account(XmlElement node)
-		{
-			Username = Utility.GetText(node["username"], "empty");
+        {
+            #region ExtraAccountHouses
+
+            m_ExtraAccountHouses = Utility.GetXMLInt32(Utility.GetText(node["extraAccountHouses"], "0"), 0);
+
+            #endregion ExtraAccountHouses
+
+            Username = Utility.GetText(node["username"], "empty");
 
 			var plainPassword = Utility.GetText(node["password"], null);
 			var MD5Password = Utility.GetText(node["cryptPassword"], null);
@@ -1322,7 +1350,15 @@ namespace Server.Accounting
 		{
 			xml.WriteStartElement("account");
 
-			xml.WriteStartElement("username");
+            #region ExtraAccountHouses
+
+            xml.WriteStartElement("extraAccountHouses");
+            xml.WriteString(m_ExtraAccountHouses.ToString());
+            xml.WriteEndElement();
+
+            #endregion ExtraAccountHouses
+
+            xml.WriteStartElement("username");
 			xml.WriteString(Username);
 			xml.WriteEndElement();
 
@@ -1548,7 +1584,7 @@ namespace Server.Accounting
             //Iomega0318
             if (acc.GetTag("maxChars") == null)
             {
-                acc.SetTag("maxChars", "01");
+                acc.SetTag("maxChars", "1");
             }
             //Iomega0318
             if (!m.Young || !acc.Young)

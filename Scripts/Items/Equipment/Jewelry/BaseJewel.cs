@@ -826,15 +826,15 @@ namespace Server.Items
                     RunicReforging.AddSuffixName(list, m_ReforgedSuffix, GetNameString());
                 }
             }
-            else
-			{
-				/* if (oreType != 0)
-					list.Add(1053099, "#{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~ */
-				/* else */ if (Name == null)
-					list.Add(LabelNumber);
-				else
-					list.Add(Name); 
-			} 
+            //else
+			//{
+			//	/* if (oreType != 0)
+			//		list.Add(1053099, "#{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~ */
+			//	/* else */ if (Name == null)
+			//		list.Add(LabelNumber);
+			//	else
+			//		list.Add(Name); 
+			//} 
         }
 
         private string GetNameString()

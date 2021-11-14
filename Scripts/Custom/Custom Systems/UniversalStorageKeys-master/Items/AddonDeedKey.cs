@@ -35,6 +35,7 @@ namespace Server.Items
         {
             ItemID = 0x1E81;                // wooden box
             Name = "Addon Deed Storage";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

@@ -116,6 +116,7 @@ namespace Server.Items
         {
             ItemID = 0x1EBA;            //square toolkit
             Name = "Runic Tool Box";
+            LootType = LootType.Cursed;
 
             //runic tools withdrawn can have no less than 5 charges on them.
             _Store.MinWithdrawAmount = 5;

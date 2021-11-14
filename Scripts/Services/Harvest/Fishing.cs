@@ -502,7 +502,7 @@ namespace Server.Engines.Harvest
                         sos.OnSOSComplete(chest);
 
                         //Iomega0318
-                        PlayerMobile player = from as PlayerMobile;
+                        /*PlayerMobile player = from as PlayerMobile;
 
                         if (player != null)
                         {
@@ -561,6 +561,21 @@ namespace Server.Engines.Harvest
                                     }
                                 }
                             }
+                        }
+                        //Iomega0318*/
+                        if (sos.keyQuest)
+                        {
+                            chest.Movable = true;
+                            chest.Locked = false;
+                            chest.TrapType = TrapType.None;
+                            chest.TrapPower = 0;
+                            chest.TrapLevel = 0;
+
+                            chest.IsShipwreckedItem = false;
+
+                            sos.Delete();
+
+                            return chest;
                         }
                         //Iomega0318
 

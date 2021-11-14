@@ -81,6 +81,7 @@ namespace Server.Items
 		{
             ItemID = 0x4025;			//Gargoyle Wooden Chest
             Name = "Artificer's Chest";
+            LootType = LootType.Cursed;
 		}
 		
 		

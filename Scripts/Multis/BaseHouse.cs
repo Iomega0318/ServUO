@@ -4086,6 +4086,21 @@ namespace Server.Multis
 
         public static int GetAccountHouseLimit(Mobile m)
         {
+            #region ExtraAccountHouses
+            if (m.Account != null)
+            {
+                if (m.Account is Account)
+                {
+                    Account account = m.Account as Account;
+                    return AccountHouseLimit + account.ExtraAccountHouses;
+                }
+                else
+                {
+                    return AccountHouseLimit;
+                }
+            }
+            #endregion ExtraAccountHouses
+
             var max = AccountHouseLimit;
             
             return max;

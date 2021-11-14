@@ -147,6 +147,7 @@ namespace Server.Items
         {
             ItemID = 0xFBE;         //open book
             Name = "Scribe's Tome";
+            LootType = LootType.Cursed;
         }
 
         //this loads properties specific to the store, like the gump label, and whether it's a dynamic storage device

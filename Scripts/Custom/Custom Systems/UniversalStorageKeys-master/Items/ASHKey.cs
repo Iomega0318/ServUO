@@ -37,6 +37,7 @@ namespace Server.Items
             ItemID = 0x1EBB;			//square toolbox
 
             Name = "ASH Box";
+            LootType = LootType.Cursed;
 
             //ASH tools withdrawn can have no less than 5 charges on them.
             _Store.MinWithdrawAmount = 5;
