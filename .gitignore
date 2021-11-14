@@ -39,4 +39,3 @@
 *.ini
 
 !/Data/*
-!/bin/rosyln/*
