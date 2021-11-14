@@ -28,7 +28,6 @@
 /libdrng.so
 
 *.pdb
-*.exe
 *.exe.mdb
 *.sh
 *.suo
