@@ -78,7 +78,7 @@ namespace Server.Items.Blah
             }
             else
             {
-                if (from.Account is Account)
+                /*if (from.Account is Account)
                 {
                     Account account = from.Account as Account;
                     account.ExtraAccountHouses += ExtraHousesToAdd;
@@ -92,6 +92,52 @@ namespace Server.Items.Blah
                 else
                 {
                     from.SendMessage ("You may not use this deed.");
+                }
+
+                var acct = (Account)from.Account;
+                var chars = Utility.ToInt32(acct.GetTag("maxChars"));
+                if (chars < 7)
+                {
+                    from.SendLocalizedMessage(1049512); // You feel a surge of magic as the scroll enhances your powers!
+
+                    acct.SetTag("maxChars", (chars + 1).ToString());
+
+                    from.PlaySound(0x1EA);
+                    from.FixedEffect(0x373A, 10, 15);
+
+                    Delete();
+                }
+                else
+                {
+                    from.SendMessage("Your character slots are too high for this scroll.");
+                }*/
+
+                if (from.Account is Account)
+                {
+                    Account account = from.Account as Account;
+
+                    if (account.ExtraAccountHouses < 7)
+                    {
+
+                        int totalAllowedHouses = Multis.BaseHouse.GetAccountHouseLimit(from);
+
+                        from.SendLocalizedMessage(1049512); // You feel a surge of magic as the scroll enhances your powers!
+
+                        from.PlaySound(0x1EA);
+                        from.FixedEffect(0x373A, 10, 15);
+
+                        from.SendMessage("Your account may now have " + totalAllowedHouses.ToString() + " houses.");
+
+                        Consume();
+                    }
+                    else
+                    {
+                        from.SendMessage("Your house slots are too high for this scroll.");
+                    }
+                }
+                else
+                {
+                    from.SendMessage("You may not use this deed.");
                 }
             }
         }

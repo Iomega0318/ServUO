@@ -13,12 +13,11 @@ namespace Server.Items
                 if (IsAncient)
                     return 1063450; // an ancient SOS
 
-                return 1041081; // a waterstained SOS
-
+                //Iomega0318
                 if (keyQuest)
-                {
-                    Name = "A Hastily Drawn Map";
-                }
+                    return 1127455; //a map to the boots of footless joe
+
+                return 1041081; // a waterstained SOS
             }
         }
 
@@ -26,6 +25,7 @@ namespace Server.Items
         private Map m_TargetMap;
         private Point3D m_TargetLocation;
         private int m_MessageIndex;
+        //Iomega0318
         public readonly bool keyQuest;
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -121,6 +121,7 @@ namespace Server.Items
             m_MessageIndex = Utility.Random(MessageEntry.Entries.Length);
             m_TargetMap = map;
             m_TargetLocation = FindLocation(m_TargetMap);
+            //Iomega0318
             keyQuest = isKeyQuest;
 
             UpdateHue();
@@ -213,6 +214,7 @@ namespace Server.Items
 
         public virtual void OnSOSComplete(Container chest)
         {
+            //Iomega0318
             //This adds the key to the chest every time. It should be changed to whatever you want the probability to be
             if (keyQuest && Utility.RandomDouble() < 0.1)
             {
@@ -413,7 +415,7 @@ namespace Server.Items
             {
                 get
                 {
-                    return m_Entries;
+                        return m_Entries;
                 }
             }
         }

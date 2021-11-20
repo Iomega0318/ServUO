@@ -610,9 +610,21 @@ namespace Server.Accounting
         ///     Gets the maximum amount of characters allowed to be created on this account. Values other than 1, 5, 6, or 7 are
         ///     not supported by the client.
         /// </summary>
-        //Iomega0318
         [CommandProperty(AccessLevel.Administrator)]
-		public int Limit { get { return (Convert.ToInt32(GetTag("maxChars"))); } }
+		public int Limit
+        {
+            get
+            {
+                //Iomega0318
+                if (GetTag("maxChars") == null)
+                {
+                    SetTag("maxChars", "1");
+                }
+                //Iomega0318
+
+                return (Convert.ToInt32(GetTag("maxChars")));
+            }
+        }
 
 		/// <summary>
 		///     Gets the maxmimum amount of characters that this account can hold.
@@ -1581,12 +1593,6 @@ namespace Server.Accounting
 			{
 				return;
 			}
-            //Iomega0318
-            if (acc.GetTag("maxChars") == null)
-            {
-                acc.SetTag("maxChars", "1");
-            }
-            //Iomega0318
             if (!m.Young || !acc.Young)
 			{
 				return;

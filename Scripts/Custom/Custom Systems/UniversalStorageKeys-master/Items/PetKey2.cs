@@ -4,22 +4,14 @@ using System.Collections.Generic;
 using Server;
 using Solaris.ItemStore;							
 using Server.Mobiles;
-//using Xanthos.ShrinkSystem;
-
 
 namespace Server.Items
 {
-	
-    public class PetKey : BaseStoreKey
-    {
-        
-
-        [CommandProperty(AccessLevel.Seer)]
-       
-             
+	public class PetKey2 : BaseStoreKey
+	{
 		public override int DisplayColumns{ get{ return 1; } }
 		
-		public override bool CanUseFromPack{ get{ return false; } }
+		public override bool CanUseFromPack{ get{ return true; } }
 		
 		public override bool CanUseFromHouse{ get{ return true; } }
 		
@@ -28,7 +20,6 @@ namespace Server.Items
 			get
 			{
 				List<StoreEntry> entry = base.EntryStructure;
-				
 				entry.Add
 				( 
 					new StashEntry
@@ -79,29 +70,44 @@ namespace Server.Items
 						)	 
 					) 
 				);				
- 				
 				return entry;
 			}
 		}	
 		
 		[Constructable]
-		public PetKey() : base( 0 )
+		public PetKey2() : base( 0 )
 		{
-			ItemID = 17037;
-			Hue = 0;
-			Name = "Pet Key";
+			ItemID = 8928;
+			Hue = 1365;
+			Name = "Personal Bestiary Catalog";
 			LootType = LootType.Blessed;
 		}
 		
 		protected override ItemStore GenerateItemStore()
 		{
 			ItemStore store = base.GenerateItemStore();
-			store.Label = "Pet Key";
+			store.Label = "Personal Bestiary Catalog";
 			store.OfferDeeds = false;
 			return store;
 		}
+
+		/*
+		public override bool OnDragDrop( Mobile from, Item dropped )
+		{
+			if ( dropped is ShrinkItemX ) 
+			{
+				new StashEntry( typeof( ShrinkItemX ), "Pets", 500 );	//Not quite right.
+				return true;
+			}
+			else
+			{
+				from.SendMessage( "That is not a pet!" );
+				return false;	
+			}
+		}
+		*/
 		
-		public PetKey( Serial serial ) : base( serial )
+		public PetKey2( Serial serial ) : base( serial )
 		{
 		}
 		

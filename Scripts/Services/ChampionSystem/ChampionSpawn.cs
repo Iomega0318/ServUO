@@ -503,7 +503,7 @@ namespace Server.Engines.CannedEvil
         {
             if (RandomizeType)
             {
-                switch (Utility.Random(14))
+                switch (Utility.Random(15))
                 {
                     case 0:
                         Type = ChampionSpawnType.Abyss; break;
@@ -529,13 +529,15 @@ namespace Server.Engines.CannedEvil
                     case 10: 
 						Type = ChampionSpawnType.Crafter; break; //daat99 champ 2/6
                     //daat99 OWLTR end - Master of the Arts
+                    //Iomega0318 - Additional Champion Spawns
                     case 11:
                         Type = ChampionSpawnType.AncientBlacksmith; break; //Added for ancient blacksmith
-                    //Iomega0318 - Additional Champion Spawns
                     case 12:
                         Type = ChampionSpawnType.WinterSolstice; break;
                     case 13:
                         Type = ChampionSpawnType.Brimstone; break;
+                    case 14:
+                        Type = ChampionSpawnType.AdventureChamp; break;
                 }
             }
 

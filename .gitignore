@@ -35,4 +35,10 @@
 *.DotSettings.user
 *.ini
 
+Adjournment to Antiquity Reborn.exe
+Adjournment to Antiquity Reborn.aip
+FILES.7z
+/Adjournment to Antiquity Reborn-cache
+/Adjournment to Antiquity Reborn-SetupFiles
+
 !/Data/*

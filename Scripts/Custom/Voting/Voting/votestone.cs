@@ -7,12 +7,12 @@ using Server.Gumps;
 
 namespace Server.Items 
 { 
-   public class VoteStone : Item 
+   public class VoteStoneCUO : Item 
    { 
       public static ArrayList m_Voteds; 
        
       [Constructable] 
-      public VoteStone() : base ( 0xED4 ) 
+      public VoteStoneCUO() : base ( 0xED4 ) 
       { 
          Movable = false; 
          Hue = 1165; 
@@ -28,7 +28,7 @@ namespace Server.Items
          list.Add(1070722, "Click to Vote for us on ConnectUO"); 
       } 
 
-      public VoteStone( Serial serial ) : base( serial ) 
+      public VoteStoneCUO( Serial serial ) : base( serial ) 
       { 
       }    
 

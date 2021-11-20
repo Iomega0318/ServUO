@@ -25,10 +25,11 @@ namespace Server.Engines.CannedEvil
         //daat99 OWLTR start - MotA champ
         Crafter,
         //daat99 OWLTR end - MotA champ
-        AncientBlacksmith,
         //Iomega0318 - Additional Champion Spawns
+        AncientBlacksmith,
         WinterSolstice,
-        Brimstone
+        Brimstone,
+        AdventureChamp
     }
 
     public class ChampionSpawnInfo
@@ -191,6 +192,7 @@ namespace Server.Engines.CannedEvil
 				new Type[]{ typeof( FletcherAutomaton ), typeof( BurntOne ) }											// Level 4
 			} ),
 			//daat99 OWLTR end - MotA champ mobs
+            //Iomega0318 - Additional Champion Spawns
 			new ChampionSpawnInfo( "Ancient Blacksmith", typeof( AncientSmithy ), new string[]{ "Rival", "Challenger", "Antagonist" } , new Type[][]
             {																											// Ancient Blacksmith
 				new Type[]{ typeof( EarthElemental ), typeof( DullCopperElemental ) },
@@ -198,7 +200,6 @@ namespace Server.Engines.CannedEvil
                 new Type[]{ typeof( Golem ), typeof( GolemController ) },
                 new Type[]{ typeof( ValoriteElemental ), typeof( VeriteElemental ) }
             } ),
-            //Iomega0318 - Additional Champion Spawns
             new ChampionSpawnInfo("WinterSolstice", typeof(Hodur), new string[] { "Cleanser", "Expunger", "Depurator" }, new Type[][]
             { // WinterSolstice
                 new Type[] { typeof(GiantIceWorm), typeof(IcyMyrmidex) },
@@ -212,6 +213,13 @@ namespace Server.Engines.CannedEvil
                 new Type[] { typeof(Fuerety), typeof(FireDemon) },
                 new Type[] { typeof(BurningEmberSpider), typeof(FieryDragon) },
                 new Type[] { typeof(Balroq), typeof(FireSpiritMinion) }
+            }),
+            new ChampionSpawnInfo("Adventure Champion", typeof(AdventureChamp), new string[] { "Killer", "Assassin", "Slaughterer" }, new Type[][]
+            { // AdevntureChamp
+                new Type[] { typeof(AdventureOrc), typeof(AdventureOrcBrute) },
+                new Type[] { typeof(AdventureOrcBomber), typeof(AdventureOrcishArcher) },
+                new Type[] { typeof(AdventureOrcishMage), typeof(AdventureOrcishShaman) },
+                new Type[] { typeof(AdventureOrcCaptain), typeof(AdventureOrcishLord) }
             })
         };
 
