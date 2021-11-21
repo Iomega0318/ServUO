@@ -6,7 +6,7 @@ namespace Server.Items
     [Flipable(0x14ED, 0x14EE)]
     public class SOS : Item
     {
-        public override int LabelNumber
+        /*public override int LabelNumber
         {
             get
             {
@@ -19,14 +19,14 @@ namespace Server.Items
 
                 return 1041081; // a waterstained SOS
             }
-        }
+        }*/
 
         private int m_Level;
         private Map m_TargetMap;
         private Point3D m_TargetLocation;
         private int m_MessageIndex;
         //Iomega0318
-        public readonly bool keyQuest;
+        public bool keyQuest;
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool IsAncient
@@ -124,6 +124,19 @@ namespace Server.Items
             //Iomega0318
             keyQuest = isKeyQuest;
 
+            if (isKeyQuest)
+            {
+                Name = "a map to the boots of footless joe";
+            }
+            else if (IsAncient)
+            {
+                Name = "an ancient SOS";
+            }
+            else
+            {
+                Name = "a waterstained SOS";
+            }
+
             UpdateHue();
         }
 
@@ -143,6 +156,7 @@ namespace Server.Items
             writer.Write(m_TargetMap);
             writer.Write(m_TargetLocation);
             writer.Write(m_MessageIndex);
+            writer.Write(keyQuest);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -165,6 +179,7 @@ namespace Server.Items
                         m_TargetMap = reader.ReadMap();
                         m_TargetLocation = reader.ReadPoint3D();
                         m_MessageIndex = reader.ReadInt();
+                        keyQuest = reader.ReadBool();
 
                         break;
                     }
