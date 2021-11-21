@@ -134,7 +134,7 @@ namespace Server.Items
             }
             else
             {
-                Name = "a wateerstained SOS";
+                Name = "a waterstained SOS";
             }
 
             UpdateHue();
