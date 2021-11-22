@@ -40,15 +40,15 @@ namespace Server.Items
                 m_KeyQuest = value;
                 if (m_KeyQuest)
                 {
-                    Name = "a map to the boots of footless joe";
+                    Name = "A map to the boots of Footless Joe";
                 }
                 else if (IsAncient)
                 {
-                    Name = "an ancient SOS";
+                    Name = "An Ancient SOS";
                 }
                 else
                 {
-                    Name = "a waterstained SOS";
+                    Name = "A Waterstained SOS";
                 }
             }
         }
