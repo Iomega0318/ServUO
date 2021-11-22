@@ -387,7 +387,7 @@ namespace Solaris.ItemStore
 
     public class SOSListEntry : ItemListEntry
     {
-        public override int GumpWidth => 450;
+        public override int GumpWidth => 650;
 
         //SOS-specific data
 
@@ -406,8 +406,8 @@ namespace Solaris.ItemStore
                     List<ItemListEntryColumn> columns = base.Columns;
 
                     //add in specifics for this list type here
-                    columns.Add(new ItemListEntryColumn(150, "Map", _TargetMap.ToString()));
-                    columns.Add(new ItemListEntryColumn(240, "Location", GetCoordsText(_TargetLocation, _TargetMap)));
+                    columns.Add(new ItemListEntryColumn(350, "Map", _TargetMap.ToString()));
+                    columns.Add(new ItemListEntryColumn(440, "Location", GetCoordsText(_TargetLocation, _TargetMap)));
 
                     return columns;
                 }
