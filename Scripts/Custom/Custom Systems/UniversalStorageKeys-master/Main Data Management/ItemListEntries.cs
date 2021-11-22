@@ -395,6 +395,7 @@ namespace Solaris.ItemStore
         protected int _MessageIndex;
         protected Map _TargetMap;
         protected Point3D _TargetLocation;
+        protected bool _KeyQuest;
 
         public override List<ItemListEntryColumn> Columns
         {
@@ -446,19 +447,13 @@ namespace Solaris.ItemStore
         {
             SOS sos = (SOS)item;
 
-            if (sos.IsAncient)
-            {
-                _Name = "Ancient SOS";
-            }
-            else
-            {
-                _Name = "SOS";
-            }
 
+            _Name = sos.Name;
             _Level = sos.Level;
             _MessageIndex = sos.MessageIndex;
             _TargetMap = sos.TargetMap;
             _TargetLocation = sos.TargetLocation;
+            _KeyQuest = sos.keyQuest;            
         }
 
         //world load constructor
@@ -473,6 +468,7 @@ namespace Solaris.ItemStore
             _MessageIndex = entry.MessageIndex;
             _TargetMap = entry.TargetMap;
             _TargetLocation = entry.TargetLocation;
+            _KeyQuest = entry._KeyQuest;
         }
 
         //this generates an item from what is stored in the entry.  Note no exception handling
@@ -480,11 +476,13 @@ namespace Solaris.ItemStore
         {
             SOS sos = new SOS(_TargetMap, _Level)
             {
+                Name = _Name,
                 TargetLocation = _TargetLocation,
                 MessageIndex = _MessageIndex,
-
+                keyQuest = _KeyQuest,
                 LootType = _LootType,
                 Insured = _Insured
+                
             };
 
             return sos;
@@ -517,11 +515,13 @@ namespace Solaris.ItemStore
             base.Serialize(writer);
 
             writer.Write(0);
-
+                        
             writer.Write(_Level);
             writer.Write(_MessageIndex);
             writer.Write(_TargetMap);
             writer.Write(_TargetLocation);
+            writer.Write(_KeyQuest);
+            writer.Write(_Name);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -533,6 +533,8 @@ namespace Solaris.ItemStore
             _MessageIndex = reader.ReadInt();
             _TargetMap = reader.ReadMap();
             _TargetLocation = reader.ReadPoint3D();
+            _KeyQuest = reader.ReadBool();
+            _Name = reader.ReadString();
         }
     }
 
