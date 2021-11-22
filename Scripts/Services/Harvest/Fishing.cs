@@ -563,7 +563,7 @@ namespace Server.Engines.Harvest
                             }
                         }
                         //Iomega0318*/
-                        if (sos.keyQuest)
+                        if (sos.KeyQuest)
                         {
                             chest.Movable = true;
                             chest.Locked = false;

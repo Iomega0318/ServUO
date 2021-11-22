@@ -26,7 +26,32 @@ namespace Server.Items
         private Point3D m_TargetLocation;
         private int m_MessageIndex;
         //Iomega0318
-        public bool keyQuest;
+        private bool m_KeyQuest;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool KeyQuest
+        {
+            get
+            {
+                return m_KeyQuest;
+            }
+            set
+            {
+                m_KeyQuest = value;
+                if (m_KeyQuest)
+                {
+                    Name = "a map to the boots of footless joe";
+                }
+                else if (IsAncient)
+                {
+                    Name = "an ancient SOS";
+                }
+                else
+                {
+                    Name = "a waterstained SOS";
+                }
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool IsAncient
@@ -122,7 +147,7 @@ namespace Server.Items
             m_TargetMap = map;
             m_TargetLocation = FindLocation(m_TargetMap);
             //Iomega0318
-            keyQuest = isKeyQuest;
+            m_KeyQuest = isKeyQuest;
 
             if (isKeyQuest)
             {
@@ -156,7 +181,7 @@ namespace Server.Items
             writer.Write(m_TargetMap);
             writer.Write(m_TargetLocation);
             writer.Write(m_MessageIndex);
-            writer.Write(keyQuest);
+            writer.Write(m_KeyQuest);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -179,7 +204,7 @@ namespace Server.Items
                         m_TargetMap = reader.ReadMap();
                         m_TargetLocation = reader.ReadPoint3D();
                         m_MessageIndex = reader.ReadInt();
-                        keyQuest = reader.ReadBool();
+                        m_KeyQuest = reader.ReadBool();
 
                         break;
                     }
@@ -231,7 +256,7 @@ namespace Server.Items
         {
             //Iomega0318
             //This adds the key to the chest every time. It should be changed to whatever you want the probability to be
-            if (keyQuest && Utility.RandomDouble() < 0.1)
+            if (KeyQuest && Utility.RandomDouble() < 0.1)
             {
                 chest.AddItem(new AdventurerKey());
             }

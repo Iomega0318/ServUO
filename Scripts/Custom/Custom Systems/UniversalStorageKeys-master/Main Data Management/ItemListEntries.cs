@@ -453,7 +453,7 @@ namespace Solaris.ItemStore
             _MessageIndex = sos.MessageIndex;
             _TargetMap = sos.TargetMap;
             _TargetLocation = sos.TargetLocation;
-            _KeyQuest = sos.keyQuest;            
+            _KeyQuest = sos.KeyQuest;            
         }
 
         //world load constructor
@@ -479,7 +479,7 @@ namespace Solaris.ItemStore
                 Name = _Name,
                 TargetLocation = _TargetLocation,
                 MessageIndex = _MessageIndex,
-                keyQuest = _KeyQuest,
+                KeyQuest = _KeyQuest,
                 LootType = _LootType,
                 Insured = _Insured
                 
