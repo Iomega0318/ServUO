@@ -1277,6 +1277,10 @@ namespace Server.Multis
             if (x < 0 || x >= mcl.Width || y < 0 || y >= mcl.Height)
                 return false;
 
+            //Iomega0318 - Cellar Lockdowns
+            if (p.Z < Z)
+                return Addons.Keys.Any(a => a is CellarAddon);
+
             if (this is HouseFoundation && y < (mcl.Height - 1) && p.Z >= Z)
                 return true;
 
