@@ -453,9 +453,10 @@ namespace Server
 
 						while (pCur < pEnd)
 						{
-							lists[pCur->m_X & 0x7][pCur->m_Y & 0x7].Add(pCur->m_ID, pCur->m_Z);
+                            //UtlimaLive
+                            lists[pCur->m_X & 0x7][pCur->m_Y & 0x7].Add(pCur->m_ID, pCur->m_Z, pCur->m_Hue);
 
-							pCur = pCur + 1;
+                            pCur = pCur + 1;
 						}
 
 						var tiles = new StaticTile[8][][];
