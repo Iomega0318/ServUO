@@ -110,7 +110,7 @@ namespace Server.Items
         public abstract CraftSystem CraftSystem { get; }
 
         public EverlastingBaseTool(int itemID)
-            : this(Utility.RandomMinMax(25, 75), itemID)
+            : this(Utility.RandomMinMax(999999, 999999), itemID)
         {
         }
 
