@@ -208,7 +208,8 @@ namespace Server.Items
                 from.SendLocalizedMessage(1049511, this.GetNameLocalized()); // Your ~1_type~ is too high for this power scroll.
                 return false;
             }
-			
+
+            //Iomega0318
             if ( skill.Cap < (this.Value - 5) )
             {
                 string skillcapvalue = Convert.ToString(this.Value - 5);

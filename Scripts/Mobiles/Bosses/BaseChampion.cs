@@ -290,8 +290,10 @@ namespace Server.Mobiles
                 level = 20;
             else if (0.4 >= random)
                 level = 15;
-            else
+            else if (0.7 >= random)
                 level = 10;
+            else
+                level = 5;
 
             return PowerScroll.CreateRandomNoCraft(level, level);
         }

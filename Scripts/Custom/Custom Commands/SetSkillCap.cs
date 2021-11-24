@@ -15,8 +15,8 @@ namespace Felladrin.Automations
         {
             public static bool Enabled = true;                // Is this system enabled?
             public static int IndividualSkillCap = 100;       // Cap for each skill. Default: 100.
-            public static int TotalSkillCap = 10000;            // Cap for the sum of all skills. Default: 700.
-            public static bool OverrideExistingValues = true; // Set to False to prevent a player's cap from being reset
+            public static int TotalSkillCap = 10800;            // Cap for the sum of all skills. Default: 700.
+            public static bool OverrideExistingValues = false; // Set to False to prevent a player's cap from being reset
                                                               // in the event that skill cap is set to 100 and player uses
                                                               // Powerscroll to raise cap to 120, so the skill cap won't be
                                                               // reset to 100 on login.
