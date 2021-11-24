@@ -6,12 +6,12 @@ using Server.Spells.Seventh;
 
 namespace Server.Mobiles
 {
-    public class AdventureMobileDeleteTime : Timer
+    /*public class AdventureMobileDeleteTime : Timer
     {
         private Item mob;
 
         public AdventureMobileDeleteTime(Item m)
-            : base(TimeSpan.FromSeconds(15))
+            : base(TimeSpan.FromSeconds(60))
         {
             mob = m;
             Priority = TimerPriority.OneSecond;
@@ -28,7 +28,7 @@ namespace Server.Mobiles
             mob.Delete();
         }
     }
-
+    */
     public class AdventureChamp : BaseChampion
     {
 
@@ -122,11 +122,21 @@ namespace Server.Mobiles
 
             m_SpecialSlayerMechanics = true;
 
-            AddItem(new SOS(Map.Trammel, 3, true));
+            //AddItem(new AdventureSkull());
+            //AddItem(new SOS(Map.Trammel, 3, true));
             //AddLoot(new SOS(Map.Trammel, 3, true));
         }
 
-        public override bool OnBeforeDeath()
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 100)
+                c.DropItem(new AdventureSkull());
+
+        }
+
+        /*public override bool OnBeforeDeath()
         {
             /*switch (Utility.Random(80))
             {
@@ -150,7 +160,7 @@ namespace Server.Mobiles
                 case 17: PackItem(new FreeWomanSkirt()); break;
                 case 18: PackItem(new SkirtOfTheFreeWoman()); break;
                 case 19: PackItem(new ElfsDeath()); break;
-            }*/
+            }
             // spawn the item
             Item item = (Item)Activator.CreateInstance(typeof(Moongate));
             Moongate moon = (Moongate)item;
@@ -190,7 +200,7 @@ namespace Server.Mobiles
             }
 
             return Location;
-        }
+        }*/
 
         public AdventureChamp(Serial serial)
             : base(serial)

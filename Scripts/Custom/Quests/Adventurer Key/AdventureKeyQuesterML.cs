@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Server.Engines.Quests
 {
-	public class AdventureKeyQuester : MondainQuester
+	public class AdventureKeyQuesterML : MondainQuester
 	{
 		public override bool DisallowAllMoves { get { return true; } }
 
@@ -21,17 +21,17 @@ namespace Server.Engines.Quests
 			{
 				return new Type[]
 		   {
-				typeof( AdventureKeyQuest )
+				typeof( AdventureKeyQuestML )
 		   };
 			}
 		}
 
 		[Constructable]
-		public AdventureKeyQuester() : base("Footless Joe")
+		public AdventureKeyQuesterML() : base("Name", "Title")
 		{
 			InitBody();
 		}
-		public AdventureKeyQuester(Serial serial) : base(serial)
+		public AdventureKeyQuesterML(Serial serial) : base(serial)
 		{
 		}
 
@@ -52,7 +52,7 @@ namespace Server.Engines.Quests
 		public override void InitBody()
 		{
 			InitStats(100, 100, 100);
-			Female = false;
+			Female = Utility.RandomList(true, false);
 			Race = Utility.RandomList(Race.Human, Race.Elf);
 			base.InitBody();
 		}
@@ -68,7 +68,7 @@ namespace Server.Engines.Quests
             feet.Hue = Utility.RandomNeutralHue();
             AddItem(feet);
 
-            //AddItem(new WelcomeShroud() );
+            AddItem(new WelcomeShroud() );
         }
 	}
 }

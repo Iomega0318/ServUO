@@ -10,193 +10,47 @@ using Server.Mobiles;
 
 namespace Server.Engines.Quests
 {
-	public class AdventureKeyQuest : BaseQuest
-	{
-		//The player will have a delay before they can redo quest again
-		public override TimeSpan RestartDelay { get { return TimeSpan.FromMinutes(60); } }
-
-		//This is the Quest Title the player sees at the top of the Gump
-		public override object Title{ get{ return "The Perfect Cut"; } }
-		//This tells the story of the quest
-		public override object Description { get { return "I have had my fair share of gems come in and out of this place. But to find the truely rare cuts of gem is another story. Deep within the mines, the caverns and even along the mountain stretches riches beyond any mans dream. If you come across a gem I am looking for. Please bring it to me and I will reward you for your time."; } }
-		//This decides how the npc reacts in text the player refusing the quest
-		public override object Refuse{ get{ return "What a shame."; } }
-		//This is what the npc says when the player returns without completing the objective(s)
-		public override object Uncomplete{ get{ return "If you find a rare gem, bring it to me."; } }
-		//This is what the Quest Giver says when the player completes the quest.
-		public override object Complete{ get{ return "Sweet tator tots, look at the size of that thing. I really want to thank you for bringing me this. Im gonna make a.. I am going to put it in the display case so all can marvel at its rare beauty."; } }
-
-		public AdventureKeyQuest() : base()
-		{
-			int which = Utility.RandomMinMax( 1, 6 );
-			if( which == 1 )
-				AddObjective(new ObtainObjective(typeof(DarkSapphire),"Dark Sapphire",1));
-			if( which == 2 )
-				AddObjective(new ObtainObjective(typeof(Turquoise),"Turquoise",1));
-			if( which == 3 )
-				AddObjective(new ObtainObjective(typeof(EcruCitrine),"Ecru Citrine",1));
-			if( which == 4 )
-				AddObjective(new ObtainObjective(typeof(FireRuby),"Fire Ruby",1));
-			if( which == 5 )
-				AddObjective(new ObtainObjective(typeof(BlueDiamond),"Blue Diamond",1));
-			if( which == 6 )
-				AddObjective(new ObtainObjective(typeof(PerfectEmerald),"Perfect Emerald",1));
-		}
-
-        /*public override QuestChain ChainID
-        {
-            get
-            {
-                return QuestChain.PerfectCut;
-            }
-        }*/
-        public override Type NextQuest
-        {
-            get
-            {
-                return typeof(AdventureKeyQuest2);
-            }
-        }
-
-        public override void GiveRewards()
-		{
-			//Random gold amount to add
-			BankCheck gold = new BankCheck( Utility.RandomMinMax( 500, 600 ) );
-			if( !Owner.AddToBackpack( gold ) )
-			{
-				gold.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			//Add Quest Reward Token(s)
-			//Owner.AddToBackpack( new QuestRewardToken( 1 ) );
-
-			//Adding Quest Reward Token(s)
-			for(int x = 0; x < 1; x++)
-			{
-				RandomTalisman talisman = new RandomTalisman();
-				if(!Owner.AddToBackpack( talisman ) )
-				{
-					talisman.MoveToWorld(Owner.Location,Owner.Map);
-				}
-			}
-			Item bonusitem;
-			bonusitem = new DullCopperIngot( 20 );
-			//Adding Bonus Item #1
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new ShadowIronIngot( 20 );
-			//Adding Bonus Item #2
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new CopperIngot( 20 );
-			//Adding Bonus Item #3
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new BronzeIngot( 20 );
-			//Adding Bonus Item #4
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new GoldIngot( 20 );
-			//Adding Bonus Item #5
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new AgapiteIngot( 20 );
-			//Adding Bonus Item #6
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new VeriteIngot( 20 );
-			//Adding Bonus Item #7
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			bonusitem = new ValoriteIngot( 20 );
-			//Adding Bonus Item #8
-			if(!Owner.AddToBackpack( bonusitem ) )
-			{
-				bonusitem.MoveToWorld(Owner.Location,Owner.Map);
-			}
-
-			base.GiveRewards();
-		}
-
-		public override bool CanOffer()
-		{
-			return (Owner.Skills[SkillName.Mining].Base >= 100.0);
-		}
-	}
-
-    public class AdventureKeyQuest2 : BaseQuest
+    public class AdventureKeyQuest : BaseQuest
     {
         //The player will have a delay before they can redo quest again
         public override TimeSpan RestartDelay { get { return TimeSpan.FromMinutes(60); } }
 
         //This is the Quest Title the player sees at the top of the Gump
-        public override object Title { get { return "The Perfect Cut"; } }
+        public override object Title { get { return "Footless Joe"; } }
         //This tells the story of the quest
-        public override object Description { get { return "I have had my fair share of gems come in and out of this place. But to find the truely rare cuts of gem is another story. Deep within the mines, the caverns and even along the mountain stretches riches beyond any mans dream. If you come across a gem I am looking for. Please bring it to me and I will reward you for your time."; } }
+        public override object Description { get { return "Please slay the Chieftan and rescue me.<br><br>" +
+                    "There was once a time when I could have done that myself. I used to be quite the adventurer. " +
+                    "Magic weapons, magic armor, the whole shebang, but you make one wrong move and you find yourself the butt of some sick ironic joke like me.<br><br>" +
+                    "You see, a few years back, I was hunting orcs in these caves as I often did back then, when I tripped over a damn rock and got caught by these brutes.<br>" +
+                    "They stripped off my armor, took my weapons, and cut off my feet so I couldn't run away. " +
+                    "Then they forced me to craft shoes day in and day out for the orcish horde.<br><br>" +
+                    "The funny thing is, I had these boots that were probably worth more than all of my weapons and armor combined. " +
+                    "After they cut them off they threw them in the ocean with my feet still in them.<br><br>" +
+                    "Kill the Orc Chieftan for me then bring me his skull and I might tell you where they are."; } }
         //This decides how the npc reacts in text the player refusing the quest
-        public override object Refuse { get { return "What a shame."; } }
+        public override object Refuse { get { return "Please help me!"; } }
         //This is what the npc says when the player returns without completing the objective(s)
-        public override object Uncomplete { get { return "If you find a rare gem, bring it to me."; } }
+        public override object Uncomplete { get { return "Please hurry!"; } }
         //This is what the Quest Giver says when the player completes the quest.
-        public override object Complete { get { return "Sweet tator tots, look at the size of that thing. I really want to thank you for bringing me this. Im gonna make a.. I am going to put it in the display case so all can marvel at its rare beauty."; } }
+        public override object Complete { get { return "Hey! Since you rescued me and proved your worth, I think I could draw up a map to where they threw them.<br>" +
+                    "If you know a good fisherman, I'm willing to bet you could fish them up. Don't worry about the algae and barnacles, you know how magic stuff tends to resist such things.<br><br>*Scribbles out a crudely drawn map*"; } }
 
-        public AdventureKeyQuest2() : base()
+        public AdventureKeyQuest() : base()
         {
-            int which = Utility.RandomMinMax(1, 6);
-            if (which == 1)
-                AddObjective(new ObtainObjective(typeof(DarkSapphire), "Dark Sapphire", 1));
-            if (which == 2)
-                AddObjective(new ObtainObjective(typeof(Turquoise), "Turquoise", 1));
-            if (which == 3)
-                AddObjective(new ObtainObjective(typeof(EcruCitrine), "Ecru Citrine", 1));
-            if (which == 4)
-                AddObjective(new ObtainObjective(typeof(FireRuby), "Fire Ruby", 1));
-            if (which == 5)
-                AddObjective(new ObtainObjective(typeof(BlueDiamond), "Blue Diamond", 1));
-            if (which == 6)
-                AddObjective(new ObtainObjective(typeof(PerfectEmerald), "Perfect Emerald", 1));
-
-            this.AddReward(new BaseReward(typeof(PerfectEmerald), "Perfect Emerald")); // Arcane Circle			
-        }
-
-        /*public override QuestChain ChainID
-        {
-            get
-            {
-                return QuestChain.PerfectCut;
-            }
-        }*/
-
-        public override bool CanOffer()
-        {
-            return (Owner.Skills[SkillName.Mining].Base >= 100.0);
+            AddObjective(new ObtainObjective(typeof(AdventureSkull), "Skull of the Orc Chieftan", 1));
         }
 
         public override void GiveRewards()
         {
+            Item bonusitem;
+            bonusitem = new SOS(Map.Trammel, 3, true);
+            //Adding Bonus Item #1
+            if (!Owner.AddToBackpack(bonusitem))
+            {
+                bonusitem.MoveToWorld(Owner.Location, Owner.Map);
+            }
+
             base.GiveRewards();
         }
     }
-
 }
