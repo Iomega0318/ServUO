@@ -37,7 +37,7 @@ namespace Server.Engines.Quests
 
         public AdventureKeyQuest() : base()
         {
-            AddObjective(new ObtainObjective(typeof(AdventureSkull), "Skull of the Orc Chieftan", 1));
+            AddObjective(new ObtainObjective(typeof(AdventureKey), "Skull of the Orc Chieftan", 1));
         }
 
         public override void GiveRewards()
