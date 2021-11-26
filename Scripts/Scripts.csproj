@@ -5751,6 +5751,9 @@
     <Compile Include="Custom\PriestKingSerus.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuest.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuesterML.cs" />
+    <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuestML.cs" />
+    <Compile Include="Custom\Quests\Adventurer Key\Items\AdventureSkull.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrc.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcBomber.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcBrute.cs" />
@@ -18087,6 +18090,7 @@
     <Content Include="Custom\NPC\Custom Vendors\SecurityGuard\ReadMe.txt" />
     <Content Include="Custom\OrbRemoteServer\ExportMobiles.txt" />
     <Content Include="Custom\OrbRemoteServer\UOArchitect\BuildDesignTarget Backup.txt" />
+    <Content Include="Custom\Quests\Adventurer Key\Info.txt" />
     <Content Include="Custom\TAAS\uo\Administrator.gif" />
     <Content Include="Custom\TAAS\uo\Counselor.gif" />
     <Content Include="Custom\TAAS\uo\Developer.gif" />
