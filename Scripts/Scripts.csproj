@@ -3377,6 +3377,7 @@
     <Compile Include="Custom\Custom Systems\Addon Generator\AddonEditorTool.cs" />
     <Compile Include="Custom\Custom Systems\Addon Generator\AddOnEditor_Att.cs" />
     <Compile Include="Custom\Custom Systems\Addon Generator\BasicAddon.cs" />
+    <Compile Include="Custom\Custom Systems\AutoUnravel.cs" />
     <Compile Include="Custom\Custom Systems\BoardGames\Base\BoardGameControlItem.cs" />
     <Compile Include="Custom\Custom Systems\BoardGames\Base\BoardGameData.cs" />
     <Compile Include="Custom\Custom Systems\BoardGames\Base\BoardGamePlayer.cs" />

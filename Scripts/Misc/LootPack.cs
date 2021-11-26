@@ -4,6 +4,8 @@ using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Engines.XmlSpawner2;
+//Iomega0318
+using Server.SkillHandlers;
 #endregion
 
 namespace Server
@@ -703,6 +705,8 @@ namespace Server
                         if (Core.HS && RandomItemGenerator.Enabled && from is BaseCreature)
                         {
                             if (RandomItemGenerator.GenerateRandomItem(item, ((BaseCreature)from).LastKiller, (BaseCreature)from))
+                                //Iomega0318
+                                item = AutoUnravel.Unravel(item);
                                 return item;
                         }
 
@@ -1084,6 +1088,8 @@ namespace Server
                     item = Activator.CreateInstance(m_Type) as Item;
                 }
 
+                //Iomega0318
+                item = AutoUnravel.Unravel(item);
 				return item;
 			}
 			catch
