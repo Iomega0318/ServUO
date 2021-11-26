@@ -8,20 +8,20 @@ using Server;
 
 namespace Server.Items
 {
-	public class AdventureSkull : PeerlessKey
+	public class AdventureKey : PeerlessKey
 	{
 
 		public override int Lifespan{ get{ return 600; } }
 
 		[Constructable]
-		public AdventureSkull() : base(0x1AE1)
+		public AdventureKey() : base(0x176B)
 		{
-			Name ="Skull of the Orc Chieftan";
+			Name ="Keys of the Orc Chieftan";
 			Weight = 1.00;
 			//Hue = 1;
 		}
 
-		public AdventureSkull( Serial serial ) : base( serial )
+		public AdventureKey( Serial serial ) : base( serial )
 		{
 		}
 

@@ -132,7 +132,7 @@ namespace Server.Mobiles
             base.OnDeath(c);
 
             if (Utility.RandomDouble() < 100)
-                c.DropItem(new AdventureSkull());
+                c.DropItem(new AdventureKey());
 
         }
 

@@ -5753,7 +5753,7 @@
     <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuester.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuesterML.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\AdventureKeyQuestML.cs" />
-    <Compile Include="Custom\Quests\Adventurer Key\Items\AdventureSkull.cs" />
+    <Compile Include="Custom\Quests\Adventurer Key\Items\AdventureKey.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrc.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcBomber.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcBrute.cs" />

@@ -26,7 +26,7 @@ namespace Server.Engines.Quests
                     "Then they forced me to craft shoes day in and day out for the orcish horde.<br><br>" +
                     "The funny thing is, I had these boots that were probably worth more than all of my weapons and armor combined. " +
                     "After they cut them off they threw them in the ocean with my feet still in them.<br><br>" +
-                    "Kill the Orc Chieftan for me then bring me his skull and I might tell you where they are."; } }
+                    "Kill the Orc Chieftan for me then bring me his key and I might tell you where they are."; } }
         //This decides how the npc reacts in text the player refusing the quest
         public override object Refuse { get { return "Please help me!"; } }
         //This is what the npc says when the player returns without completing the objective(s)
