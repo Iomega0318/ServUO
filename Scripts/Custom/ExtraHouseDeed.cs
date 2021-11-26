@@ -116,8 +116,9 @@ namespace Server.Items.Blah
                 {
                     Account account = from.Account as Account;
 
-                    if (account.ExtraAccountHouses < 7)
+                    if (account.ExtraAccountHouses < 2)
                     {
+                        account.ExtraAccountHouses += ExtraHousesToAdd;
 
                         int totalAllowedHouses = Multis.BaseHouse.GetAccountHouseLimit(from);
 
