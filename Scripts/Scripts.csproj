@@ -17977,7 +17977,6 @@
     <Compile Include="VendorInfo\SBRealEstateBroker.cs" />
     <Compile Include="VendorInfo\SBRingmailArmor.cs" />
     <Compile Include="VendorInfo\SBSAArmor.cs" />
-    <Compile Include="VendorInfo\SBSABlacksmith.cs" />
     <Compile Include="VendorInfo\SBSATailor.cs" />
     <Compile Include="VendorInfo\SBSATanner.cs" />
     <Compile Include="VendorInfo\SBSAWeapons.cs" />
