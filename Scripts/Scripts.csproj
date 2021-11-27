@@ -3922,6 +3922,8 @@
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\TreeHelper.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\UpRootGump.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\WheatCrop.cs" />
+    <Compile Include="Custom\Custom Systems\Harvest System\ReagentAxe.cs" />
+    <Compile Include="Custom\Custom Systems\Harvest System\ReagentGathering.cs" />
     <Compile Include="Custom\Custom Systems\Holiday\Christmas\CandycaneDecoAddon.cs" />
     <Compile Include="Custom\Custom Systems\Holiday\Christmas\ChristmasItems\ChristmasBear.cs" />
     <Compile Include="Custom\Custom Systems\Holiday\Christmas\ChristmasItems\ChristmasReindeer.cs" />
