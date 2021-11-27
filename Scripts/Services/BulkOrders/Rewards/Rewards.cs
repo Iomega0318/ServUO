@@ -330,7 +330,7 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152674, CraftResources.GetHue(CraftResource.Gold), 350, SmeltersTalisman, (int)CraftResource.Gold));
                 RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157264, 0, 400, CraftsmanTalisman, 10));
                 RewardCollection.Add(new BODCollectionItem(0x13EB, 1157088, 0, 450, MiningGloves, 5));
-                RewardCollection.Add(new BODCollectionItem(4102, 1157091, 0, 450, PowderOfTemperament));
+                //RewardCollection.Add(new BODCollectionItem(4102, 1157091, 0, 450, PowderOfTemperament));
                 RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, CraftResources.GetHue(CraftResource.Agapite), 475, SmeltersTalisman, (int)CraftResource.Agapite));
                 RewardCollection.Add(new BODCollectionItem(0x9E7E, 1157216, 0, 500, RockHammer));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157092, CraftResources.GetHue(CraftResource.DullCopper), 500, RunicHammer, 1));
@@ -369,7 +369,7 @@ namespace Server.Engines.BulkOrders
 				new RewardGroup(   50, new RewardItem( 90, SturdyShovel ), new RewardItem( 10, ArmorOfMining, Utility.RandomMinMax(1,6) ) ),
 				new RewardGroup(  200, new RewardItem( 90, SturdyPickaxe ), new RewardItem( 10, ArmorOfSmithing, Utility.RandomMinMax(1,6) ) ),
 				new RewardGroup(  400, new RewardItem( 90, ProspectorsTool ), new RewardItem( 10, ArmorOfMining, Utility.RandomMinMax(1,6) ) ),
-				new RewardGroup(  450, new RewardItem( 2, PowderOfTemperament ), new RewardItem( 1, GargoylesPickaxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
+				new RewardGroup(  450, new RewardItem( 1, GargoylesPickaxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
 				new RewardGroup(  500, new RewardItem( 1, RunicHammer, 1 ), new RewardItem( 1, GargoylesPickaxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
                 new RewardGroup(550, new RewardItem(3, RunicHammer, 1), new RewardItem(2, RunicHammer, 2)),
 				new RewardGroup(  600, new RewardItem( 1, RunicHammer, 2 ), new RewardItem( 1, ColoredForgeDeed ) ),
@@ -404,7 +404,7 @@ namespace Server.Engines.BulkOrders
         private static readonly ConstructCallback MiningGloves = new ConstructCallback(CreateMiningGloves);
         private static readonly ConstructCallback GargoylesPickaxe = new ConstructCallback(CreateGargoylesPickaxe);
         private static readonly ConstructCallback ProspectorsTool = new ConstructCallback(CreateProspectorsTool);
-        private static readonly ConstructCallback PowderOfTemperament = new ConstructCallback(CreatePowderOfTemperament);
+        //private static readonly ConstructCallback PowderOfTemperament = new ConstructCallback(CreatePowderOfTemperament);
         private static readonly ConstructCallback RunicHammer = new ConstructCallback(CreateRunicHammer);
         private static readonly ConstructCallback PowerScroll = new ConstructCallback(CreatePowerScroll);
         private static readonly ConstructCallback ColoredAnvil = new ConstructCallback(CreateColoredAnvil);
@@ -556,10 +556,10 @@ namespace Server.Engines.BulkOrders
             return new ProspectorsTool();
         }
 
-        private static Item CreatePowderOfTemperament(int type)
-        {
-            return new PowderOfTemperament();
-        }
+        //private static Item CreatePowderOfTemperament(int type)
+        //{
+        //    return new PowderOfTemperament();
+        //}
 
         private static Item CreateRunicHammer(int type)
         {
@@ -1257,7 +1257,7 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157218, 0, 550, CraftsmanTalisman, 25)); // todo: Get id
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, CraftResources.GetHue(CraftResource.Agapite), 600, SmeltersTalisman, (int)CraftResource.Agapite));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, CraftResources.GetHue(CraftResource.Agapite), 650, HarvestMap, (int)CraftResource.Agapite));
-            RewardCollection.Add(new BODCollectionItem(0x1940, 1157221, 0, 700, CreateItem, 0)); // powder of fort keg
+            //RewardCollection.Add(new BODCollectionItem(0x1940, 1157221, 0, 700, CreateItem, 0)); // powder of fort keg
             RewardCollection.Add(new BODCollectionItem(0x9CE9, 1157290, 0, 750, CreateItem, 1)); // automaton actuator
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152676, CraftResources.GetHue(CraftResource.Verite), 800, SmeltersTalisman, (int)CraftResource.Verite));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, CraftResources.GetHue(CraftResource.Verite), 850, HarvestMap, (int)CraftResource.Verite));
@@ -1284,7 +1284,7 @@ namespace Server.Engines.BulkOrders
         {
             switch (type)
             {
-                case 0: return new PowderOfFortKeg();
+                //case 0: return new PowderOfFortKeg();
                 case 1: return new AutomatonActuator();
                 case 2: return new BlackrockMoonstone();
                 case 3: return new BlackrockAutomatonHead();
