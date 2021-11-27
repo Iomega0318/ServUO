@@ -40,8 +40,8 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(JarHoney), 1);
-                Add(typeof(Beeswax), 1);
+                //Add(typeof(JarHoney), 1);
+                //Add(typeof(Beeswax), 1);
             }
         }
     }

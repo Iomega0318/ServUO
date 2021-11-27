@@ -31,14 +31,14 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
-                Add(new GenericBuyInfo(typeof(RefreshPotion), 15, 10, 0xF0B, 0, true));
-                Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0, true));
-                Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0, true));
-                Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserExplosionPotion), 21, 10, 0xF0D, 0, true));
+                //Add(new GenericBuyInfo(typeof(RefreshPotion), 15, 10, 0xF0B, 0, true));
+                //Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0, true));
+                //Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0, true));
+                //Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserExplosionPotion), 21, 10, 0xF0D, 0, true));
 
                 Add(new GenericBuyInfo(typeof(MortarPestle), 8, 10, 0xE9B, 0));
 
@@ -65,29 +65,29 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(BlackPearl), 3); 
-                Add(typeof(Bloodmoss), 3); 
-                Add(typeof(MandrakeRoot), 2); 
-                Add(typeof(Garlic), 2); 
-                Add(typeof(Ginseng), 2); 
-                Add(typeof(Nightshade), 2); 
-                Add(typeof(SpidersSilk), 2); 
-                Add(typeof(SulfurousAsh), 2); 
-                Add(typeof(Bottle), 3);
-                Add(typeof(MortarPestle), 4);
+                //Add(typeof(BlackPearl), 3); 
+                //Add(typeof(Bloodmoss), 3); 
+                //Add(typeof(MandrakeRoot), 2); 
+                //Add(typeof(Garlic), 2); 
+                //Add(typeof(Ginseng), 2); 
+                //Add(typeof(Nightshade), 2); 
+                //Add(typeof(SpidersSilk), 2); 
+                //Add(typeof(SulfurousAsh), 2); 
+                //Add(typeof(Bottle), 3);
+                //Add(typeof(MortarPestle), 4);
 
-                Add(typeof(NightSightPotion), 7);
-                Add(typeof(AgilityPotion), 7);
-                Add(typeof(StrengthPotion), 7);
-                Add(typeof(RefreshPotion), 7);
-                Add(typeof(LesserCurePotion), 7);
-                Add(typeof(LesserHealPotion), 7);
-                Add(typeof(LesserPoisonPotion), 7);
-                Add(typeof(LesserExplosionPotion), 10);
+                //Add(typeof(NightSightPotion), 7);
+                //Add(typeof(AgilityPotion), 7);
+                //Add(typeof(StrengthPotion), 7);
+                //Add(typeof(RefreshPotion), 7);
+                //Add(typeof(LesserCurePotion), 7);
+                //Add(typeof(LesserHealPotion), 7);
+                //Add(typeof(LesserPoisonPotion), 7);
+                //Add(typeof(LesserExplosionPotion), 10);
 
-                Add(typeof(GlassblowingBook), 5000);
-                Add(typeof(SandMiningBook), 5000);
-                Add(typeof(Blowpipe), 10);
+                //Add(typeof(GlassblowingBook), 5000);
+                //Add(typeof(SandMiningBook), 5000);
+                //Add(typeof(Blowpipe), 10);
             }
         }
     }

@@ -62,26 +62,26 @@ namespace Server.Mobiles
         { 
             public InternalSellInfo() 
             { 
-                Add(typeof(Pitcher), 5);
-                Add(typeof(Eggs), 1);
-                Add(typeof(Apple), 1);
-                Add(typeof(Grapes), 1);
-                Add(typeof(Watermelon), 3);
-                Add(typeof(YellowGourd), 1);
-                Add(typeof(GreenGourd), 1);
-                Add(typeof(Pumpkin), 5);
-                Add(typeof(Onion), 1);
-                Add(typeof(Lettuce), 2);
-                Add(typeof(Squash), 1);
-                Add(typeof(Carrot), 1);
-                Add(typeof(HoneydewMelon), 3);
-                Add(typeof(Cantaloupe), 3);
-                Add(typeof(Cabbage), 2);
-                Add(typeof(Lemon), 1);
-                Add(typeof(Lime), 1);
-                Add(typeof(Peach), 1);
-                Add(typeof(Pear), 1);
-                Add(typeof(SheafOfHay), 1);
+                //Add(typeof(Pitcher), 5);
+                //Add(typeof(Eggs), 1);
+                //Add(typeof(Apple), 1);
+                //Add(typeof(Grapes), 1);
+                //Add(typeof(Watermelon), 3);
+                //Add(typeof(YellowGourd), 1);
+                //Add(typeof(GreenGourd), 1);
+                //Add(typeof(Pumpkin), 5);
+                //Add(typeof(Onion), 1);
+                //Add(typeof(Lettuce), 2);
+                //Add(typeof(Squash), 1);
+                //Add(typeof(Carrot), 1);
+                //Add(typeof(HoneydewMelon), 3);
+                //Add(typeof(Cantaloupe), 3);
+                //Add(typeof(Cabbage), 2);
+                //Add(typeof(Lemon), 1);
+                //Add(typeof(Lime), 1);
+                //Add(typeof(Peach), 1);
+                //Add(typeof(Pear), 1);
+                //Add(typeof(SheafOfHay), 1);
             }
         }
     }

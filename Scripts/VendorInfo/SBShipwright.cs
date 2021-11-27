@@ -62,8 +62,8 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                //You technically CAN sell them back, *BUT* the vendors do not carry enough money to buy with
-                Add(typeof(Spyglass), 1);
+                ////You technically CAN sell them back, *BUT* the vendors do not carry enough money to buy with
+                //Add(typeof(Spyglass), 1);
             }
         }
     }

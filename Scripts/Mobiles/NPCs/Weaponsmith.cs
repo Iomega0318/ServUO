@@ -29,10 +29,7 @@ namespace Server.Mobiles
 
         public override void InitSBInfo()
         {
-            this.m_SBInfos.Add(new SBWeaponSmith());
-			
-            if (this.IsTokunoVendor)
-                this.m_SBInfos.Add(new SBSEWeapons());
+            this.m_SBInfos.Add(new SBBlacksmith());
         }
 
         public override VendorShoeType ShoeType

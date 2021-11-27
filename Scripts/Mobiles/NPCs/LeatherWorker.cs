@@ -26,9 +26,7 @@ namespace Server.Mobiles
         }
         public override void InitSBInfo() 
         { 
-            this.m_SBInfos.Add(new SBLeatherArmor()); 
-            this.m_SBInfos.Add(new SBStuddedArmor()); 
-            this.m_SBInfos.Add(new SBLeatherWorker()); 
+            this.m_SBInfos.Add(new SBLeatherWorker());  
         }
 
         public override void Serialize(GenericWriter writer) 

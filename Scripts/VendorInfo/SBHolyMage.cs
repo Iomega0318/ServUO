@@ -75,29 +75,29 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(BlackPearl), 3); 
-                Add(typeof(Bloodmoss), 3); 
-                Add(typeof(MandrakeRoot), 2); 
-                Add(typeof(Garlic), 2); 
-                Add(typeof(Ginseng), 2); 
-                Add(typeof(Nightshade), 2); 
-                Add(typeof(SpidersSilk), 2); 
-                Add(typeof(SulfurousAsh), 2); 
-                Add(typeof(RecallRune), 8);
-                Add(typeof(Spellbook), 9);
-                Add(typeof(BlankScroll), 3);
+                //Add(typeof(BlackPearl), 3); 
+                //Add(typeof(Bloodmoss), 3); 
+                //Add(typeof(MandrakeRoot), 2); 
+                //Add(typeof(Garlic), 2); 
+                //Add(typeof(Ginseng), 2); 
+                //Add(typeof(Nightshade), 2); 
+                //Add(typeof(SpidersSilk), 2); 
+                //Add(typeof(SulfurousAsh), 2); 
+                //Add(typeof(RecallRune), 8);
+                //Add(typeof(Spellbook), 9);
+                //Add(typeof(BlankScroll), 3);
 
-                Add(typeof(NightSightPotion), 7);
-                Add(typeof(AgilityPotion), 7);
-                Add(typeof(StrengthPotion), 7);
-                Add(typeof(RefreshPotion), 7);
-                Add(typeof(LesserCurePotion), 7);
-                Add(typeof(LesserHealPotion), 7);
+                //Add(typeof(NightSightPotion), 7);
+                //Add(typeof(AgilityPotion), 7);
+                //Add(typeof(StrengthPotion), 7);
+                //Add(typeof(RefreshPotion), 7);
+                //Add(typeof(LesserCurePotion), 7);
+                //Add(typeof(LesserHealPotion), 7);
 
-                Type[] types = Loot.RegularScrollTypes;
+                //Type[] types = Loot.RegularScrollTypes;
 
-                for (int i = 0; i < types.Length; ++i)
-                    Add(types[i], ((i / 8) + 2) * 2);
+                //for (int i = 0; i < types.Length; ++i)
+                //    Add(types[i], ((i / 8) + 2) * 2);
             }
         }
     }

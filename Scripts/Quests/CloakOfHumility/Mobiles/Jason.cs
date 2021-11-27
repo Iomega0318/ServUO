@@ -20,7 +20,7 @@ namespace Server.Mobiles
 
         public override void InitSBInfo()
         {
-            SBInfos.Add(new SBHealer());
+            //SBInfos.Add(new SBHealer());
         }
 
         [Constructable]

@@ -54,11 +54,11 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(ScribesPen), 4);
-                Add(typeof(BrownBook), 7);
-                Add(typeof(TanBook), 7);
-                Add(typeof(BlueBook), 7);
-                Add(typeof(BlankScroll), 3);
+                //Add(typeof(ScribesPen), 4);
+                //Add(typeof(BrownBook), 7);
+                //Add(typeof(TanBook), 7);
+                //Add(typeof(BlueBook), 7);
+                //Add(typeof(BlankScroll), 3);
             }
         }
     }

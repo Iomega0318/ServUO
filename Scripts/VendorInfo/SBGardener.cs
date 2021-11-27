@@ -43,9 +43,9 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(Hoe), 8);
-                Add(typeof(Pitcher), 5);
-                Add(typeof(Engines.Plants.PlantBowl), 1);
+                //Add(typeof(Hoe), 8);
+                //Add(typeof(Pitcher), 5);
+                //Add(typeof(Engines.Plants.PlantBowl), 1);
             }
         }
     }

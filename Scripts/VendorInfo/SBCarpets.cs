@@ -55,13 +55,13 @@ namespace Server.Mobiles
 		{
 			public InternalSellInfo()
 			{
-				Add( typeof( Scissors ), 6 );
-				Add( typeof( Dyes ), 4 );
-				Add( typeof( DyeTub ), 4 );
-				Add( typeof( BoltOfCloth ), 60 );
-				Add( typeof( LightYarnUnraveled ), 9 );
-				Add( typeof( LightYarn ), 9 );
-				Add( typeof( DarkYarn ), 9 );
+				//Add( typeof( Scissors ), 6 );
+				//Add( typeof( Dyes ), 4 );
+				//Add( typeof( DyeTub ), 4 );
+				//Add( typeof( BoltOfCloth ), 60 );
+				//Add( typeof( LightYarnUnraveled ), 9 );
+				//Add( typeof( LightYarn ), 9 );
+				//Add( typeof( DarkYarn ), 9 );
 			}
 		}
 	}
