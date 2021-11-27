@@ -20,6 +20,16 @@ namespace Server.SkillHandlers
             }
             if (weight > 550)
             {
+                if (item is IDurability d)
+                {
+                    //d.CanFortify = false;
+                    if (d.MaxHitPoints > 50)
+                    {
+                        d.MaxHitPoints = 50;
+                        d.HitPoints = 50;
+                    }
+                }
+                item.LootType = LootType.Cursed;
                 return item;
             }
             if (weight >= 400)
