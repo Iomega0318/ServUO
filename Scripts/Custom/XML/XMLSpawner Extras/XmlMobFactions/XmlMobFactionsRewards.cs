@@ -49,7 +49,7 @@ namespace Server.Engines.XmlSpawner2
             // these are items as reward's. Note that the args list must match a constructor for the reward type specified.
             MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(LeatherGlovesOfMining), "+20 Leather Gloves Of Mining", 20000, 0x13c6, new object[] { 20 }));
             MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(ColoredAnvil), "Colored Anvil", 40000, 0xFAF, null ));
-            MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(PowderOfTemperament), "Powder Of Temperament, 10 uses", 30000, 4102, new object[] { 10 }));
+            //MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(PowderOfTemperament), "Powder Of Temperament, 10 uses", 30000, 4102, new object[] { 10 }));
             //MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(SocketHammer), "Socket Hammer, 50 uses", 10000, 0x13E4, null ));
             //MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(BagOfHolding), "Bag of Holding, 10 items", 20000, 0xE76, new object[] { 10 } ));
             //MobFactionsRewardList.Add( new XmlMobFactionsRewards( "Player", 1000, typeof(BagOfHolding), "Bag of Holding, 20 items", 50000, 0xE76, new object[] { 20 } ));

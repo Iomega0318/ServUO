@@ -27,7 +27,7 @@ namespace Server.Items
                 entry.Add(new ToolEntry(typeof(Tongs), "Tongs", 0, 30, -5, 0));
                 entry.Add(new ToolEntry(typeof(SledgeHammer), "Sledge Hammer", 0, 30, -5, 0));
                 //entry.Add( new ToolEntry( typeof( PowderOfTemperament ), "Powder of Fort." ) );
-                entry.Add(new GenericEntry(typeof(PowderOfTemperament), "UsesRemaining", "Powder of Fort."));
+                //entry.Add(new GenericEntry(typeof(PowderOfTemperament), "UsesRemaining", "Powder of Fort."));
 
                 entry.Add(new AncientSmithyHammerToolEntry(10, "+10 ASH", 0, 20, 0, 0));
                 entry.Add(new AncientSmithyHammerToolEntry(15, "+15 ASH", 0, 20, 0, 0));

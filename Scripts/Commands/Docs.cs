@@ -1391,10 +1391,10 @@ namespace Server.Commands
 				{
 					rewards[5] = true;
 				}
-				else if (item is PowderOfTemperament)
-				{
-					rewards[6] = true;
-				}
+				//else if (item is PowderOfTemperament)
+				//{
+				//	rewards[6] = true;
+				//}
 				else if (item is ColoredAnvil)
 				{
 					rewards[7] = true;
