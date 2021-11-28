@@ -40,18 +40,18 @@ namespace Server.Mobiles
 
                 Add(new GenericBuyInfo(typeof(BlankScroll), 5, 20, 0x0E34, 0));
 
-                Add(new GenericBuyInfo("1041072", typeof(MagicWizardsHat), 11, 10, 0x1718, Utility.RandomDyedHue()));
+                //Add(new GenericBuyInfo("1041072", typeof(MagicWizardsHat), 11, 10, 0x1718, Utility.RandomDyedHue()));
 
                 Add(new GenericBuyInfo(typeof(RecallRune), 15, 10, 0x1F14, 0));
 
-                Add(new GenericBuyInfo(typeof(RefreshPotion), 15, 10, 0xF0B, 0, true));
-                Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0, true));
-                Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0, true));
-                Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0, true));
-                Add(new GenericBuyInfo(typeof(LesserExplosionPotion), 21, 10, 0xF0D, 0, true));
+                //Add(new GenericBuyInfo(typeof(RefreshPotion), 15, 10, 0xF0B, 0, true));
+                //Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0, true));
+                //Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0, true));
+                //Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0, true));
+                //Add(new GenericBuyInfo(typeof(LesserExplosionPotion), 21, 10, 0xF0D, 0, true));
 
                 Add(new GenericBuyInfo(typeof(BlackPearl), 5, 20, 0xF7A, 0));
                 Add(new GenericBuyInfo(typeof(Bloodmoss), 5, 20, 0xF7B, 0));
@@ -93,53 +93,53 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                Add(typeof(WizardsHat), 15);
-                Add(typeof(BlackPearl), 3); 
-                Add(typeof(Bloodmoss), 4); 
-                Add(typeof(MandrakeRoot), 2); 
-                Add(typeof(Garlic), 2); 
-                Add(typeof(Ginseng), 2); 
-                Add(typeof(Nightshade), 2); 
-                Add(typeof(SpidersSilk), 2); 
-                Add(typeof(SulfurousAsh), 2); 
+                //Add(typeof(WizardsHat), 15);
+                //Add(typeof(BlackPearl), 3); 
+                //Add(typeof(Bloodmoss), 4); 
+                //Add(typeof(MandrakeRoot), 2); 
+                //Add(typeof(Garlic), 2); 
+                //Add(typeof(Ginseng), 2); 
+                //Add(typeof(Nightshade), 2); 
+                //Add(typeof(SpidersSilk), 2); 
+                //Add(typeof(SulfurousAsh), 2); 
 
-                if (Core.AOS)
-                {
-                    Add(typeof(BatWing), 1);
-                    Add(typeof(DaemonBlood), 3);
-                    Add(typeof(PigIron), 2);
-                    Add(typeof(NoxCrystal), 3);
-                    Add(typeof(GraveDust), 1);
-                }
+                //if (Core.AOS)
+                //{
+                //    Add(typeof(BatWing), 1);
+                //    Add(typeof(DaemonBlood), 3);
+                //    Add(typeof(PigIron), 2);
+                //    Add(typeof(NoxCrystal), 3);
+                //    Add(typeof(GraveDust), 1);
+                //}
 
-                Add(typeof(RecallRune), 13);
-                Add(typeof(Spellbook), 25);
+                //Add(typeof(RecallRune), 13);
+                //Add(typeof(Spellbook), 25);
 
-                Type[] types = Loot.RegularScrollTypes;
+                //Type[] types = Loot.RegularScrollTypes;
 
-                for (int i = 0; i < types.Length; ++i)
-                    Add(types[i], ((i / 8) + 2) * 2);
+                //for (int i = 0; i < types.Length; ++i)
+                //    Add(types[i], ((i / 8) + 2) * 2);
 
-                if (Core.SE)
-                { 
-                    Add(typeof(ExorcismScroll), 3);
-                    Add(typeof(AnimateDeadScroll), 8);
-                    Add(typeof(BloodOathScroll), 8);
-                    Add(typeof(CorpseSkinScroll), 8);
-                    Add(typeof(CurseWeaponScroll), 8);
-                    Add(typeof(EvilOmenScroll), 8);
-                    Add(typeof(PainSpikeScroll), 8);
-                    Add(typeof(SummonFamiliarScroll), 8);
-                    Add(typeof(HorrificBeastScroll), 8);
-                    Add(typeof(MindRotScroll), 10);
-                    Add(typeof(PoisonStrikeScroll), 10);
-                    Add(typeof(WraithFormScroll), 15);
-                    Add(typeof(LichFormScroll), 16);
-                    Add(typeof(StrangleScroll), 16);
-                    Add(typeof(WitherScroll), 16);
-                    Add(typeof(VampiricEmbraceScroll), 20);
-                    Add(typeof(VengefulSpiritScroll), 20);
-                }
+                //if (Core.SE)
+                //{ 
+                //    Add(typeof(ExorcismScroll), 3);
+                //    Add(typeof(AnimateDeadScroll), 8);
+                //    Add(typeof(BloodOathScroll), 8);
+                //    Add(typeof(CorpseSkinScroll), 8);
+                //    Add(typeof(CurseWeaponScroll), 8);
+                //    Add(typeof(EvilOmenScroll), 8);
+                //    Add(typeof(PainSpikeScroll), 8);
+                //    Add(typeof(SummonFamiliarScroll), 8);
+                //    Add(typeof(HorrificBeastScroll), 8);
+                //    Add(typeof(MindRotScroll), 10);
+                //    Add(typeof(PoisonStrikeScroll), 10);
+                //    Add(typeof(WraithFormScroll), 15);
+                //    Add(typeof(LichFormScroll), 16);
+                //    Add(typeof(StrangleScroll), 16);
+                //    Add(typeof(WitherScroll), 16);
+                //    Add(typeof(VampiricEmbraceScroll), 20);
+                //    Add(typeof(VengefulSpiritScroll), 20);
+                //}
             }
         }
     }

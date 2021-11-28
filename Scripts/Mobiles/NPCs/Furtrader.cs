@@ -31,7 +31,7 @@ namespace Server.Mobiles
         }
         public override void InitSBInfo()
         {
-            this.m_SBInfos.Add(new SBFurtrader());
+            this.m_SBInfos.Add(new SBTailor());
         }
 
         public override void Serialize(GenericWriter writer)

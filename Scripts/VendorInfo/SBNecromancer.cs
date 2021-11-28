@@ -39,7 +39,7 @@ namespace Server.Mobiles
 					Add( new GenericBuyInfo( typeof( NecromancerSpellbook ), 150, 10, 0x2253, 0 ) );
 				}
 				
-				Add(new GenericBuyInfo("1041072", typeof(MagicWizardsHat), 11, 10, 0x1718, Utility.RandomDyedHue()));
+				//Add(new GenericBuyInfo("1041072", typeof(MagicWizardsHat), 11, 10, 0x1718, Utility.RandomDyedHue()));
                 Add(new GenericBuyInfo(typeof(ScribesPen), 8, 10, 0xFBF, 0));
                 Add(new GenericBuyInfo(typeof(BlankScroll), 5, 20, 0x0E34, 0));
 				Add( new GenericBuyInfo( typeof( RecallRune ), 25, 10, 0x1f14, 0 ) );
@@ -65,32 +65,32 @@ namespace Server.Mobiles
 		{
 			public InternalSellInfo()
 			{
-				Add( typeof( WizardsHat ), 15 );
-				Add( typeof( Runebook ), 1250 );
-				Add( typeof( BlackPearl ), 3 ); 
-				Add( typeof( Bloodmoss ),4 ); 
-				Add( typeof( MandrakeRoot ), 2 ); 
-				Add( typeof( Garlic ), 2 ); 
-				Add( typeof( Ginseng ), 2 ); 
-				Add( typeof( Nightshade ), 2 ); 
-				Add( typeof( SpidersSilk ), 2 ); 
-				Add( typeof( SulfurousAsh ), 2 );
-				Add( typeof( RecallRune ), 13 );
-				Add( typeof( Spellbook ), 25 );
+				//Add( typeof( WizardsHat ), 15 );
+				//Add( typeof( Runebook ), 1250 );
+				//Add( typeof( BlackPearl ), 3 ); 
+				//Add( typeof( Bloodmoss ),4 ); 
+				//Add( typeof( MandrakeRoot ), 2 ); 
+				//Add( typeof( Garlic ), 2 ); 
+				//Add( typeof( Ginseng ), 2 ); 
+				//Add( typeof( Nightshade ), 2 ); 
+				//Add( typeof( SpidersSilk ), 2 ); 
+				//Add( typeof( SulfurousAsh ), 2 );
+				//Add( typeof( RecallRune ), 13 );
+				//Add( typeof( Spellbook ), 25 );
 				
-				if ( Core.AOS )
-				{
-				Add( typeof( PigIron ), 2 );
-				Add( typeof( DaemonBlood ), 3 );
-				Add( typeof( NoxCrystal ), 3 );
-				Add( typeof( BatWing ), 1 );
-				Add( typeof( GraveDust ), 1 );
-				}
+				//if ( Core.AOS )
+				//{
+				//Add( typeof( PigIron ), 2 );
+				//Add( typeof( DaemonBlood ), 3 );
+				//Add( typeof( NoxCrystal ), 3 );
+				//Add( typeof( BatWing ), 1 );
+				//Add( typeof( GraveDust ), 1 );
+				//}
 
-				Type[] types = Loot.RegularScrollTypes;
+				//Type[] types = Loot.RegularScrollTypes;
 
-				for (int i = 0; i < types.Length; ++i)
-                    Add(types[i], ((i / 8) + 2) * 2);
+				//for (int i = 0; i < types.Length; ++i)
+    //                Add(types[i], ((i / 8) + 2) * 2);
 			}
 		}
 	}

@@ -26,7 +26,7 @@ namespace Server.Mobiles
         }
         public override void InitSBInfo() 
         { 
-            this.m_SBInfos.Add(new SBTavernKeeper()); 
+            this.m_SBInfos.Add(new SBBarkeeper()); 
         }
 
         public override void InitOutfit()

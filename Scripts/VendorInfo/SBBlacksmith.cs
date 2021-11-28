@@ -33,6 +33,7 @@ namespace Server.Mobiles
             {
                 Add(new GenericBuyInfo(typeof(Tongs), 13, 14, 0xFBB, 0));
                 Add(new GenericBuyInfo(typeof(GemMiningBook), 10625, 20, 0xFBE, 0));
+                Add(new GenericBuyInfo(typeof(Shovel), 12, 10, 0xF39, 0));
             }
         }
 

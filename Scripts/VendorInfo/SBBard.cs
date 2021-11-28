@@ -31,10 +31,10 @@ namespace Server.Mobiles
         { 
             public InternalBuyInfo() 
             { 
-                Add(new GenericBuyInfo(typeof(Drums), 21, (10), 0x0E9C, 0)); 
-                Add(new GenericBuyInfo(typeof(Tambourine), 21, (10), 0x0E9E, 0)); 
-                Add(new GenericBuyInfo(typeof(LapHarp), 21, (10), 0x0EB2, 0)); 
-                Add(new GenericBuyInfo(typeof(Lute), 21, (10), 0x0EB3, 0)); 
+                //Add(new GenericBuyInfo(typeof(Drums), 21, (10), 0x0E9C, 0)); 
+                //Add(new GenericBuyInfo(typeof(Tambourine), 21, (10), 0x0E9E, 0)); 
+                //Add(new GenericBuyInfo(typeof(LapHarp), 21, (10), 0x0EB2, 0)); 
+                //Add(new GenericBuyInfo(typeof(Lute), 21, (10), 0x0EB3, 0)); 
             }
         }
 
@@ -42,11 +42,11 @@ namespace Server.Mobiles
         { 
             public InternalSellInfo() 
             { 
-                Add(typeof(LapHarp), 10); 
-                Add(typeof(Lute), 10); 
-                Add(typeof(Drums), 10); 
-                Add(typeof(Harp), 10); 
-                Add(typeof(Tambourine), 10); 
+                //Add(typeof(LapHarp), 10); 
+                //Add(typeof(Lute), 10); 
+                //Add(typeof(Drums), 10); 
+                //Add(typeof(Harp), 10); 
+                //Add(typeof(Tambourine), 10); 
             }
         }
     }

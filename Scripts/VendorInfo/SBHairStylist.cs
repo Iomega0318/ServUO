@@ -41,9 +41,9 @@ namespace Server.Mobiles
         { 
             public InternalSellInfo() 
             { 
-                Add(typeof(HairDye), 30); 
-                Add(typeof(SpecialBeardDye), 250000); 
-                Add(typeof(SpecialHairDye), 250000); 
+                //Add(typeof(HairDye), 30); 
+                //Add(typeof(SpecialBeardDye), 250000); 
+                //Add(typeof(SpecialHairDye), 250000); 
             }
         }
     }

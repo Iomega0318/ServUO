@@ -51,10 +51,6 @@ namespace Server.Mobiles
         public override void InitSBInfo()
         {
             this.m_SBInfos.Add(new SBBowyer());
-            this.m_SBInfos.Add(new SBRangedWeapon());
-			
-            if (this.IsTokunoVendor)
-                this.m_SBInfos.Add(new SBSEBowyer());	
         }
 
         #region Bulk Orders

@@ -33,10 +33,10 @@ namespace Server.Mobiles
         }
         public override void InitSBInfo() 
         { 
-            this.m_SBInfos.Add(new SBInnKeeper()); 
+            this.m_SBInfos.Add(new SBBarkeeper()); 
 			
-            if (this.IsTokunoVendor)
-                this.m_SBInfos.Add(new SBSEFood());
+            //if (this.IsTokunoVendor)
+            //    this.m_SBInfos.Add(new SBSEFood());
         }
 
         public override void Serialize(GenericWriter writer) 

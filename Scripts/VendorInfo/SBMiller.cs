@@ -40,8 +40,8 @@ namespace Server.Mobiles
         { 
             public InternalSellInfo() 
             { 
-                Add(typeof(SackFlour), 1);
-                Add(typeof(SheafOfHay), 1);
+                //Add(typeof(SackFlour), 1);
+                //Add(typeof(SheafOfHay), 1);
             }
         }
     }

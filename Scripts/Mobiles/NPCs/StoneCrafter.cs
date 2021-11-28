@@ -36,9 +36,9 @@ namespace Server.Mobiles
         public override void InitSBInfo()
         {
             this.m_SBInfos.Add(new SBStoneCrafter());
-            this.m_SBInfos.Add(new SBStavesWeapon());
+            //this.m_SBInfos.Add(new SBStavesWeapon());
             this.m_SBInfos.Add(new SBCarpenter());
-            this.m_SBInfos.Add(new SBWoodenShields());
+            //this.m_SBInfos.Add(new SBWoodenShields());
         }
 
         public override void Serialize(GenericWriter writer)

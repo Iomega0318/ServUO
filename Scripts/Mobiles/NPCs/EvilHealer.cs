@@ -55,7 +55,7 @@ namespace Server.Mobiles
 
         public override void InitSBInfo()
         {
-            this.SBInfos.Add(new SBHealer());
+            //this.SBInfos.Add(new SBHealer());
         }
 
         public override bool CheckResurrect(Mobile m)
