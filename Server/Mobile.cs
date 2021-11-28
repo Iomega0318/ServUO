@@ -3969,7 +3969,7 @@ namespace Server
 			return item.OnInventoryDeath(this);
 		}
 
-		public virtual bool RetainPackLocsOnDeath { get { return Core.AOS; } }
+		public virtual bool RetainPackLocsOnDeath { get { return true; } }
 
 		public virtual void Kill()
 		{
