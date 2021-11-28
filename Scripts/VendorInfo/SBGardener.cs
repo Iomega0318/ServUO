@@ -32,6 +32,7 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
+                Add(new GenericBuyInfo(typeof(ReagentHarvester), 17, 20, 0x26BB, 0));
                 Add(new GenericBuyInfo(typeof(Hoe), 17, 20, 0xE86, 2524));
                 Add(new GenericBuyInfo(typeof(GardeningContract), 10156, 500, 0x14F0, 0));
                 Add(new GenericBuyInfo("1060834", typeof(Engines.Plants.PlantBowl), 2, 20, 0x15FD, 0));

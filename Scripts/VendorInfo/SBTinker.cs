@@ -69,7 +69,7 @@ namespace Server.Mobiles
 
                 Add(new GenericBuyInfo(typeof(DovetailSaw), 12, 20, 0x1028, 0));
                 Add(new GenericBuyInfo(typeof(Saw), 15, 20, 0x1034, 0));
-
+                Add(new GenericBuyInfo(typeof(ReagentHarvester), 17, 20, 0x26BB, 0));
                 Add(new GenericBuyInfo(typeof(Hammer), 17, 20, 0x102A, 0));
                 //Add(new GenericBuyInfo(typeof(SmithHammer), 23, 20, 0x13E3, 0));
                 // TODO: Sledgehammer
