@@ -38,7 +38,7 @@ namespace Server.Mobiles
             public InternalBuyInfo(Mobile m)
             {                
                 Add(new GenericBuyInfo(typeof(MortarPestle), 8, 10, 0xE9B, 0));
-
+                Add(new GenericBuyInfo(typeof(ReagentHarvester), 17, 20, 0x26BB, 0));
                 Add(new GenericBuyInfo(typeof(BlackPearl), 5, 20, 0xF7A, 0));
                 Add(new GenericBuyInfo(typeof(Bloodmoss), 5, 20, 0xF7B, 0));
                 Add(new GenericBuyInfo(typeof(Garlic), 3, 20, 0xF84, 0));

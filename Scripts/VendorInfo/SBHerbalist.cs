@@ -30,7 +30,8 @@ namespace Server.Mobiles
         public class InternalBuyInfo : List<GenericBuyInfo> 
         { 
             public InternalBuyInfo() 
-            { 
+            {
+                Add(new GenericBuyInfo(typeof(ReagentHarvester), 17, 20, 0x26BB, 0));
                 Add(new GenericBuyInfo(typeof(Ginseng), 3, 20, 0xF85, 0)); 
                 Add(new GenericBuyInfo(typeof(Garlic), 3, 20, 0xF84, 0)); 
                 Add(new GenericBuyInfo(typeof(MandrakeRoot), 3, 20, 0xF86, 0)); 
