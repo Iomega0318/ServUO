@@ -102,9 +102,9 @@ namespace Server.Engines.Harvest
             reagent.ConsumedPerFeluccaHarvest = 10;
 
             // The chopping effect
-            reagent.EffectActions = new int[] { 13 };
+            reagent.EffectActions = new int[] { Core.SA ? 7 : 13 };
             reagent.EffectSounds = new int[] { 0x13E };
-            reagent.EffectCounts = new int[] { 1, 2 };
+            reagent.EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 });
             reagent.EffectDelay = TimeSpan.FromSeconds(1.3);
             reagent.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
 

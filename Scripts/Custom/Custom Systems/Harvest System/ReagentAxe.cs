@@ -5,7 +5,7 @@ using Server.Engines.Harvest;
 
 namespace Server.Items
 {
-    [FlipableAttribute(0x13E4, 0x13E3)]
+    [FlipableAttribute(0xf4b, 0xf4c)]
     public class ReagentAxe : BaseAxe
     {
         public override HarvestSystem HarvestSystem { get { return ReagentGathering.System; } }
@@ -23,10 +23,10 @@ namespace Server.Items
         public override int InitMinHits { get { return 31; } }
         public override int InitMaxHits { get { return 60; } }
 
-        public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash1H; } }
+        public override WeaponAnimation DefAnimation { get { return WeaponAnimation.Slash2H; } }
 
         [Constructable]
-        public ReagentAxe() : base(0x13E4)
+        public ReagentAxe() : base(0xF4B)
         {
             Name = "Reagent Gathering Axe";
             Hue = 64;
