@@ -33,7 +33,7 @@ namespace Server.Engines.Harvest
 
         public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
         {
-                   double skillvaluelj = killerguy.Skills[SkillName.Magery].Base;
+                   /*double skillvaluelj = killerguy.Skills[SkillName.Magery].Base;
                    int i_itemid = (int)(killerguy.Skills[SkillName.ItemID].Base/10);
 
                    if ((Utility.RandomMinMax( 1, 1500 ) <= (1 + i_itemid)) && (skillvaluelj >= 70.1))
@@ -45,7 +45,7 @@ namespace Server.Engines.Harvest
                        case 3 : from.AddToBackpack(new ParasiticPlant()); from.SendMessage ("you find something wedged in the tree, a weird looking plant");break;
                        case 4 : from.AddToBackpack(new DiseasedBark()); from.SendMessage ("you find something wedged in the tree, some weird looking bark ");break;
                      }
-                   }
+                   }*/
         }
 
         private static ReagentGathering m_System;
