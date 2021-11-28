@@ -6,10 +6,10 @@ using Server.Targeting;
 namespace Server.Mobiles
 {
 	[CorpseName( "a skeletal corpse" )]
-	public class UndeadKnight : BaseCreature
+	public class UndeadKnight2 : BaseCreature
 	{
 		[Constructable]
-		public UndeadKnight() : base( AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4 )
+		public UndeadKnight2() : base( AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4 )
 		{
 			Name = "an undead knight";
 			Body = 147;
@@ -64,7 +64,7 @@ namespace Server.Mobiles
 
 		public override bool BleedImmune{ get{ return true; } }
 
-		public UndeadKnight( Serial serial ) : base( serial )
+		public UndeadKnight2( Serial serial ) : base( serial )
 		{
 		}
 
