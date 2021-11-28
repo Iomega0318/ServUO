@@ -2610,6 +2610,16 @@
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Brimstone Champion\Level 4\Balroq.cs" />
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Brimstone Champion\Level 4\FireSpiritMinion.cs" />
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Brimstone Champion\PoolOfLava.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseArms.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseChest.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseGloves.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseHelm.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseLegs.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\BlackRoseShield.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\HellishSightLenses.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\Soth.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\UndeadKnight.cs" />
+    <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\DeathKnight\UnHolysword.cs" />
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Winter Solstice Champ\Hodur.cs" />
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Winter Solstice Champ\Level 1\IcyMyrmidex.cs" />
     <Compile Include="Custom\Custom Monsters and Bosses\New Champ Spawns\Winter Solstice Champ\Level 2\IceGuardians.cs" />

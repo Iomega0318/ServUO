@@ -536,8 +536,11 @@ namespace Server.Engines.CannedEvil
                         Type = ChampionSpawnType.WinterSolstice; break;
                     case 13:
                         Type = ChampionSpawnType.Brimstone; break;
-                    case 14:
-                        Type = ChampionSpawnType.AdventureChamp; break;
+                    //case 14:
+                    //    Type = ChampionSpawnType.AdventureChamp; break;
+                    #region Horror of Krynn
+                    case 14: Type = ChampionSpawnType.HorrorofKrynn; break;
+                    #endregion
                 }
             }
 
