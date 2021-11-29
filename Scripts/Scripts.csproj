@@ -3924,11 +3924,6 @@
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\OnionCrop.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\PeachTree.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\PearTree.cs" />
-    <Compile Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\BloodMossCrop.cs" />
-    <Compile Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\GarlicCrop.cs" />
-    <Compile Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\GinsengCrop.cs" />
-    <Compile Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\MandrakeCrop.cs" />
-    <Compile Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\NightShadeCrop.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\SBFarmHand.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\ShellFish.cs" />
     <Compile Include="Custom\Custom Systems\Harvest System\Harvest\TreeHelper.cs" />
@@ -18436,13 +18431,6 @@
     <None Include="Custom\Custom Systems\Harvest System\Harvest\.svn\text-base\TreeHelper.cs.svn-base" />
     <None Include="Custom\Custom Systems\Harvest System\Harvest\.svn\text-base\UpRootGump.cs.svn-base" />
     <None Include="Custom\Custom Systems\Harvest System\Harvest\.svn\text-base\WheatCrop.cs.svn-base" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\all-wcprops" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\entries" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\text-base\BloodMossCrop.cs.svn-base" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\text-base\GarlicCrop.cs.svn-base" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\text-base\GinsengCrop.cs.svn-base" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\text-base\MandrakeCrop.cs.svn-base" />
-    <None Include="Custom\Custom Systems\Harvest System\Harvest\Reagents\.svn\text-base\NightShadeCrop.cs.svn-base" />
     <None Include="Custom\Custom Systems\Harvesters\Harvesters.7z" />
     <None Include="Custom\Custom Systems\Holiday\Friday13Jason\Jason.cs.bak" />
     <None Include="Custom\Custom Systems\Holiday\Friday13Jason\Jason.cs.bak2" />
