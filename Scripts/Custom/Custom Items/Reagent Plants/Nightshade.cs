@@ -123,7 +123,7 @@ namespace Server.Items
                         from.SendMessage("You collect the reagents and put them in your pack.");
                         if (.1 > Utility.RandomDouble())
                         {
-                            from.AddToBackpack(new NightshadeSeed);
+                            from.AddToBackpack(new NightshadeSeed());
 
                         }
 
@@ -133,7 +133,7 @@ namespace Server.Items
                             {
                                 if (.1 > Utility.RandomDouble())
                                 {
-                                    from.AddToBackpack(new NightshadeSeed);
+                                    from.AddToBackpack(new NightshadeSeed());
 
                                 }
                                 from.AddToBackpack(new Nightshade());
