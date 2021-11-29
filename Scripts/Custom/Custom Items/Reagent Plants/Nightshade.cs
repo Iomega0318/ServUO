@@ -291,21 +291,24 @@ namespace Server.Items
             }
 
             var tile = new LandTarget(from.Location, from.Map);
-
-            if (tile.Name == "grass" || tile.Name == "furrows" || tile.Name == "forest" || tile.Name == "jungle")
+            if (tile.Name != "grass" || tile.Name != "furrows" || tile.Name != "forest" || tile.Name != "jungle")
             {
-                var seedling = new NightshadeSeedling();
-                from.Freeze(TimeSpan.FromMilliseconds(1500));
-                from.PlayAttackAnimation(AttackAnimation.Wrestle);
-                from.SendMessage("You plant the seed at your feet.");
-                Amount--;
-                if (Amount == 0)
-                {
-                    Delete();
-                }
-
-                seedling.MoveToWorld(from.Location, from.Map);
+                from.SendMessage("You cannot plant here.");
+                return;
             }
+
+            var seedling = new NightshadeSeedling();
+            from.Freeze(TimeSpan.FromMilliseconds(1500));
+            from.PlayAttackAnimation(AttackAnimation.Wrestle);
+            from.SendMessage("You plant the seed at your feet.");
+            Amount--;
+            if (Amount == 0)
+            {
+                Delete();
+            }
+
+            seedling.MoveToWorld(from.Location, from.Map);
         }
+
     }
 }
