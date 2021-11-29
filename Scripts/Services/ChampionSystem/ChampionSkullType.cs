@@ -10,6 +10,9 @@ namespace Server.Engines.CannedEvil
         Venom,
         Pain,
         Greed,
-        Death
+        Death,
+        //Iomega0318
+        //Soth Skull
+        Lust
     }
 }

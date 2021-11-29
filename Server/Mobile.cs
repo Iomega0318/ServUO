@@ -4118,9 +4118,15 @@ namespace Server
 					if (RetainPackLocsOnDeath && item.Parent == pack)
 					{
 						continue;
-					}
+                    }
+                    #region Iomega0318
+                    if (item.Parent is Container ip && ip != pack && ip.CheckBlessed(this))
+                    {
+                        continue;
+                    }
+                    #endregion
 
-					pack.DropItem(item);
+                    pack.DropItem(item);
 				}
 			}
 

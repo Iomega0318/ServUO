@@ -29,7 +29,8 @@ namespace Server.Engines.CannedEvil
         AncientBlacksmith,
         WinterSolstice,
         Brimstone,
-        AdventureChamp
+        AdventureChamp,
+        HorrorofKrynn
     }
 
     public class ChampionSpawnInfo
@@ -220,7 +221,16 @@ namespace Server.Engines.CannedEvil
                 new Type[] { typeof(AdventureOrcBomber), typeof(AdventureOrcishArcher) },
                 new Type[] { typeof(AdventureOrcishMage), typeof(AdventureOrcishShaman) },
                 new Type[] { typeof(AdventureOrcCaptain), typeof(AdventureOrcishLord) }
-            })
+            }),
+            #region Horror of Krynn
+            new ChampionSpawnInfo( "Horror of Krynn", typeof( LordSoth ), new string[]{ "Bane", "Challenger", "Slayer" } , new Type[][]
+            {	// Horror of Krynn Custom Champ Spawn Does cycele through Randoms in Fel T2A
+                new Type[]{ typeof( Skeleton ), typeof( Wraith ) },
+                new Type[]{ typeof( Spectre ), typeof( BoneMagi  ) },
+                new Type[]{ typeof( UndeadKnight ), typeof( Lich ) },
+                new Type[]{ typeof( LichLord ), typeof( SkeletalDragon ) }
+            } ),
+            #endregion
         };
 
         public static ChampionSpawnInfo GetInfo(ChampionSpawnType type)
