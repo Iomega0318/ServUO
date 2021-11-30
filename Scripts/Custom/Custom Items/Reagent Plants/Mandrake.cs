@@ -3,7 +3,7 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-    public class NightshadeBush : Item
+    public class MandrakePlant : Item
     {
         private int m_Harvests;
         private DateTime m_LastHarvested;
@@ -30,19 +30,19 @@ namespace Server.Items
         }
 
         [Constructable]
-        public NightshadeBush()
+        public MandrakePlant()
             : this(null)
         {
         }
 
         [Constructable]
-        public NightshadeBush(Mobile planter)
-            :base(0x0DEE)
+        public MandrakePlant(Mobile planter)
+            : base(0x0C63)
         {
-            Name = "Nightshade Bush";
+            Name = "Mandrake Plant";
             Movable = false;
-            Hue = 0x23C;
-
+            Hue = 342;
+            
             m_Harvests = Utility.RandomMinMax(8, 12);
             m_LastHarvested = DateTime.Now;
             m_Planter = planter;
@@ -53,15 +53,15 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public NightshadeBush(Serial serial)
+        public MandrakePlant(Serial serial)
             : base(serial)
         {
         }
 
         protected class InternalTimer : Timer
         {
-            private readonly NightshadeBush m_Bush;
-            public InternalTimer(NightshadeBush bush, DateTime end) : base(end.Subtract(DateTime.Now))
+            private readonly MandrakePlant m_Bush;
+            public InternalTimer(MandrakePlant bush, DateTime end) : base(end.Subtract(DateTime.Now))
             {
                 m_Bush = bush;
                 Priority = TimerPriority.OneMinute;
@@ -90,7 +90,7 @@ namespace Server.Items
 
             if (from.InRange(Location, 1))
             {
-                if (from.FindItemOnLayer(Layer.OneHanded) is ReagentHarvester t )
+                if (from.FindItemOnLayer(Layer.OneHanded) is ReagentHarvester t)
                 {
                     if (DateTime.Now < m_LastHarvested.AddMilliseconds(1500))
                     {
@@ -132,11 +132,11 @@ namespace Server.Items
                     }
                     else
                     {
-                        from.AddToBackpack(new Nightshade());
+                        from.AddToBackpack(new MandrakeRoot());
                         from.SendMessage("You collect the reagents and put them in your pack.");
                         if (.1 > Utility.RandomDouble())
                         {
-                            from.AddToBackpack(new NightshadeSeed());
+                            from.AddToBackpack(new MandrakeSeed());
 
                         }
 
@@ -146,22 +146,22 @@ namespace Server.Items
                             {
                                 if (.1 > Utility.RandomDouble())
                                 {
-                                    from.AddToBackpack(new NightshadeSeed());
+                                    from.AddToBackpack(new MandrakeSeed());
                                 }
-                                from.AddToBackpack(new Nightshade());
+                                from.AddToBackpack(new MandrakeRoot());
                             }
                         }
                     }
-                }     
+                }
                 else
                 {
                     from.SendMessage("You feel you would need a tool to harvest this plant.");
-                }                
+                }
             }
             else
             {
                 from.SendMessage("You are not close enough to harvest this plant.");
-            }           
+            }
         }
 
         public override void Serialize(GenericWriter writer)
@@ -189,31 +189,31 @@ namespace Server.Items
         }
     }
 
-    public class NightshadeSeedling : Item
+    public class MandrakeSeedling : Item
     {
         private InternalTimer m_MaturityTimer;
         private Mobile m_Planter;
 
         [Constructable]
-        public NightshadeSeedling()
+        public MandrakeSeedling()
             : this(null)
         {
         }
 
         [Constructable]
-        public NightshadeSeedling(Mobile planter)
-            : base(0x0DEC)
+        public MandrakeSeedling(Mobile planter)
+            : base(0x0C61)
         {
-            Name = "Nightshade Seedling";
+            Name = "Mandrake Seedling";
             Movable = false;
-            Hue = 0x23C;
-            m_Planter = planter;
+            Hue = 342;
+            m_Planter = planter; 
 
-            var lifespan = Utility.RandomMinMax(360, 480); //360, 480
-            var end = DateTime.Now.AddMinutes(lifespan);
+            var lifespan = Utility.RandomMinMax(30, 30); //360, 480
+            var end = DateTime.Now.AddSeconds(lifespan);
             m_MaturityTimer = new InternalTimer(this, end);
             m_MaturityTimer.Start();
-            
+
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -228,15 +228,15 @@ namespace Server.Items
             get { return m_Planter; }
         }
 
-        public NightshadeSeedling(Serial serial)
+        public MandrakeSeedling(Serial serial)
             : base(serial)
         {
         }
 
         protected class InternalTimer : Timer
         {
-            private readonly NightshadeSeedling m_Bush;
-            public InternalTimer(NightshadeSeedling bush, DateTime end) : base(end.Subtract(DateTime.Now))
+            private readonly MandrakeSeedling m_Bush;
+            public InternalTimer(MandrakeSeedling bush, DateTime end) : base(end.Subtract(DateTime.Now))
             {
                 m_Bush = bush;
                 Priority = TimerPriority.FiveSeconds;
@@ -255,7 +255,7 @@ namespace Server.Items
                     var map = m_Bush.Map;
                     var planter = m_Bush.m_Planter;
                     m_Bush.Delete();
-                    var matureBush = new NightshadeBush(planter);
+                    var matureBush = new MandrakePlant(planter);
                     matureBush.MoveToWorld(location, map);
                 }
 
@@ -269,7 +269,7 @@ namespace Server.Items
             base.OnDoubleClick(from);
             from.SendMessage("This plant is not mature enough to harvest");
         }
-                
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -293,27 +293,27 @@ namespace Server.Items
         }
     }
 
-    public class NightshadeSeed : Item, ICommodity
+    public class MandrakeSeed : Item, ICommodity
     {
         [Constructable]
-        public NightshadeSeed()
+        public MandrakeSeed()
             : this(1)
         {
         }
 
         [Constructable]
-        public NightshadeSeed(int amount)
-            : base(0xDCF)
+        public MandrakeSeed(int amount)
+            : base(0x0C67)
         {
-            Name = "Nightshade Seed";
+            Name = "Mandrake Seed";
             Stackable = true;
             Weight = .5;
-            Hue = 0x23C;
+            Hue = 342;
             Movable = true;
             Amount = amount;
         }
 
-        public NightshadeSeed(Serial serial)
+        public MandrakeSeed(Serial serial)
             : base(serial)
         {
         }
@@ -356,7 +356,7 @@ namespace Server.Items
                 return;
             }
 
-            var seedling = new NightshadeSeedling(from);
+            var seedling = new MandrakeSeedling(from);
             from.Freeze(TimeSpan.FromMilliseconds(1500));
             from.PlayAttackAnimation(AttackAnimation.Wrestle);
             from.SendMessage("You plant the seed at your feet.");
@@ -384,4 +384,5 @@ namespace Server.Items
         }
 
     }
+
 }
