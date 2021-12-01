@@ -1,5 +1,6 @@
 using System;
 using Server.Targeting;
+using Server.Mobiles;
 using System.Collections.Generic;
 
 namespace Server.Items
@@ -125,17 +126,36 @@ namespace Server.Items
 
         private static void CriticalFail(BasePlant plant, Mobile from)
         {
-            if (plant is MandrakePlant || plant is NightshadeBush)
+            if (plant is MandrakePlant ||
+                plant is NightshadeBush)
             {
                 from.ApplyPoison(from, Poison.Lesser);
                 from.SendMessage("You cut yourself while harvesting.");
+            }
+
+            if (plant is GarlicPlant)
+            {
+                var tiles = plant.GetLandTilesInRange(from.Map, 1);
+                foreach (LandTile tile in tiles)
+                {
+                    var t = new LandTarget(plant.Location, from.Map);
+                    if (t.Flags != TileFlag.Impassable || !t.IsWater())
+                    {
+                        if (.25 < Utility.RandomDouble())
+                        {
+                            var rat = new Sewerrat();
+                            rat.MoveToWorld(plant.Location, plant.Map);
+                        }
+                    }
+                }                
             }
         }
 
         private static void AwardResource(BasePlant plant, Mobile from)
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeRoot()); }
-            else if (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
+            else if (plant is GarlicPlant) { from.AddToBackpack(new Garlic()); }
+            else (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
 
             from.SendMessage("You collect the reagents and put them in your pack.");
         }
@@ -143,6 +163,7 @@ namespace Server.Items
         private static void AwardSeed(BasePlant plant, Mobile from)
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeSeed()); }
+            else if (plant is GarlicPlant) { from.AddToBackpack(new GarlicSeed()); }
             else if (plant is NightshadeBush) { from.AddToBackpack(new NightshadeSeed()); }
 
             from.SendMessage("You collect a seed and put them in your pack.");
@@ -190,6 +211,7 @@ namespace Server.Items
         private static Item PlantToGrow(BaseSeedling plant)
         {
             if (plant is MandrakeSeedling) { return new MandrakePlant(plant.Planter); }
+            else if (plant is GarlicSeedling) { return new GarlicPlant(plant.Planter); }
             else return new NightshadeBush(plant.Planter);
         }
 
@@ -200,7 +222,8 @@ namespace Server.Items
         private static List<string> AllowedTerrain(BaseSeed seed)
         {
             if (seed is MandrakeSeed ||
-                seed is NightshadeSeed)
+                seed is NightshadeSeed ||
+                seed is GarlicSeed)
             {
                 return new List<string>() { "grass", "furrows", "forest", "jungle" };
             }
@@ -242,6 +265,7 @@ namespace Server.Items
         private static Item GetSeedling(BaseSeed seed, Mobile from)
         {
             if (seed is MandrakeSeed) { return new MandrakeSeedling(from); }
+            else if (seed is GarlicSeed) { return new GarlicSeedling(from); }
             else { return new NightshadeSeedling(from); }
         }
 
