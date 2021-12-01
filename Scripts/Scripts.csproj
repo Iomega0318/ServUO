@@ -1901,8 +1901,10 @@
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarHammer.cs" />
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarMace.cs" />
     <Compile Include="Custom\Custom Items\RareItem.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\BasePlants.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Mandrake.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Nightshade.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\PlantHelper.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\ReagentHarvester.cs" />
     <Compile Include="Custom\Custom Items\Recipebag.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AssassinSpikeOfEvolution.cs" />
