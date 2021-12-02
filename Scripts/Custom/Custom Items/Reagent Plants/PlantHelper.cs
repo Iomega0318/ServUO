@@ -155,7 +155,7 @@ namespace Server.Items
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeRoot()); }
             else if (plant is GarlicPlant) { from.AddToBackpack(new Garlic()); }
-            else (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
+            else if (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
 
             from.SendMessage("You collect the reagents and put them in your pack.");
         }
