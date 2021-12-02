@@ -5781,6 +5781,14 @@
     <Compile Include="Custom\Quests\Name.cs" />
     <Compile Include="Custom\Quests\Ochen.cs" />
     <Compile Include="Custom\Quests\ThePerfectCut.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Items\WoodTreefellowWood.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodChampions.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodCorpser.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodDryad.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodGuardianTreeEvo.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodPixie.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodReaper.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreefellow.cs" />
     <Compile Include="Custom\RewardItems.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardAvenger.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardElementWizard.cs" />
