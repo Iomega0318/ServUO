@@ -3,6 +3,7 @@ using Server.Engines.Craft;
 using Server.Network;
 using Server.ContextMenus;
 using System.Collections.Generic;
+using Server.Gumps;
 
 namespace Server.Items
 {
@@ -216,7 +217,45 @@ namespace Server.Items
             base.OnSingleClick(from);
         }
 
+        #region Iomega0318 - Captcha
         public override void OnDoubleClick(Mobile from)
+        {
+            CaptchaGump.sendCaptcha(from, BaseTool.OnDoubleClickRedirected, this);
+            //OnDoubleClickRedirected(from, this);
+        }
+
+        public static void OnDoubleClickRedirected(Mobile from, object o)
+        {
+            if (o == null || (!(o is BaseTool)))
+                return;
+
+            BaseTool tool = (BaseTool)o;
+
+            if (tool.IsChildOf(from.Backpack) || tool.Parent == from)
+            {
+                CraftSystem system = tool.CraftSystem;
+
+                int num = system.CanCraft(from, tool, null);
+
+                if (num > 0 && (num != 1044267 || !Core.SE)) // Blacksmithing shows the gump regardless of proximity of an anvil and forge after SE
+                {
+                    from.SendLocalizedMessage(num);
+                }
+                else
+                {
+                    CraftContext context = system.GetContext(from);
+
+                    from.SendGump(new CraftGump(from, system, tool, null));
+                }
+            }
+            else
+            {
+                from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+            }
+        }
+        #endregion
+
+        /*public static void DoubleClickRedirected(Mobile from)
         {
             if (IsChildOf(from.Backpack) || Parent == from)
             {
@@ -244,7 +283,7 @@ namespace Server.Items
             {
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
             }
-        }
+        }*/
 
         public override void Serialize(GenericWriter writer)
         {

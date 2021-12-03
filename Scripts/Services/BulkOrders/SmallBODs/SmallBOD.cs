@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
+using Server.Gumps;
 
 namespace Server.Engines.BulkOrders
 {
@@ -245,9 +246,15 @@ namespace Server.Engines.BulkOrders
         public override void OnDoubleClick(Mobile from)
         {
             if (IsChildOf(from.Backpack) || InSecureTrade || RootParent is PlayerVendor)
-			{
-				EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
-				from.SendGump(new SmallBODGump(from, this));
+            {
+                #region Iomega0318 - Captcha
+                /* Being Captcha Mod */
+                Gump bod_gump = new SmallBODGump(from, this);
+                CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
+                /* End Captcha Mod */
+                #endregion
+                //EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
+				//from.SendGump(new SmallBODGump(from, this));
 			}
             else
 			{
