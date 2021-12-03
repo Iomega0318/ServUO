@@ -174,17 +174,17 @@ namespace Server.Items
 
         public static DateTime GetMatureTime()
         {
-            var matures = Utility.RandomMinMax(360, 480); //360, 480
-            return DateTime.Now.AddMinutes(matures); //minutes
+            var matures = Utility.RandomMinMax(30, 30); //360, 480
+            return DateTime.UtcNow.AddSeconds(matures); //minutes
         }
 
         public class MatureTimer : Timer
         {
             private readonly BaseSeedling m_Plant;
-            public MatureTimer(BaseSeedling plant, DateTime end) : base(end.Subtract(DateTime.Now))
+            public MatureTimer(BaseSeedling plant, DateTime end) : base(end.Subtract(DateTime.UtcNow))
             {
                 m_Plant = plant;
-                Priority = TimerPriority.OneMinute;
+                Priority = TimerPriority.OneSecond;
             }
 
             public DateTime GetDelay()
