@@ -6,6 +6,7 @@ using Server.Engines.Quests;
 using Server.Engines.Quests.Hag;
 using Server.Mobiles;
 using System.Linq;
+using Server.Gumps;
 
 using daat99; //OWLTR
 
@@ -95,10 +96,38 @@ namespace Server.Engines.Harvest
             if (!CheckHarvest(from, tool))
                 return false;
 
-			EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
-            from.Target = new HarvestTarget(tool, this);
+            #region Iomega0318 - Captcha
+            /* Begin Captcha Mod */
+            CaptchaGump.sendCaptcha(from, HarvestSystem.SendHarvestTarget, new object[] { tool, this });
+            /* End Captcha Mod */
+            #endregion
+
+            //EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
+            //from.Target = new HarvestTarget(tool, this);
             return true;
         }
+
+        #region Iomega0318 - Captcha
+        /* Begin Captcha Mod */
+        public static void SendHarvestTarget(Mobile from, object o)
+        {
+            if (!(o is object[]))
+                return;
+            object[] arglist = (object[])o;
+
+            if (arglist.Length != 2)
+                return;
+
+            if (!(arglist[0] is Item))
+                return;
+
+            if (!(arglist[1] is HarvestSystem))
+                return;
+
+            from.Target = new HarvestTarget((Item)arglist[0], (HarvestSystem)arglist[1]);
+        }
+        /* End Captcha Mod */
+        #endregion
 
         public virtual void FinishHarvesting(Mobile from, Item tool, HarvestDefinition def, object toHarvest, object locked)
         {
