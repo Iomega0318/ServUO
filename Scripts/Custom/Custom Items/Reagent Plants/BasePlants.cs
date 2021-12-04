@@ -116,13 +116,19 @@ namespace Server.Items
         [CommandProperty(AccessLevel.GameMaster)]
         public DateTime Matures
         {
-            get { return m_MaturityTimer.GetDelay(); }
+            get { return m_MaturityTimer.GetDelay().ToLocalTime(); }
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public Mobile Planter
         {
             get { return m_Planter; }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan MaturesIn
+        {
+            get { return m_MaturityTimer.GetDelay().Subtract(DateTime.UtcNow); }
         }
 
         [Constructable]
