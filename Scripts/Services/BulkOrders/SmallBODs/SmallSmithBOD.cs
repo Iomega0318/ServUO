@@ -142,27 +142,6 @@ namespace Server.Engines.BulkOrders
                             case BulkMaterialType.Toxic: skillReq = 92.0; break;
                             case BulkMaterialType.Electrum: skillReq = 96.0; break;
                             case BulkMaterialType.Platinum: skillReq = 100.0; break;
-                            case BulkMaterialType.Spined: skillReq = 64.0; break;
-                            case BulkMaterialType.Horned: skillReq = 68.0; break;
-                            case BulkMaterialType.Barbed: skillReq = 72.0; break;
-                            case BulkMaterialType.Polar: skillReq = 76.0; break;
-                            case BulkMaterialType.Synthetic: skillReq = 80.0; break;
-                            case BulkMaterialType.BlazeL: skillReq = 84.0; break;
-                            case BulkMaterialType.Daemonic: skillReq = 88.0; break;
-                            case BulkMaterialType.Shadow: skillReq = 92.0; break;
-                            case BulkMaterialType.Frost: skillReq = 96.0; break;
-                            case BulkMaterialType.Ethereal: skillReq = 100.0; break;
-                            case BulkMaterialType.Heartwood: skillReq = 60.0; break;
-                            case BulkMaterialType.Bloodwood: skillReq = 64.0; break;
-                            case BulkMaterialType.Frostwood: skillReq = 68.0; break;
-                            case BulkMaterialType.OakWood: skillReq = 72.0; break;
-                            case BulkMaterialType.AshWood: skillReq = 76.0; break;
-                            case BulkMaterialType.YewWood: skillReq = 80.0; break;
-                            case BulkMaterialType.Ebony: skillReq = 84.0; break;
-                            case BulkMaterialType.Bamboo: skillReq = 88.0; break;
-                            case BulkMaterialType.PurpleHeart: skillReq = 92.0; break;
-                            case BulkMaterialType.Redwood: skillReq = 96.0; break;
-                            case BulkMaterialType.Petrified: skillReq = 100.0; break;
                             //daat99 OWLTR end - custom resources
                         }
 
