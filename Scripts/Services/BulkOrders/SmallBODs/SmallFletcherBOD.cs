@@ -108,29 +108,6 @@ namespace Server.Engines.BulkOrders
 
 						switch ( check )
 						{
-							case BulkMaterialType.DullCopper:	skillReq = 52.0; break;
-							case BulkMaterialType.ShadowIron:	skillReq = 56.0; break;
-							case BulkMaterialType.Copper:		skillReq = 60.0; break;
-							case BulkMaterialType.Bronze:		skillReq = 64.0; break;
-							case BulkMaterialType.Gold:			skillReq = 68.0; break;
-							case BulkMaterialType.Agapite:		skillReq = 72.0; break;
-							case BulkMaterialType.Verite:		skillReq = 76.0; break;
-							case BulkMaterialType.Valorite:		skillReq = 80.0; break;
-							case BulkMaterialType.Blaze:		skillReq = 84.0; break;
-							case BulkMaterialType.Ice:			skillReq = 88.0; break;
-							case BulkMaterialType.Toxic:		skillReq = 92.0; break;
-							case BulkMaterialType.Electrum:		skillReq = 96.0; break;
-							case BulkMaterialType.Platinum:		skillReq = 100.0; break;
-							case BulkMaterialType.Spined:		skillReq = 64.0; break;
-							case BulkMaterialType.Horned:		skillReq = 68.0; break;
-							case BulkMaterialType.Barbed:		skillReq = 72.0; break;
-							case BulkMaterialType.Polar:		skillReq = 76.0; break;
-							case BulkMaterialType.Synthetic:	skillReq = 80.0; break;
-							case BulkMaterialType.BlazeL:		skillReq = 84.0; break;
-							case BulkMaterialType.Daemonic:		skillReq = 88.0; break;
-							case BulkMaterialType.Shadow:		skillReq = 92.0; break;
-							case BulkMaterialType.Frost:		skillReq = 96.0; break;
-							case BulkMaterialType.Ethereal:		skillReq = 100.0; break;
                             case BulkMaterialType.OakWood: skillReq = 60.0; break;
                             case BulkMaterialType.AshWood: skillReq = 64.0; break;
                             case BulkMaterialType.YewWood: skillReq = 68.0; break;

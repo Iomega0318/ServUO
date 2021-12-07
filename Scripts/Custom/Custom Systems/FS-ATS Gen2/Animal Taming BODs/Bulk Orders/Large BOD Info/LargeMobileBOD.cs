@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Server;
 using Server.Items;
+using Server.Gumps;
 
 namespace Server.Engines.BulkOrders
 {
@@ -105,9 +106,17 @@ namespace Server.Engines.BulkOrders
 
 		public override void OnDoubleClick( Mobile from )
 		{
-			if ( IsChildOf( from.Backpack ) )
-				from.SendGump( new LargeMobileBODGump( from, this ) );
-			else
+			if ( IsChildOf( from.Backpack ))
+            {
+                #region Iomega0318 - Captcha
+                /* Being Captcha Mod */
+                Gump bod_gump = new LargeMobileBODGump(from, this);
+                CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
+                /* End Captcha Mod */
+                #endregion
+                //from.SendGump( new LargeMobileBODGump( from, this ) );
+            }
+            else
 				from.SendLocalizedMessage( 1045156 ); // You must have the deed in your backpack to use it.
 		}
 

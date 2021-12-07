@@ -11,7 +11,7 @@ namespace ShardDelivery.Items
     {
         public static class Config
         {
-            public static bool Enabled = true;                              // Item delivery enabled?
+            public static bool Enabled = false;                             // Item delivery enabled?
             public static int MinutesOnline = 60;                           // Gift delivery every X minutes.
             public static bool DropOnBank = true;                           // Gifts in Bankbox (true) or backpack (false)?
             public static AccessLevel MaxAccessLevel = AccessLevel.Player;  // This accesslevel and lower receives gifts.
@@ -246,5 +246,90 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
+    }
+
+    public class DonationDollar : BaseDonationDollar
+    {
+        [Constructable]
+        public DonationDollar() : this(1)
+        {
+        }
+
+        [Constructable]
+        public DonationDollar(int amountFrom, int amountTo) : this(Utility.RandomMinMax(amountFrom, amountTo))
+        {
+        }
+
+        [Constructable]
+        public DonationDollar(int amount) : base()
+        {
+            Name = "Donation Dollar";
+            Hue = 1165;
+            Stackable = true;
+            Amount = amount;
+            LootType = LootType.Blessed;
+        }
+        public DonationDollar(Serial serial) : base(serial)
+        {
+        }
+
+        public override void AddNameProperty(ObjectPropertyList list)
+        {
+            if (this.Amount > 1)
+                list.Add(String.Format("{0} Donation Dollars", this.Amount));
+            else
+                list.Add("a Donation Dollar");
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0);
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+    }
+    public abstract class BaseDonationDollar : Item
+    {
+        public override double DefaultWeight
+        {
+            get { return 0.0; }
+        }
+        public BaseDonationDollar() : base(0xEF3)
+        {
+        }
+        public BaseDonationDollar(int amount) : base(0xEF3)
+        {
+            Name = "Donation Dollars";
+            Hue = 1165;
+            Stackable = true;
+            Amount = amount;
+            LootType = LootType.Blessed;
+        }
+        public BaseDonationDollar(Serial serial) : base(serial)
+        {
+        }
+
+        public override void AddNameProperty(ObjectPropertyList list)
+        {
+            if (this.Amount > 1)
+                list.Add(String.Format("{0} Donation Dollars", this.Amount));
+            else
+                list.Add("a Donation Dollar");
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+    }
 }

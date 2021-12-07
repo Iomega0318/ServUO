@@ -287,6 +287,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Custom\BoatNavigationTotem.cs" />
+    <Compile Include="Custom\captcha.cs" />
+    <Compile Include="Custom\captchaFonts.cs" />
     <Compile Include="Custom\CellarAddon.cs" />
     <Compile Include="Custom\Character Slot\CharSlotScroll.cs" />
     <Compile Include="Custom\Character Slot\SetCharactersSlots.cs" />

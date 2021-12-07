@@ -125,7 +125,31 @@ namespace Server.Mobiles
 
 	public partial class PlayerMobile : Mobile, IHonorTarget
 	{
-		public static List<PlayerMobile> Instances { get; private set; }
+        #region Iomega0318 - Captcha
+        /* Begin Captcha Mod */
+        private DateTime _NextCaptchaTime;
+        public DateTime NextCaptchaTime
+        {
+            get { return _NextCaptchaTime; }
+            set { _NextCaptchaTime = value; }
+        }
+
+        [CommandProperty(AccessLevel.Seer)]
+        public TimeSpan CaptchaDelay
+        {
+            get
+            {
+                if (DateTime.Now >= _NextCaptchaTime)
+                    return TimeSpan.FromSeconds(0);
+
+                return (_NextCaptchaTime - DateTime.Now);
+            }
+            set { _NextCaptchaTime = DateTime.Now + value; }
+        }
+        /* End Captcha Mod */
+        #endregion
+
+        public static List<PlayerMobile> Instances { get; private set; }
 
 		static PlayerMobile()
 		{
