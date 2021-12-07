@@ -133,7 +133,8 @@ namespace Server.Items
                 from.SendMessage("You cut yourself while harvesting.");
             }
 
-            if (plant is GarlicPlant)
+            if (plant is GarlicPlant ||
+                plant is GinsengPlant)
             {
                 var tiles = plant.GetLandTilesInRange(from.Map, 1);
                 foreach (LandTile tile in tiles)
@@ -143,18 +144,23 @@ namespace Server.Items
                     {
                         if (.25 < Utility.RandomDouble())
                         {
-                            var rat = new Sewerrat();
+                            Mobile rat = new Sewerrat();
+                            if (.25 > Utility.RandomDouble())
+                            {
+                                rat = new GiantRat();
+                            }
                             rat.MoveToWorld(plant.Location, plant.Map);
                         }
                     }
                 }                
-            }
+            }            
         }
 
         private static void AwardResource(BasePlant plant, Mobile from)
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeRoot()); }
             else if (plant is GarlicPlant) { from.AddToBackpack(new Garlic()); }
+            else if (plant is GinsengPlant) { from.AddToBackpack(new Ginseng()); }
             else if (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
 
             from.SendMessage("You collect the reagents and put them in your pack.");
@@ -164,6 +170,7 @@ namespace Server.Items
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeSeed()); }
             else if (plant is GarlicPlant) { from.AddToBackpack(new GarlicSeed()); }
+            else if (plant is GinsengPlant) { from.AddToBackpack(new GinsengSeed()); }
             else if (plant is NightshadeBush) { from.AddToBackpack(new NightshadeSeed()); }
 
             from.SendMessage("You collect a seed and put them in your pack.");
@@ -212,6 +219,7 @@ namespace Server.Items
         {
             if (plant is MandrakeSeedling) { return new MandrakePlant(plant.Planter); }
             else if (plant is GarlicSeedling) { return new GarlicPlant(plant.Planter); }
+            else if (plant is GinsengSeedling) { return new GinsengPlant(plant.Planter); }
             else return new NightshadeBush(plant.Planter);
         }
 
@@ -223,6 +231,7 @@ namespace Server.Items
         {
             if (seed is MandrakeSeed ||
                 seed is NightshadeSeed ||
+                seed is GinsengSeed ||
                 seed is GarlicSeed)
             {
                 return new List<string>() { "grass", "furrows", "forest", "jungle" };
@@ -266,6 +275,7 @@ namespace Server.Items
         {
             if (seed is MandrakeSeed) { return new MandrakeSeedling(from); }
             else if (seed is GarlicSeed) { return new GarlicSeedling(from); }
+            else if (seed is GinsengSeed) { return new GinsengSeedling(from); }
             else { return new NightshadeSeedling(from); }
         }
 
