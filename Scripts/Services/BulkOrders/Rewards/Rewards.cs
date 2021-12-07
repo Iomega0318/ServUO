@@ -333,31 +333,39 @@ namespace Server.Engines.BulkOrders
                 //RewardCollection.Add(new BODCollectionItem(4102, 1157091, 0, 450, PowderOfTemperament));
                 RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, CraftResources.GetHue(CraftResource.Agapite), 475, SmeltersTalisman, (int)CraftResource.Agapite));
                 RewardCollection.Add(new BODCollectionItem(0x9E7E, 1157216, 0, 500, RockHammer));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157092, CraftResources.GetHue(CraftResource.DullCopper), 500, RunicHammer, 1));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157092, CraftResources.GetHue(CraftResource.DullCopper), 500, RunicHammer, 1));//75
                 RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152676, CraftResources.GetHue(CraftResource.Verite), 525, SmeltersTalisman, (int)CraftResource.Verite));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157093, CraftResources.GetHue(CraftResource.ShadowIron), 550, RunicHammer, 2));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157093, CraftResources.GetHue(CraftResource.ShadowIron), 550, RunicHammer, 2));//70
                 RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157218, 0, 550, CraftsmanTalisman, 25));
                 RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152677, CraftResources.GetHue(CraftResource.Valorite), 575, SmeltersTalisman, (int)CraftResource.Valorite));
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152665, CraftResources.GetHue(CraftResource.Gold), 600, HarvestMap, (int)CraftResource.Gold));
                 RewardCollection.Add(new BODCollectionItem(0xFAF, 1157100, 0, 625, ColoredAnvil));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, 0x481, 625, PowerScroll, 5));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157094, CraftResources.GetHue(CraftResource.Copper), 650, RunicHammer, 3));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157094, CraftResources.GetHue(CraftResource.Copper), 650, RunicHammer, 3));//65
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 675, PowerScroll, 10));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157095, CraftResources.GetHue(CraftResource.Bronze), 700, RunicHammer, 4));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157095, CraftResources.GetHue(CraftResource.Bronze), 700, RunicHammer, 4));//60
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157101, 0x482, 750, AncientHammer, 10));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157107, 0x481, 800, PowerScroll, 15));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157102, 0x482, 850, AncientHammer, 15));
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, CraftResources.GetHue(CraftResource.Agapite), 850, HarvestMap, (int)CraftResource.Agapite));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157108, 0x481, 900, PowerScroll, 20));
                 RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157265, 0, 900, CraftsmanTalisman, 50));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157096, CraftResources.GetHue(CraftResource.Gold), 950, RunicHammer, 5));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157096, CraftResources.GetHue(CraftResource.Gold), 950, RunicHammer, 5));//55
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, CraftResources.GetHue(CraftResource.Verite), 950, HarvestMap, (int)CraftResource.Verite));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157103, 0x482, 1000, AncientHammer, 30));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157097, CraftResources.GetHue(CraftResource.Agapite), 1050, RunicHammer, 6));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157097, CraftResources.GetHue(CraftResource.Agapite), 1050, RunicHammer, 6));//50
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152668, CraftResources.GetHue(CraftResource.Valorite), 1050, HarvestMap, (int)CraftResource.Valorite));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157104, 0x482, 1100, AncientHammer, 60));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));
-                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));//45
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));//40
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1130001, CraftResources.GetHue(CraftResource.Blaze), 1300, RunicHammer, 9));//35
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1130002, CraftResources.GetHue(CraftResource.Ice), 1450, RunicHammer, 10));//30
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1130003, CraftResources.GetHue(CraftResource.Toxic), 1600, RunicHammer, 11));//25
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1130004, CraftResources.GetHue(CraftResource.Electrum), 1750, RunicHammer, 12));//20
+                RewardCollection.Add(new BODCollectionItem(0x13E3, 1130005, CraftResources.GetHue(CraftResource.Platinum), 2000, RunicHammer, 13));//15
+                RewardCollection.Add(new BODCollectionItem(0xFB8, 1130006, 0, 3000, ASHKey));
+                RewardCollection.Add(new BODCollectionItem(0xFB8, 1130007, 0, 4000, SmithyKey));
+                RewardCollection.Add(new BODCollectionItem(0xFB8, 1130008, 0, 15000, RunicToolKey));
             }
             else
             {
@@ -371,7 +379,7 @@ namespace Server.Engines.BulkOrders
 				new RewardGroup(  400, new RewardItem( 90, ProspectorsTool ), new RewardItem( 10, ArmorOfMining, Utility.RandomMinMax(1,6) ) ),
 				new RewardGroup(  450, new RewardItem( 1, GargoylesPickaxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
 				new RewardGroup(  500, new RewardItem( 1, RunicHammer, 1 ), new RewardItem( 1, GargoylesPickaxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
-                new RewardGroup(550, new RewardItem(3, RunicHammer, 1), new RewardItem(2, RunicHammer, 2)),
+                new RewardGroup(  550, new RewardItem(3, RunicHammer, 1), new RewardItem(2, RunicHammer, 2)),
 				new RewardGroup(  600, new RewardItem( 1, RunicHammer, 2 ), new RewardItem( 1, ColoredForgeDeed ) ),
 				new RewardGroup(  625, new RewardItem( 3, RunicHammer, 2 ), new RewardItem( 1, ColoredAnvil ) ),
 				new RewardGroup(  650, new RewardItem( 1, RunicHammer, 3 ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
@@ -421,7 +429,12 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback ArmorOfMining = new ConstructCallback( CreateArmorOfMining );
         private static readonly ConstructCallback ArmorOfSmithing = new ConstructCallback(CreateArmorOfSmithing);
 
-		private static Item CreateDeco( int type )
+
+        private static readonly ConstructCallback ASHKey = new ConstructCallback(CreateASHKey);
+        private static readonly ConstructCallback SmithyKey = new ConstructCallback(CreateSmithyKey);
+        private static readonly ConstructCallback RunicToolKey = new ConstructCallback(CreateRunicToolKey);
+
+        private static Item CreateDeco( int type )
 		{
 			switch (type)
 			{
@@ -432,9 +445,24 @@ namespace Server.Engines.BulkOrders
 				case 4: return new Deco( 7110, "Decorative Scale Shield" );
 				case 5: return new Deco( 10324, "Sword Display" );
 			}
-		}
-		
-		private static Item CreateSturdySmithHammer( int type )
+        }
+
+        private static Item CreateASHKey(int type)
+        {
+            return new ASHKey();
+        }
+
+        private static Item CreateSmithyKey(int type)
+        {
+            return new SmithyKey();
+        }
+
+        private static Item CreateRunicToolKey(int type)
+        {
+            return new RunicToolKey();
+        }
+
+        private static Item CreateSturdySmithHammer( int type )
 		{
 			return new SturdySmithHammer();
 		}
@@ -563,8 +591,8 @@ namespace Server.Engines.BulkOrders
 
         private static Item CreateRunicHammer(int type)
         {
-            if (type >= 1 && type <= 8)
-                return new RunicHammer(CraftResource.Iron + type, Core.AOS ? (55 - (type * 5)) : 50);
+            if (type >= 1 && type <= 13)
+                return new RunicHammer(CraftResource.Iron + type, Core.AOS ? (80 - (type * 5)) : 75);
 
             throw new InvalidOperationException();
         }
