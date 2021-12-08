@@ -14,8 +14,8 @@ namespace Server.Items
             {
                 int index = CraftResources.GetIndex(Resource);
 
-                if (index >= 1 && index <= 8)
-                    return 1111795 + index;
+                if (index >= 1 && index <= 13)
+                    return 1130020 + index;
 
                 return 1045128; // mallet and chisel
             }

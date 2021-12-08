@@ -358,11 +358,13 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157104, 0x482, 1100, AncientHammer, 60));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));//45
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));//40
+
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1130001, CraftResources.GetHue(CraftResource.Blaze), 1300, RunicHammer, 9));//35
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1130002, CraftResources.GetHue(CraftResource.Ice), 1450, RunicHammer, 10));//30
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1130003, CraftResources.GetHue(CraftResource.Toxic), 1600, RunicHammer, 11));//25
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1130004, CraftResources.GetHue(CraftResource.Electrum), 1750, RunicHammer, 12));//20
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1130005, CraftResources.GetHue(CraftResource.Platinum), 2000, RunicHammer, 13));//15
+
                 RewardCollection.Add(new BODCollectionItem(0xFB8, 1130006, 0, 3000, ASHKey));
                 RewardCollection.Add(new BODCollectionItem(0xFB8, 1130007, 0, 4000, SmithyKey));
                 RewardCollection.Add(new BODCollectionItem(0xFB8, 1130008, 0, 15000, RunicToolKey));
@@ -428,7 +430,6 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback BagOfResources = new ConstructCallback( CreateBagOfResources );
 		private static readonly ConstructCallback ArmorOfMining = new ConstructCallback( CreateArmorOfMining );
         private static readonly ConstructCallback ArmorOfSmithing = new ConstructCallback(CreateArmorOfSmithing);
-
 
         private static readonly ConstructCallback ASHKey = new ConstructCallback(CreateASHKey);
         private static readonly ConstructCallback SmithyKey = new ConstructCallback(CreateSmithyKey);
@@ -1460,29 +1461,49 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157264, 0, 300, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, CraftResources.GetHue(CraftResource.YewWood), 350, WoodsmansTalisman, (int)CraftResource.YewWood));
             RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157218, 0, 450, CraftsmanTalisman, 25));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157293, CraftResources.GetHue(CraftResource.DullCopper), 450, RunicMalletAndChisel, 1));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157294, CraftResources.GetHue(CraftResource.ShadowIron), 450, RunicMalletAndChisel, 2));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157293, CraftResources.GetHue(CraftResource.DullCopper), 450, RunicMalletAndChisel, 1));//75
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157294, CraftResources.GetHue(CraftResource.ShadowIron), 450, RunicMalletAndChisel, 2));//70
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152669, CraftResources.GetHue(CraftResource.YewWood), 500, HarvestMap, (int)CraftResource.YewWood));
             RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, CraftResources.GetHue(CraftResource.OakWood), 550, RunicDovetailSaw, 0));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157295, CraftResources.GetHue(CraftResource.Copper), 600, RunicMalletAndChisel, 3));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157296, CraftResources.GetHue(CraftResource.Bronze), 650, RunicMalletAndChisel, 4));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157295, CraftResources.GetHue(CraftResource.Copper), 600, RunicMalletAndChisel, 3));//65
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157296, CraftResources.GetHue(CraftResource.Bronze), 650, RunicMalletAndChisel, 4));//60
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152679, CraftResources.GetHue(CraftResource.Heartwood), 650, WoodsmansTalisman, (int)CraftResource.Heartwood));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152670, CraftResources.GetHue(CraftResource.Heartwood), 700, HarvestMap, (int)CraftResource.Heartwood));
             RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, CraftResources.GetHue(CraftResource.AshWood), 750, RunicDovetailSaw, 1));
             RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157265, 0, 800, CraftsmanTalisman, 50));
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152680, CraftResources.GetHue(CraftResource.Bloodwood), 850, WoodsmansTalisman, (int)CraftResource.Bloodwood));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152671, CraftResources.GetHue(CraftResource.Bloodwood), 900, HarvestMap, (int)CraftResource.Bloodwood));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157297, CraftResources.GetHue(CraftResource.Gold), 900, RunicMalletAndChisel, 5));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157297, CraftResources.GetHue(CraftResource.Gold), 900, RunicMalletAndChisel, 5));//55
             RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, CraftResources.GetHue(CraftResource.YewWood), 950, RunicDovetailSaw, 2));
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, CraftResources.GetHue(CraftResource.Frostwood), 1000, WoodsmansTalisman, (int)CraftResource.Frostwood));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157298, CraftResources.GetHue(CraftResource.Agapite), 1000, RunicMalletAndChisel, 6));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157298, CraftResources.GetHue(CraftResource.Agapite), 1000, RunicMalletAndChisel, 6));//50
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, CraftResources.GetHue(CraftResource.Frostwood), 1050, HarvestMap, (int)CraftResource.Frostwood));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));//45
             RewardCollection.Add(new BODCollectionItem(0x1029, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, RunicDovetailSaw, 3));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));//40
+
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130009, CraftResources.GetHue(CraftResource.Bloodwood), 1250, RunicDovetailSaw, 4));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1130016, CraftResources.GetHue(CraftResource.Blaze), 1300, RunicMalletAndChisel, 9));//35
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130010, CraftResources.GetHue(CraftResource.Frostwood), 1350, RunicDovetailSaw, 5));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1130017, CraftResources.GetHue(CraftResource.Ice), 1450, RunicMalletAndChisel, 10));//30
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130011, CraftResources.GetHue(CraftResource.Ebony), 1450, RunicDovetailSaw, 6));
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130012, CraftResources.GetHue(CraftResource.Bamboo), 1550, RunicDovetailSaw, 7));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1130018, CraftResources.GetHue(CraftResource.Toxic), 1600, RunicMalletAndChisel, 11));//25
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130013, CraftResources.GetHue(CraftResource.PurpleHeart), 1650, RunicDovetailSaw, 8));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1130019, CraftResources.GetHue(CraftResource.Electrum), 1750, RunicMalletAndChisel, 12));//20
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130014, CraftResources.GetHue(CraftResource.Redwood), 1750, RunicDovetailSaw, 9));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1130020, CraftResources.GetHue(CraftResource.Platinum), 2000, RunicMalletAndChisel, 13));//15
+            RewardCollection.Add(new BODCollectionItem(0x1029, 1130015, CraftResources.GetHue(CraftResource.Petrified), 2000, RunicDovetailSaw, 10));
+
+            RewardCollection.Add(new BODCollectionItem(0x1E81, 1130034, 0, 15000, AddonDeedKey));
         }
 
         #region Constructors
+
+        private static Item AddonDeedKey(int type)
+        {
+            return new AddonDeedKey();
+        }
 
         private static Item DovetailSaw(int type)
         {
@@ -1494,8 +1515,8 @@ namespace Server.Engines.BulkOrders
 
         private static Item RunicMalletAndChisel(int type)
         {
-            if (type >= 1 && type <= 8)
-                return new RunicMalletAndChisel(CraftResource.Iron + type, Core.AOS ? (55 - (type * 5)) : 50);
+            if (type >= 1 && type <= 13)
+                return new RunicMalletAndChisel(CraftResource.Iron + type, Core.AOS ? (80 - (type * 5)) : 75);
 
             return null;
         }
@@ -1505,10 +1526,17 @@ namespace Server.Engines.BulkOrders
             switch (type)
             {
                 default:
-                case 0: return new RunicDovetailSaw(CraftResource.OakWood, 45);
-                case 1: return new RunicDovetailSaw(CraftResource.AshWood, 35);
-                case 2: return new RunicDovetailSaw(CraftResource.YewWood, 25);
-                case 3: return new RunicDovetailSaw(CraftResource.Heartwood, 15);
+                case 0: return new RunicDovetailSaw(CraftResource.OakWood, 115);
+                case 1: return new RunicDovetailSaw(CraftResource.AshWood, 105);
+                case 2: return new RunicDovetailSaw(CraftResource.YewWood, 95);
+                case 3: return new RunicDovetailSaw(CraftResource.Heartwood, 85);
+                case 4: return new RunicDovetailSaw(CraftResource.Bloodwood, 75);
+                case 5: return new RunicDovetailSaw(CraftResource.Frostwood, 65);
+                case 6: return new RunicDovetailSaw(CraftResource.Ebony, 55);
+                case 7: return new RunicDovetailSaw(CraftResource.Bamboo, 45);
+                case 8: return new RunicDovetailSaw(CraftResource.PurpleHeart, 35);
+                case 9: return new RunicDovetailSaw(CraftResource.Redwood, 25);
+                case 10: return new RunicDovetailSaw(CraftResource.Petrified, 15);
             }
         }
 
