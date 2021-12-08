@@ -236,7 +236,7 @@ namespace Server.Engines.BulkOrders
             if (m_Material != BulkMaterialType.None)
                 list.Add(SmallBODGump.GetMaterialNumberFor(m_Material)); // All items must be made with x material.
 				//daat99 OWLTR start - custom resource
-                list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(Material));
+                //list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(Material));
             	//daat99 OWLTR end - custom resource
 
             list.Add(1060656, m_AmountMax.ToString()); // amount to make: ~1_val~
