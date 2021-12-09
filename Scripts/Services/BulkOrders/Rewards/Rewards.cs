@@ -1695,11 +1695,18 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157205, 2731, 450, NaturalDye, 6));
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157205, 2735, 475, NaturalDye, 7));
             RewardCollection.Add(new BODCollectionItem(0x9E28, 1157291, 0, 500, ImprovementTalisman, 10));
+
+            RewardCollection.Add(new BODCollectionItem(0xFBE, 1130037, 0, 15000, ScribesKey));
         }
 
         #region Constructors
 
-        private static Item ScribesPen(int type)
+        private static Item ScribesKey(int type)
+        {
+            return new ScribesKey();
+        }
+
+        private static Item ScribesKey(int type)
         {
             BaseTool tool = new ScribesPen();
             tool.UsesRemaining = 250;
