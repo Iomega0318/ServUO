@@ -1706,7 +1706,7 @@ namespace Server.Engines.BulkOrders
             return new ScribesKey();
         }
 
-        private static Item ScribesKey(int type)
+        private static Item ScribesPen(int type)
         {
             BaseTool tool = new ScribesPen();
             tool.UsesRemaining = 250;
