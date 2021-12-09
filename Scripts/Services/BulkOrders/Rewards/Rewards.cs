@@ -843,6 +843,8 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0xF9D, 1157116, CraftResources.GetHue(CraftResource.HornedLeather), 600, RunicKit, 2));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157121, 0x481, 650, PowerScroll, 20));
                 RewardCollection.Add(new BODCollectionItem(0xF9D, 1157117, CraftResources.GetHue(CraftResource.BarbedLeather), 700, RunicKit, 3));
+
+                RewardCollection.Add(new BODCollectionItem(0x24DB, 1130036, 0, 15000, ClothingKey));
             }
             else
             {
@@ -900,8 +902,13 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback ChargedDyeTub = new ConstructCallback( CreateChargedDyeTub );
 		private static readonly ConstructCallback BagOfResources = new ConstructCallback( CreateBagOfResources );
 		private static readonly ConstructCallback Deco = new ConstructCallback( CreateDeco );
-		
-		private static Item CreateArmorOfTailoring( int type )
+
+        private static Item ClothingKey(int type)
+        {
+            return new ClothingKey();
+        }
+
+        private static Item CreateArmorOfTailoring( int type )
 		{
 			switch (type)
 			{
@@ -1811,9 +1818,16 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2740, 525, NaturalDye, 8));
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2732, 625, NaturalDye, 9));
             RewardCollection.Add(new BODCollectionItem(0x9E36, 1157229, 0, 625, CreateItem, 2));
+
+            RewardCollection.Add(new BODCollectionItem(0x9ED, 1130035, 0, 15000, ChefKey));
         }
 
         #region Constructors
+
+        private static Item ChefKey(int type)
+        {
+            return new ChefKey();
+        }
 
         private static Item Skillet(int type)
         {
