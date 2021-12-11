@@ -4,21 +4,21 @@ using Server.Targeting;
 namespace Server.Items
 {
     #region Plant
-    public class GarlicPlant : BasePlant
-    {
+    public class BlackPearlPlant : BasePlant
+    {                
         [Constructable]
-        public GarlicPlant()
+        public BlackPearlPlant()
             : this(null)
         {
         }
 
         [Constructable]
-        public GarlicPlant(Mobile planter)
-            : base(Utility.RandomList<int>(new int[] { 0x0C8B, 0x0C8C }))
+        public BlackPearlPlant(Mobile planter)
+            : base(0x0C63)
         {
-            Name = "Garlic Plant";
+            Name = "Black Pearl Plant";
             Movable = false;
-            Hue = 1072;
+            Hue = 342;
 
             m_Harvests = PlantHelper.GetHarvests();
             m_LastHarvested = DateTime.Now;
@@ -29,7 +29,7 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public GarlicPlant(Serial serial)
+        public BlackPearlPlant(Serial serial)
             : base(serial)
         {
         }
@@ -54,20 +54,20 @@ namespace Server.Items
     #endregion
 
     #region Seedling
-    public class GarlicSeedling : BaseSeedling
+    public class BlackPearlSeedling : BaseSeedling
     {
         [Constructable]
-        public GarlicSeedling() : this(null)
+        public BlackPearlSeedling() : this(null)
         {
         }
 
         [Constructable]
-        public GarlicSeedling(Mobile planter)
-            : base(0x0D32)
+        public BlackPearlSeedling(Mobile planter)
+            : base(0x0C61)
         {
-            Name = "Garlic Seedling";
+            Name = "Black Pearl Seedling";
             Movable = false;
-            Hue = 1072;
+            Hue = 342;
             m_Planter = planter;
 
             var end = PlantHelper.GetMatureTime();
@@ -76,7 +76,7 @@ namespace Server.Items
 
         }
 
-        public GarlicSeedling(Serial serial)
+        public BlackPearlSeedling(Serial serial)
             : base(serial)
         {
         }
@@ -98,35 +98,35 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
-        }
+        }         
     }
     #endregion
 
     #region Seed
-    public class GarlicSeed : BaseSeed
+    public class BlackPearlSeed : BaseSeed
     {
         [Constructable]
-        public GarlicSeed()
+        public BlackPearlSeed()
             : this(1)
         {
         }
 
         [Constructable]
-        public GarlicSeed(int amount)
+        public BlackPearlSeed(int amount)
             : base(0x0C67)
         {
-            Name = "Garlic Seed";
+            Name = "Black Pearl Seed";
             Stackable = true;
             Weight = .5;
-            Hue = 1072;
+            Hue = 342;
             Movable = true;
-            Amount = amount;            
+            Amount = amount;
         }
 
-        public GarlicSeed(Serial serial)
+        public BlackPearlSeed(Serial serial)
             : base(serial)
         {
-        }        
+        }
 
         public override void Serialize(GenericWriter writer)
         {

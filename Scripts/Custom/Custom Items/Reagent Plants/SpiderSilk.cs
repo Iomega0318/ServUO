@@ -4,21 +4,21 @@ using Server.Targeting;
 namespace Server.Items
 {
     #region Plant
-    public class GarlicPlant : BasePlant
-    {
+    public class SpiderNest : BasePlant
+    {                
         [Constructable]
-        public GarlicPlant()
+        public SpiderNest()
             : this(null)
         {
         }
 
         [Constructable]
-        public GarlicPlant(Mobile planter)
-            : base(Utility.RandomList<int>(new int[] { 0x0C8B, 0x0C8C }))
+        public SpiderNest(Mobile planter)
+            : base(0x10DA)
         {
-            Name = "Garlic Plant";
+            Name = "Spider Nest";
             Movable = false;
-            Hue = 1072;
+            Hue = 0;
 
             m_Harvests = PlantHelper.GetHarvests();
             m_LastHarvested = DateTime.Now;
@@ -29,7 +29,7 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public GarlicPlant(Serial serial)
+        public SpiderNest(Serial serial)
             : base(serial)
         {
         }
@@ -54,20 +54,20 @@ namespace Server.Items
     #endregion
 
     #region Seedling
-    public class GarlicSeedling : BaseSeedling
+    public class SmallSpiderNest : BaseSeedling
     {
         [Constructable]
-        public GarlicSeedling() : this(null)
+        public SmallSpiderNest() : this(null)
         {
         }
 
         [Constructable]
-        public GarlicSeedling(Mobile planter)
-            : base(0x0D32)
+        public SmallSpiderNest(Mobile planter)
+            : base(0x10D9)
         {
-            Name = "Garlic Seedling";
+            Name = "Small Spider Nest";
             Movable = false;
-            Hue = 1072;
+            Hue = 0;
             m_Planter = planter;
 
             var end = PlantHelper.GetMatureTime();
@@ -76,14 +76,14 @@ namespace Server.Items
 
         }
 
-        public GarlicSeedling(Serial serial)
+        public SmallSpiderNest(Serial serial)
             : base(serial)
         {
         }
 
         public override void OnDoubleClick(Mobile from)
         {
-            base.OnDoubleClick(from);
+            from.SendMessage("This nest is not mature enough to harvest");
         }
 
         public override void Serialize(GenericWriter writer)
@@ -98,35 +98,35 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
-        }
+        }         
     }
     #endregion
 
     #region Seed
-    public class GarlicSeed : BaseSeed
+    public class ClusterOfSpiders : BaseSeed
     {
         [Constructable]
-        public GarlicSeed()
+        public ClusterOfSpiders()
             : this(1)
         {
         }
 
         [Constructable]
-        public GarlicSeed(int amount)
-            : base(0x0C67)
+        public ClusterOfSpiders(int amount)
+            : base(0x1006)
         {
-            Name = "Garlic Seed";
+            Name = "Cluster of Spiders";
             Stackable = true;
             Weight = .5;
-            Hue = 1072;
+            Hue = 342;
             Movable = true;
-            Amount = amount;            
+            Amount = amount;
         }
 
-        public GarlicSeed(Serial serial)
+        public ClusterOfSpiders(Serial serial)
             : base(serial)
         {
-        }        
+        }
 
         public override void Serialize(GenericWriter writer)
         {

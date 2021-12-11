@@ -4,21 +4,21 @@ using Server.Targeting;
 namespace Server.Items
 {
     #region Plant
-    public class GarlicPlant : BasePlant
-    {
+    public class BloodmossInfestation : BasePlant
+    {                
         [Constructable]
-        public GarlicPlant()
+        public BloodmossInfestation()
             : this(null)
         {
         }
 
         [Constructable]
-        public GarlicPlant(Mobile planter)
-            : base(Utility.RandomList<int>(new int[] { 0x0C8B, 0x0C8C }))
+        public BloodmossInfestation(Mobile planter)
+            : base(0x0C63)
         {
-            Name = "Garlic Plant";
+            Name = "Bloodmoss Infestation";
             Movable = false;
-            Hue = 1072;
+            Hue = 342;
 
             m_Harvests = PlantHelper.GetHarvests();
             m_LastHarvested = DateTime.Now;
@@ -29,7 +29,7 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public GarlicPlant(Serial serial)
+        public BloodmossInfestation(Serial serial)
             : base(serial)
         {
         }
@@ -54,20 +54,20 @@ namespace Server.Items
     #endregion
 
     #region Seedling
-    public class GarlicSeedling : BaseSeedling
+    public class BloodmossClump : BaseSeedling
     {
         [Constructable]
-        public GarlicSeedling() : this(null)
+        public BloodmossClump() : this(null)
         {
         }
 
         [Constructable]
-        public GarlicSeedling(Mobile planter)
-            : base(0x0D32)
+        public BloodmossClump(Mobile planter)
+            : base(0x0C61)
         {
-            Name = "Garlic Seedling";
+            Name = "Bloodmoss Clump";
             Movable = false;
-            Hue = 1072;
+            Hue = 342;
             m_Planter = planter;
 
             var end = PlantHelper.GetMatureTime();
@@ -76,7 +76,7 @@ namespace Server.Items
 
         }
 
-        public GarlicSeedling(Serial serial)
+        public BloodmossClump(Serial serial)
             : base(serial)
         {
         }
@@ -98,35 +98,35 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
-        }
+        }         
     }
     #endregion
 
     #region Seed
-    public class GarlicSeed : BaseSeed
+    public class BloodmossSpores : BaseSeed
     {
         [Constructable]
-        public GarlicSeed()
+        public BloodmossSpores()
             : this(1)
         {
         }
 
         [Constructable]
-        public GarlicSeed(int amount)
+        public BloodmossSpores(int amount)
             : base(0x0C67)
         {
-            Name = "Garlic Seed";
+            Name = "Bloodmoss Spores";
             Stackable = true;
             Weight = .5;
-            Hue = 1072;
+            Hue = 342;
             Movable = true;
-            Amount = amount;            
+            Amount = amount;
         }
 
-        public GarlicSeed(Serial serial)
+        public BloodmossSpores(Serial serial)
             : base(serial)
         {
-        }        
+        }
 
         public override void Serialize(GenericWriter writer)
         {

@@ -4,21 +4,21 @@ using Server.Targeting;
 namespace Server.Items
 {
     #region Plant
-    public class GarlicPlant : BasePlant
-    {
+    public class SulferousAshPile : BasePlant
+    {                
         [Constructable]
-        public GarlicPlant()
+        public SulferousAshPile()
             : this(null)
         {
         }
 
         [Constructable]
-        public GarlicPlant(Mobile planter)
-            : base(Utility.RandomList<int>(new int[] { 0x0C8B, 0x0C8C }))
+        public SulferousAshPile(Mobile planter)
+            : base(0x0DEA)
         {
-            Name = "Garlic Plant";
+            Name = "Pile of Sulferous Ash";
             Movable = false;
-            Hue = 1072;
+            Hue = 1260;
 
             m_Harvests = PlantHelper.GetHarvests();
             m_LastHarvested = DateTime.Now;
@@ -29,7 +29,7 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public GarlicPlant(Serial serial)
+        public SulferousAshPile(Serial serial)
             : base(serial)
         {
         }
@@ -54,20 +54,20 @@ namespace Server.Items
     #endregion
 
     #region Seedling
-    public class GarlicSeedling : BaseSeedling
+    public class BurningSulfur : BaseSeedling
     {
         [Constructable]
-        public GarlicSeedling() : this(null)
+        public BurningSulfur() : this(null)
         {
         }
 
         [Constructable]
-        public GarlicSeedling(Mobile planter)
-            : base(0x0D32)
+        public BurningSulfur(Mobile planter)
+            : base(0xDE3)
         {
-            Name = "Garlic Seedling";
+            Name = "Burning Sulfur";
             Movable = false;
-            Hue = 1072;
+            Hue = 1266;
             m_Planter = planter;
 
             var end = PlantHelper.GetMatureTime();
@@ -76,7 +76,7 @@ namespace Server.Items
 
         }
 
-        public GarlicSeedling(Serial serial)
+        public BurningSulfur(Serial serial)
             : base(serial)
         {
         }
@@ -98,41 +98,40 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
-        }
+        }         
     }
     #endregion
 
     #region Seed
-    public class GarlicSeed : BaseSeed
+    public class Sulfur : BaseSeed
     {
         [Constructable]
-        public GarlicSeed()
+        public Sulfur()
             : this(1)
         {
         }
 
         [Constructable]
-        public GarlicSeed(int amount)
-            : base(0x0C67)
+        public Sulfur(int amount)
+            : base(0x0F8F)
         {
-            Name = "Garlic Seed";
+            Name = "Sulfur";
             Stackable = true;
             Weight = .5;
-            Hue = 1072;
+            Hue = 1260;
             Movable = true;
-            Amount = amount;            
+            Amount = amount;
         }
 
-        public GarlicSeed(Serial serial)
+        public Sulfur(Serial serial)
             : base(serial)
         {
-        }        
+        }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
             writer.Write((int)0); // version
-
         }
 
         public override void Deserialize(GenericReader reader)
