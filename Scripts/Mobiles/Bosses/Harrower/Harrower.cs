@@ -335,7 +335,7 @@ namespace Server.Mobiles
 
                 m.SendLocalizedMessage(1049524); // You have received a scroll of power!
                 m.AddToBackpack(new StatCapScroll(m_StatCap + RandomStatScrollLevel()));
-
+          
                 if (m is PlayerMobile)
                 {
                     PlayerMobile pm = (PlayerMobile)m;
@@ -387,7 +387,16 @@ namespace Server.Mobiles
 			return 5;
 		}
 
-		public override bool OnBeforeDeath()
+        public override void OnDeath(Container c)
+        {
+            base.OnDeath(c);
+
+            if (Utility.RandomDouble() < 0.1)//10%
+                c.DropItem(new ChampSkullKey());
+
+        }
+
+        public override bool OnBeforeDeath()
         {
             if (m_TrueForm)
             {
