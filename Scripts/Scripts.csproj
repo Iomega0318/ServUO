@@ -1904,8 +1904,12 @@
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarMace.cs" />
     <Compile Include="Custom\Custom Items\RareItem.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\BasePlants.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\Bloodmoss.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\SpiderSilk.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\BlackPearl.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Garlic.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Ginseng.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\SulfurousAsh.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Mandrake.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Nightshade.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\PlantHelper.cs" />
@@ -4040,6 +4044,7 @@
     <Compile Include="Custom\Custom Systems\Holiday\Witch\WWRobe.cs" />
     <Compile Include="Custom\Custom Systems\Hue System\HueCenterGold.cs" />
     <Compile Include="Custom\Custom Systems\Hue System\HueListGumpGold.cs" />
+    <Compile Include="Custom\Custom Systems\Hunger\Hunger.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\Invasion Settings.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\Invasion System.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\InvasionControl.cs" />

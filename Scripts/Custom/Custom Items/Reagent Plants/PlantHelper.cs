@@ -127,22 +127,24 @@ namespace Server.Items
         private static void CriticalFail(BasePlant plant, Mobile from)
         {
             if (plant is MandrakePlant ||
-                plant is NightshadeBush)
+                plant is NightshadeBush ||
+                plant is BloodmossInfestation)
             {
                 from.ApplyPoison(from, Poison.Lesser);
                 from.SendMessage("You cut yourself while harvesting.");
             }
-
-            if (plant is GarlicPlant ||
-                plant is GinsengPlant)
+            else if (plant is GarlicPlant ||
+                plant is GinsengPlant ||
+                plant is BlackPearlPlant)
             {
+                from.SendMessage("You disturb a rats nest while harvesting.");
                 var tiles = plant.GetLandTilesInRange(from.Map, 1);
                 foreach (LandTile tile in tiles)
                 {
                     var t = new LandTarget(plant.Location, from.Map);
                     if (t.Flags != TileFlag.Impassable || !t.IsWater())
                     {
-                        if (.25 < Utility.RandomDouble())
+                        if (.25 > Utility.RandomDouble())
                         {
                             Mobile rat = new Sewerrat();
                             if (.25 > Utility.RandomDouble())
@@ -153,7 +155,35 @@ namespace Server.Items
                         }
                     }
                 }                
-            }            
+            }
+            else if (plant is SpiderNest)
+            {
+                from.SendMessage("You disturb the spiders.");
+                var tiles = plant.GetLandTilesInRange(from.Map, 1);
+                foreach (LandTile tile in tiles)
+                {
+                    var t = new LandTarget(plant.Location, from.Map);
+                    if (t.Flags != TileFlag.Impassable || !t.IsWater())
+                    {
+                        if (.25 > Utility.RandomDouble())
+                        {
+                            Mobile spider = new TrapdoorSpider();
+                            if (.25 > Utility.RandomDouble())
+                            {
+                                spider = new GiantSpider();
+                            }
+                            spider.MoveToWorld(plant.Location, plant.Map);
+                        }
+                    }
+                }
+            }
+            else if (plant is SulferousAshPile)
+            {
+                from.SendMessage("You burn yourself while harvesting.");
+                from.Damage(25);                
+                from.PlayDamagedAnimation();
+                from.PlayHurtSound();
+            }
         }
 
         private static void AwardResource(BasePlant plant, Mobile from)
@@ -161,6 +191,10 @@ namespace Server.Items
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeRoot()); }
             else if (plant is GarlicPlant) { from.AddToBackpack(new Garlic()); }
             else if (plant is GinsengPlant) { from.AddToBackpack(new Ginseng()); }
+            else if (plant is SpiderNest) { from.AddToBackpack(new SpidersSilk()); }
+            else if (plant is BloodmossInfestation) { from.AddToBackpack(new Bloodmoss()); }
+            else if (plant is BlackPearlPlant) { from.AddToBackpack(new BlackPearl()); }
+            else if (plant is SulferousAshPile) { from.AddToBackpack(new SulfurousAsh()); }
             else if (plant is NightshadeBush) { from.AddToBackpack(new Nightshade()); }
 
             from.SendMessage("You collect the reagents and put them in your pack.");
@@ -170,8 +204,22 @@ namespace Server.Items
         {
             if (plant is MandrakePlant) { from.AddToBackpack(new MandrakeSeed()); }
             else if (plant is GarlicPlant) { from.AddToBackpack(new GarlicSeed()); }
-            else if (plant is GinsengPlant) { from.AddToBackpack(new GinsengSeed()); }
+            else if (plant is GinsengPlant) { from.AddToBackpack(new GinsengSeed()); }            
+            else if (plant is BloodmossInfestation) { from.AddToBackpack(new BloodmossSpores()); }
+            else if (plant is BlackPearlPlant) { from.AddToBackpack(new BlackPearlSeed()); }
             else if (plant is NightshadeBush) { from.AddToBackpack(new NightshadeSeed()); }
+            else if (plant is SpiderNest)
+            {
+                from.AddToBackpack(new ClusterOfSpiders());
+                from.SendMessage("You collect some spiders and put them in your pack.");
+                return;
+            }
+            else if (plant is SulferousAshPile)
+            {
+                from.AddToBackpack(new Sulfur());
+                from.SendMessage("You collect some sulfur and put them in your pack.");
+                return;
+            }
 
             from.SendMessage("You collect a seed and put them in your pack.");
         }
@@ -220,6 +268,10 @@ namespace Server.Items
             if (plant is MandrakeSeedling) { return new MandrakePlant(plant.Planter); }
             else if (plant is GarlicSeedling) { return new GarlicPlant(plant.Planter); }
             else if (plant is GinsengSeedling) { return new GinsengPlant(plant.Planter); }
+            else if (plant is BloodmossClump) { return new BloodmossInfestation(plant.Planter); }
+            else if (plant is BlackPearlSeedling) { return new BlackPearlPlant(plant.Planter); }
+            else if (plant is SmallSpiderNest) { return new SpiderNest(plant.Planter); }
+            else if (plant is BurningSulfur) { return new SulferousAshPile(plant.Planter); }
             else return new NightshadeBush(plant.Planter);
         }
 
@@ -229,17 +281,7 @@ namespace Server.Items
 
         private static List<string> AllowedTerrain(BaseSeed seed)
         {
-            if (seed is MandrakeSeed ||
-                seed is NightshadeSeed ||
-                seed is GinsengSeed ||
-                seed is GarlicSeed)
-            {
-                return new List<string>() { "grass", "furrows", "forest", "jungle" };
-            }
-            else
-            {
-                return new List<string>() { "cave" };
-            }
+            return new List<string>() { "grass", "furrows", "forest", "jungle" };
         }
             
         public static bool CanPlantHere(BaseSeed seed, Mobile from)
@@ -247,6 +289,14 @@ namespace Server.Items
             var tile = new LandTarget(from.Location, from.Map);
             if (!AllowedTerrain(seed).Contains(tile.Name))
             {
+                if (seed is ClusterOfSpiders)
+                {
+                    from.SendMessage("You feel the spiders could not survive here.");
+                }
+                if (seed is Sulfur)
+                {
+                    from.SendMessage("You cannot burn sulfur here.");
+                }
                 from.SendMessage("You cannot plant here.");
                 return false;
             }
@@ -261,7 +311,7 @@ namespace Server.Items
             var seedling = GetSeedling(seed, from);
             from.Freeze(TimeSpan.FromMilliseconds(1500));
             from.PlayAttackAnimation(AttackAnimation.Wrestle);
-            from.SendMessage("You plant the seed at your feet.");
+            
             seed.Amount--;
             if (seed.Amount == 0)
             {
@@ -269,6 +319,17 @@ namespace Server.Items
             }
 
             seedling.MoveToWorld(from.Location, from.Map);
+            if (seed is ClusterOfSpiders)
+            {
+                from.SendMessage("You place the spiders where they are sure to not be disturbed.");
+                return;
+            }
+            if (seed is Sulfur)
+            {
+                from.SendMessage("You ignite the sulfur.");
+                return;
+            }
+            from.SendMessage("You plant the seed at your feet.");
         }
 
         private static Item GetSeedling(BaseSeed seed, Mobile from)
@@ -276,6 +337,10 @@ namespace Server.Items
             if (seed is MandrakeSeed) { return new MandrakeSeedling(from); }
             else if (seed is GarlicSeed) { return new GarlicSeedling(from); }
             else if (seed is GinsengSeed) { return new GinsengSeedling(from); }
+            else if (seed is BloodmossSpores) { return new BloodmossClump(from); }
+            else if (seed is ClusterOfSpiders) { return new SmallSpiderNest(from); }
+            else if (seed is Sulfur) { return new BurningSulfur(from); }
+            else if (seed is BlackPearlSeed) { return new BlackPearlSeedling(from); }
             else { return new NightshadeSeedling(from); }
         }
 
