@@ -34,14 +34,17 @@ namespace Server.SkillHandlers
             }
             if (weight >= 400)
             {
+                item.Delete();
                 return new RelicFragment();
             }
             if (weight > 200)
             {
+                item.Delete();
                 return new EnchantedEssence();
             }
             else
             {
+                item.Delete();
                 return new MagicalResidue();
             }
         }
