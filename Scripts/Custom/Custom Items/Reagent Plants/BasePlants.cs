@@ -102,6 +102,10 @@ namespace Server.Items
 
             DateTime end = reader.ReadDeltaTime();
             m_DeathTimer = new PlantHelper.DeathTimer(this, end);
+            if (this is RavenwoodTree)
+            {
+                m_DeathTimer.Priority = TimerPriority.OneSecond;
+            }
             m_DeathTimer.Start();
         }
     }
