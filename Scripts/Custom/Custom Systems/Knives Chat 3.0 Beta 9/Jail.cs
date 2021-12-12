@@ -5,7 +5,7 @@
  * longer work with Chat, readd the '//' to disable.
  */
 
-//#define Use_Xanthos
+#define Use_Xanthos
 
 using System;
 using Server;

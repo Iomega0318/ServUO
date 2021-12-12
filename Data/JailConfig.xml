@@ -16,8 +16,8 @@
 		<JailImmuneLevel type="AccessLevel">Administrator</JailImmuneLevel>
 		<JailWordsEnabled type="bool">true</JailWordsEnabled>
 		<UsesRemaining type="int">100</UsesRemaining>			<!-- Number of jail rocks to be mined. -->
-		<FineAmount type="int">10000</FineAmount>				<!-- Gold to fine for being jailed. -->
-		<RobeTitle type="string">Property Of Jesus Jail</RobeTitle>
+		<FineAmount type="int">0</FineAmount>				<!-- Gold to fine for being jailed. -->
+		<RobeTitle type="string">Property Of ATA Jail</RobeTitle>
 		<RobeHue type="int">2083</RobeHue>
 		<RockHue type="int">2597</RockHue>
 		
@@ -26,7 +26,7 @@
 			In game use the admin command '[get name' and target the floor of your jail
 			to get the name to replace here.
 		-->
-		<WhatToMine type="string">dirt</WhatToMine>
+		<WhatToMine type="string">cave floor</WhatToMine>
 		
 		<HammerDifficulty type="int">60</HammerDifficulty>	<!-- Precent chance of getting no jail rock on a mining attempt -->
 		
@@ -35,28 +35,28 @@
 			one of: Map.Trammel, Map.Felucca, Map.Tokuno, Map.Malas, or Map.Ilshenar
 		-->
 		<JailLocation type="Point3D">
-			<x type="int">1715</x>
-			<y type="int">1064</y>
+			<x type="int">5190</x>
+			<y type="int">1215</y>
 			<z type="int">0</z>
 		</JailLocation>
 		<JailMap type="Map">Trammel</JailMap>
 		
 		<FreeLocation type="Point3D">
-			<x type="int">3650</x>
-			<y type="int">2519</y>
-			<z type="int">0</z>
+			<x type="int">5251</x>
+			<y type="int">387</y>
+			<z type="int">17</z>
 		</FreeLocation>
 		<FreeMap type="Map">Trammel</FreeMap>
 		
 		<FreeMurdererLocation type="Point3D">
-			<x type="int">3770</x>
-			<y type="int">1308</y>
-			<z type="int">0</z>
+			<x type="int">5251</x>
+			<y type="int">387</y>
+			<z type="int">17</z>
 		</FreeMurdererLocation>	
-		<FreeMurdererMap type="Map">Felucca</FreeMurdererMap>
+		<FreeMurdererMap type="Map">Trammel</FreeMurdererMap>
 
 		<JailRockName type="int">Jail Rock</JailRockName>
-		<JailWordFile type="int">Data/jailwords.txt</JailWordFile>
+		<JailWordFile type="int">Data/JailWords.txt</JailWordFile>
 	</JailSystem>	
 </Xanthos>
 

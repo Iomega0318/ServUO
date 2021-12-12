@@ -45,7 +45,7 @@ namespace Xanthos.JailSystem
 		public static Map FreeMurdererMap = Map.Felucca;
 		public static string JailRockName = "Jail Rock";
 		public static double JailRockWeight = 3.0;
-		public static string JailWordFile = "Data/jailwords.txt";
+		public static string JailWordFile = "Data/JailWords.txt";
 
 
 		private const string kConfigFile = @"Data/JailConfig.xml";
