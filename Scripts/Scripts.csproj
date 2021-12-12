@@ -1904,7 +1904,10 @@
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarMace.cs" />
     <Compile Include="Custom\Custom Items\RareItem.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\BasePlants.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodLog.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodTree.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Bloodmoss.cs" />
+    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodAxe.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\SpiderSilk.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\BlackPearl.cs" />
     <Compile Include="Custom\Custom Items\Reagent Plants\Garlic.cs" />
