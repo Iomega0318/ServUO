@@ -673,10 +673,12 @@ namespace Server.Engines.VeteranRewards
                 e.Mobile.SkillsCap = SkillCap + SkillCapBonus;
             }
 
-            if (Core.ML && e.Mobile is PlayerMobile && !((PlayerMobile)e.Mobile).HasStatReward && HasHalfLevel(e.Mobile))
+            #region Iomega0318 - Removing reward stat gump
+            /*if (Core.ML && e.Mobile is PlayerMobile && !((PlayerMobile)e.Mobile).HasStatReward && HasHalfLevel(e.Mobile))
             {
                 Server.Gumps.BaseGump.SendGump(new StatRewardGump((PlayerMobile)e.Mobile));
-            }
+            }*/
+            #endregion
 
             if (cur < max)
                 e.Mobile.SendGump(new RewardNoticeGump(e.Mobile));
