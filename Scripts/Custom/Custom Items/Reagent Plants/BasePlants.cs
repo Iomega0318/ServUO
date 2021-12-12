@@ -47,14 +47,14 @@ namespace Server.Items
 
             if (!PlantHelper.RangeCheck(this, from))
             {
-                from.SendMessage("You are not close enough to harvest this plant.");
+                from.SendMessage("You are not close enough to harvest this reagent.");
                 return;
             }
 
             var check = PlantHelper.IsHarvesterEquipped(from);
             if (!check.Result)
             {
-                from.SendMessage("You feel you would need a tool to harvest this plant.");
+                from.SendMessage("You feel you would need a tool to harvest this reagent.");
                 return;
             }
             var tool = check.Tool;
@@ -143,7 +143,7 @@ namespace Server.Items
         public override void OnDoubleClick(Mobile from)
         {
             base.OnDoubleClick(from);
-            from.SendMessage("This plant is not mature enough to harvest");
+            from.SendMessage("This reagent is not mature enough to harvest");
         }
 
         public override void Serialize(GenericWriter writer)
@@ -204,6 +204,12 @@ namespace Server.Items
 
             if (from.Mounted)
             {
+                if (this is ClusterOfSpiders || this is Sulfur)
+                {
+                    from.SendMessage("You cannot do this while mounted.");
+                    return;
+                }
+
                 from.SendMessage("You cannot plant a seed while mounted.");
                 return;
             }
@@ -216,6 +222,16 @@ namespace Server.Items
 
             if (!PlantHelper.CanPlantHere(this, from))
             {
+                if (this is ClusterOfSpiders)
+                {
+                    from.SendMessage("You feel the spiders could not survive here.");
+                    return;
+                }
+                if (this is Sulfur)
+                {
+                    from.SendMessage("You cannot burn sulfur here.");
+                    return;
+                }
                 from.SendMessage("You cannot plant here.");
                 return;
             }

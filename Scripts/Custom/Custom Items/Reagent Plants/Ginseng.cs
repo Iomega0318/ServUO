@@ -4,19 +4,19 @@ using Server.Targeting;
 namespace Server.Items
 {
     #region Plant
-    public class GarlicPlant : BasePlant
+    public class GinsengPlant : BasePlant
     {
         [Constructable]
-        public GarlicPlant()
+        public GinsengPlant()
             : this(null)
         {
         }
 
         [Constructable]
-        public GarlicPlant(Mobile planter)
-            : base(Utility.RandomList<int>(new int[] { 0x0C8B, 0x0C8C }))
+        public GinsengPlant(Mobile planter)
+            : base(Utility.RandomList<int>(new int[] { 0x0DC4, 0x0DC5 } ))
         {
-            Name = "Garlic Plant";
+            Name = "Ginseng Plant";
             Movable = false;
             Hue = 1072;
 
@@ -29,7 +29,7 @@ namespace Server.Items
             m_DeathTimer.Start();
         }
 
-        public GarlicPlant(Serial serial)
+        public GinsengPlant(Serial serial)
             : base(serial)
         {
         }
@@ -54,18 +54,18 @@ namespace Server.Items
     #endregion
 
     #region Seedling
-    public class GarlicSeedling : BaseSeedling
+    public class GinsengSeedling : BaseSeedling
     {
         [Constructable]
-        public GarlicSeedling() : this(null)
+        public GinsengSeedling() : this(null)
         {
         }
 
         [Constructable]
-        public GarlicSeedling(Mobile planter)
+        public GinsengSeedling(Mobile planter)
             : base(0x0D32)
         {
-            Name = "Garlic Seedling";
+            Name = "Ginseng Seedling";
             Movable = false;
             Hue = 1072;
             m_Planter = planter;
@@ -76,14 +76,9 @@ namespace Server.Items
 
         }
 
-        public GarlicSeedling(Serial serial)
+        public GinsengSeedling(Serial serial)
             : base(serial)
         {
-        }
-
-        public override void OnDoubleClick(Mobile from)
-        {
-            base.OnDoubleClick(from);
         }
 
         public override void Serialize(GenericWriter writer)
@@ -103,16 +98,16 @@ namespace Server.Items
     #endregion
 
     #region Seed
-    public class GarlicSeed : BaseSeed
+    public class GinsengSeed : BaseSeed
     {
         [Constructable]
-        public GarlicSeed()
+        public GinsengSeed()
             : this(1)
         {
         }
 
         [Constructable]
-        public GarlicSeed(int amount)
+        public GinsengSeed(int amount)
             : base(0x0C67)
         {
             Name = "Garlic Seed";
@@ -120,13 +115,14 @@ namespace Server.Items
             Weight = .5;
             Hue = 1072;
             Movable = true;
-            Amount = amount;            
+            Amount = amount;
+
         }
 
-        public GarlicSeed(Serial serial)
+        public GinsengSeed(Serial serial)
             : base(serial)
         {
-        }        
+        }
 
         public override void Serialize(GenericWriter writer)
         {
