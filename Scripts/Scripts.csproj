@@ -1903,20 +1903,23 @@
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarHammer.cs" />
     <Compile Include="Custom\Custom Items\Practice Weapons\PracticeWarMace.cs" />
     <Compile Include="Custom\Custom Items\RareItem.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\BasePlants.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodLog.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodTree.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\Bloodmoss.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\RavenwoodAxe.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\SpiderSilk.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\BlackPearl.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\Garlic.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\Ginseng.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\SulfurousAsh.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\Mandrake.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\Nightshade.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\PlantHelper.cs" />
-    <Compile Include="Custom\Custom Items\Reagent Plants\ReagentHarvester.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\BasePlants.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\IngotKeyItems\UraniumOre.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\IngotKeyItems\UrainiumVein.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\IngotKeyItems\UraniumPickaxe.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\WoodKeyItems\RavenwoodLog.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\WoodKeyItems\RavenwoodTree.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\Bloodmoss.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\WoodKeyItems\RavenwoodAxe.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\SpiderSilk.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\BlackPearl.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\Garlic.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\Ginseng.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\SulfurousAsh.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\Mandrake.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\Nightshade.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\PlantHelper.cs" />
+    <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\ReagentHarvester.cs" />
     <Compile Include="Custom\Custom Items\Recipebag.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AssassinSpikeOfEvolution.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AxeOfEvolution.cs" />
@@ -4047,7 +4050,6 @@
     <Compile Include="Custom\Custom Systems\Holiday\Witch\WWRobe.cs" />
     <Compile Include="Custom\Custom Systems\Hue System\HueCenterGold.cs" />
     <Compile Include="Custom\Custom Systems\Hue System\HueListGumpGold.cs" />
-    <Compile Include="Custom\Custom Systems\Hunger\Hunger.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\Invasion Settings.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\Invasion System.cs" />
     <Compile Include="Custom\Custom Systems\Invasion System\InvasionControl.cs" />
@@ -18562,6 +18564,7 @@
     <None Include="Services\TreasureMaps\desktop.ini" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Custom\Custom Systems\Hunger\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Output\" />
   </ItemGroup>

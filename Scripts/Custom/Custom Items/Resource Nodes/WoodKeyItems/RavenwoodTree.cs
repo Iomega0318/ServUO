@@ -75,6 +75,7 @@ namespace Server.Items
             if (from.Skills[SkillName.Lumberjacking].Base < 80.0)
             {
                 from.SendMessage("You do not have the skill to harvest that.");
+                return;
             }
 
             m_LastHarvested = DateTime.Now;
@@ -91,10 +92,11 @@ namespace Server.Items
                 from.SendMessage("You have broken your ravenwood axe.");                
             }
 
-            from.Freeze(TimeSpan.FromMilliseconds(1500));
-            from.PlayAttackAnimation(AttackAnimation.Slash2H);            
-
             from.CheckSkill(SkillName.Lumberjacking, 80.0, 160.0);
+            from.Freeze(TimeSpan.FromMilliseconds(1500));
+            from.PlayAttackAnimation(AttackAnimation.Slash2H);
+            Timer.DelayCall(TimeSpan.FromMilliseconds(500), () => from.PlaySound(Utility.RandomMinMax(0x03AA, 0x03AD)));
+            
 
             //Failure
             if (Utility.RandomMinMax(1, 200) != 1)
