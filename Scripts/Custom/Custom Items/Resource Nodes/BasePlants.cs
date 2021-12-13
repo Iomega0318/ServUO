@@ -22,7 +22,13 @@ namespace Server.Items
         [CommandProperty(AccessLevel.GameMaster)]
         public DateTime Dies
         {
-            get { return m_DeathTimer.GetDelay(); }
+            get { return m_DeathTimer.GetDelay().ToLocalTime(); }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan DiesIn
+        {
+            get { return m_DeathTimer.GetDelay() - DateTime.UtcNow; }
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -102,7 +108,7 @@ namespace Server.Items
 
             DateTime end = reader.ReadDeltaTime();
             m_DeathTimer = new PlantHelper.DeathTimer(this, end);
-            if (this is RavenwoodTree)
+            if (this is RavenwoodTree || this is UraniumVein)
             {
                 m_DeathTimer.Priority = TimerPriority.OneSecond;
             }

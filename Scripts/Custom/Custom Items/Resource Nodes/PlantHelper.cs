@@ -16,13 +16,13 @@ namespace Server.Items
         public static DateTime GetDeathTime()
         {
             var lifespan = Utility.RandomMinMax(2400, 2880); //2400, 2880
-            return DateTime.Now.AddMinutes(lifespan); //minutes
+            return DateTime.UtcNow.AddMinutes(lifespan); //minutes
         }
 
         public class DeathTimer : Timer
         {
             private readonly Item m_Plant;
-            public DeathTimer(Item plant, DateTime end) : base(end.Subtract(DateTime.Now))
+            public DeathTimer(Item plant, DateTime end) : base(end.Subtract(DateTime.UtcNow))
             {
                 m_Plant = plant;
                 Priority = TimerPriority.OneMinute;
@@ -138,10 +138,10 @@ namespace Server.Items
                 plant is BlackPearlPlant)
             {
                 from.SendMessage("You disturb a rats nest while harvesting.");
-                var tiles = plant.GetLandTilesInRange(from.Map, 1);
-                foreach (LandTile tile in tiles)
+                var tiles = plant.GetAllPointsInRange(from.Map, 1);
+                foreach (Point3D tile in tiles)
                 {
-                    var t = new LandTarget(plant.Location, from.Map);
+                    var t = new LandTarget(tile, from.Map);
                     if (t.Flags != TileFlag.Impassable || !t.IsWater())
                     {
                         if (.25 > Utility.RandomDouble())
@@ -151,7 +151,7 @@ namespace Server.Items
                             {
                                 rat = new GiantRat();
                             }
-                            rat.MoveToWorld(plant.Location, plant.Map);
+                            rat.MoveToWorld(tile, plant.Map);
                         }
                     }
                 }                
@@ -159,10 +159,10 @@ namespace Server.Items
             else if (plant is SpiderNest)
             {
                 from.SendMessage("You disturb the spiders.");
-                var tiles = plant.GetLandTilesInRange(from.Map, 1);
-                foreach (LandTile tile in tiles)
+                var tiles = plant.GetAllPointsInRange(from.Map, 1);
+                foreach (Point3D tile in tiles)
                 {
-                    var t = new LandTarget(plant.Location, from.Map);
+                    var t = new LandTarget(tile, from.Map);
                     if (t.Flags != TileFlag.Impassable || !t.IsWater())
                     {
                         if (.25 > Utility.RandomDouble())
@@ -172,7 +172,7 @@ namespace Server.Items
                             {
                                 spider = new GiantSpider();
                             }
-                            spider.MoveToWorld(plant.Location, plant.Map);
+                            spider.MoveToWorld(tile, plant.Map);
                         }
                     }
                 }

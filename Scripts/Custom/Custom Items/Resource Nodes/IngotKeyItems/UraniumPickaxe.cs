@@ -3,26 +3,26 @@ using Server.Engines.Craft;
 using Server.ContextMenus;
 
 namespace Server.Items
-{    
-    public class RavenwoodAxe : BaseTool
+{
+    public class UraniumPickaxe : BaseTool
     {
         [Constructable]
-        public RavenwoodAxe()
-            : this(50)
+        public UraniumPickaxe()
+            : this(Utility.RandomMinMax(40, 60))
         {
         }
 
         [Constructable]
-        public RavenwoodAxe(int uses)
-            : base(uses, 0xF43)
+        public UraniumPickaxe(int uses)
+            : base(uses, 0xE86)
         {
-            Name = "Raven Wood Axe";
-            Hue = 502;
+            Name = "Uranium Pickaxe";
+            Hue = 268;
             Weight = 4.0;
             Layer = Layer.OneHanded;
         }
 
-        public RavenwoodAxe(Serial serial)
+        public UraniumPickaxe(Serial serial)
             : base(serial)
         {
         }
@@ -32,7 +32,7 @@ namespace Server.Items
         }
 
         public override CraftSystem CraftSystem { get; }
-        
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
@@ -45,6 +45,7 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
-        }               
-    }    
+        }
+    }
 }
+
