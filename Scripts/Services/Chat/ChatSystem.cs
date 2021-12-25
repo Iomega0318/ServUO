@@ -23,7 +23,7 @@ namespace Server.Engines.Chat
 
             if (!Enabled)
             {
-                from.SendMessage("The chat system has been disabled.");
+                //from.SendMessage("The chat system has been disabled.");
                 return;
             }
 
