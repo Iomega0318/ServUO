@@ -57,7 +57,7 @@ namespace Server.Items
         }
 
         [Constructable]
-		public PoisonSprinkler() : base(0x14E7)
+		public PoisonSprinkler() : base(0xE7A)
         {
             Movable = true;
             Weight = 1.0;
@@ -66,7 +66,7 @@ namespace Server.Items
             StorageLimit = 1000;
         }
         public PoisonSprinkler(int uses, int storageLimit)
-            : base(0x14E7)
+            : base(0xE7A)
         {
             Weight = 1.0;
             Name = "a poison sprinkler";
