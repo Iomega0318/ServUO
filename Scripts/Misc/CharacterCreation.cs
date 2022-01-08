@@ -88,7 +88,7 @@ namespace Server.Misc
 				//Noob one time only bank loot caller
 					//NewbBank( m );
 				//Noob Broadcast
-					World.Broadcast( 33, true, ""+m.Name+" has joined for the first time! Welcome!");
+					World.Broadcast( 33, true, ""+m.Name+" has been born, a new adventure begins.");
 				
                 }
             }

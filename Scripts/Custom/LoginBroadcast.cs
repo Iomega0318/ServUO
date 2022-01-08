@@ -8,6 +8,7 @@ using System;
 using System.Text;
 using Server;
 using Server.Commands;
+using Server.Mobiles;
 
 namespace mordero.Custom
 {
@@ -15,8 +16,10 @@ namespace mordero.Custom
     {
         //{0} is the name of the player
         private readonly static string m_LoginMessage = "{0} has logged in.";//logging in
+        private readonly static string m_YoungLoginMessage = "{0} has been born, a new adventure begins.";//young logging in
         private readonly static string m_LogoutMessage = "{0} has logged out.";//logging out
         private readonly static int m_LoginHue = 0x482;//logging in hue
+		private readonly static int m_YoungLoginHue = 0x4B1;//young logging in hue
         private readonly static int m_LogoutHue = 0x482;//logging out hue
         //maximum access level to announce
         private static AccessLevel m_AnnounceLevel = AccessLevel.Player;
@@ -26,6 +29,7 @@ namespace mordero.Custom
         public static void Initialize()
         {
             EventSink.Login += new LoginEventHandler(EventSink_Login);
+            EventSink.Login += new LoginEventHandler(EventSink_YoungLogin);
             EventSink.Logout += new LogoutEventHandler(EventSink_Logout);
         }
         /// <summary>
@@ -54,5 +58,17 @@ namespace mordero.Custom
                     CommandHandlers.BroadcastMessage(AccessLevel.Counselor, m_LoginHue, String.Format(m_LoginMessage, e.Mobile.Name));
             }
         }
+        /// <summary>
+        /// On young player login, broadcast a message.
+        /// </summary>
+        /*public static void EventSink_YoungLogin(LoginEventArgs e)
+        {
+            if (e.Mobile.Player)
+            {
+				PlayerMobile pm = e.Mobile as PlayerMobile;
+				if (pm !=null && pm.Young  && (e.Mobile.AccessLevel <= m_AnnounceLevel))
+                    CommandHandlers.BroadcastMessage(AccessLevel.Player, m_YoungLoginHue, String.Format(m_YoungLoginMessage, e.Mobile.Name));
+            }
+        }*/
     }
 }
