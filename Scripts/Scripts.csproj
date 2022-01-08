@@ -5087,6 +5087,14 @@
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Objects\Set.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Options\SystemOpts.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\UI\Admin.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTrade.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeBox.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeContainer.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeOptions.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeProfile.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeRecord.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeState.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\CastBars.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\CastBars_Init.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\Objects\CastBarRequestEventArgs.cs" />
