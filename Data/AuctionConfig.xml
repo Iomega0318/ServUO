@@ -43,7 +43,7 @@
 		
 			<ClilocLocation type="string">C:\RunUO\Misc\cliloc.enu</ClilocLocation>
 		-->
-		<ClilocLocation type="string">C:\Program Files (x86)\Electronic Arts\Ultima Online Classic\Cliloc.enu</ClilocLocation>
+		<ClilocLocation type="string">C:\ServUO\Data Files\Cliloc.enu</ClilocLocation>
 
 		<EnableLogging type="bool">true</EnableLogging>
 		
@@ -70,7 +70,7 @@
 
 		<GoldInterestRate type="double">0.04</GoldInterestRate>
 		<TokensInterestRate type="double">0.03</TokensInterestRate>
-		<EnableTokens type="bool">false</EnableTokens>		<!-- Enable Daat99 Tokens? -->
+		<EnableTokens type="bool">true</EnableTokens>		<!-- Enable Daat99 Tokens? -->
 
 	</AuctionSystem>	
 </Xanthos>
