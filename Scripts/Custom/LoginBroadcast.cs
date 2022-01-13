@@ -19,7 +19,7 @@ namespace mordero.Custom
         private readonly static string m_YoungLoginMessage = "{0} has been born, a new adventure begins.";//young logging in
         private readonly static string m_LogoutMessage = "{0} has logged out.";//logging out
         private readonly static int m_LoginHue = 0x482;//logging in hue
-		private readonly static int m_YoungLoginHue = 0x4B1;//young logging in hue
+        private readonly static int m_YoungLoginHue = 0x4B1;//young logging in hue
         private readonly static int m_LogoutHue = 0x482;//logging out hue
         //maximum access level to announce
         private static AccessLevel m_AnnounceLevel = AccessLevel.Player;
@@ -40,9 +40,13 @@ namespace mordero.Custom
             if (e.Mobile.Player)
             {
                 if (e.Mobile.AccessLevel <= m_AnnounceLevel)
+                {
                     CommandHandlers.BroadcastMessage(AccessLevel.Player, m_LogoutHue, String.Format(m_LogoutMessage, e.Mobile.Name));
+                }
                 else //broadcast any other level to the staff
+                {
                     CommandHandlers.BroadcastMessage(AccessLevel.Counselor, m_LogoutHue, String.Format(m_LogoutMessage, e.Mobile.Name));
+                }
             }
         }
         /// <summary>
@@ -53,22 +57,31 @@ namespace mordero.Custom
             if (e.Mobile.Player)
             {
                 if (e.Mobile.AccessLevel <= m_AnnounceLevel)
+                {
                     CommandHandlers.BroadcastMessage(AccessLevel.Player, m_LoginHue, String.Format(m_LoginMessage, e.Mobile.Name));
+                }
                 else //broadcast any other level to the staff
+                {
                     CommandHandlers.BroadcastMessage(AccessLevel.Counselor, m_LoginHue, String.Format(m_LoginMessage, e.Mobile.Name));
+                }
             }
         }
         /// <summary>
         /// On young player login, broadcast a message.
         /// </summary>
-        /*public static void EventSink_YoungLogin(LoginEventArgs e)
+        public static void EventSink_YoungLogin(LoginEventArgs e)
         {
-            if (e.Mobile.Player)
+            if (e.Mobile is PlayerMobile pm && pm.GameTime.TotalMinutes < 0.1)
             {
-				PlayerMobile pm = e.Mobile as PlayerMobile;
-				if (pm !=null && pm.Young  && (e.Mobile.AccessLevel <= m_AnnounceLevel))
-                    CommandHandlers.BroadcastMessage(AccessLevel.Player, m_YoungLoginHue, String.Format(m_YoungLoginMessage, e.Mobile.Name));
+                if (pm.AccessLevel <= m_AnnounceLevel)
+                {
+                    CommandHandlers.BroadcastMessage(AccessLevel.Player, m_YoungLoginHue, String.Format(m_YoungLoginMessage, pm.Name));
+                }
+                else //broadcast any other level to the staff
+                {
+                    CommandHandlers.BroadcastMessage(AccessLevel.Counselor, m_YoungLoginHue, String.Format(m_YoungLoginMessage, pm.Name));
+                }
             }
-        }*/
+        }
     }
 }
