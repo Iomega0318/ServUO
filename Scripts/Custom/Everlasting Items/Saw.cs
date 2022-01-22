@@ -4,12 +4,24 @@ using Server.Engines.Craft;
 namespace Server.Items
 {
     [FlipableAttribute(0x1034, 0x1035)]
-    public class EverlastingSaw : BaseTool
+    public class EverlastingSaw : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefCarpentry.CraftSystem;
+
         [Constructable]
         public EverlastingSaw()
-            : base(0x1034)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingSaw(int uses)
+            : base(uses, 0x1034)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Saw";
+            Hue = 1153;
         }
 
         public EverlastingSaw(Serial serial)
@@ -17,13 +29,6 @@ namespace Server.Items
         {
         }
 
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefCarpentry.CraftSystem;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

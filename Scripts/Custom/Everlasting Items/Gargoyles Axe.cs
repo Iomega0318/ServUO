@@ -5,39 +5,20 @@ namespace Server.Items
 	[FlipableAttribute( 0xf45, 0xf46 )]
 	public class EverlastingGargoylesAxe : BaseAxe
 	{
-		public override WeaponAbility PrimaryAbility{ get{ return WeaponAbility.BleedAttack; } }
-		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.MortalStrike; } }
-
-		public override int AosStrengthReq{ get{ return 40; } }
-		public override int AosMinDamage{ get{ return 15; } }
-		public override int AosMaxDamage{ get{ return 17; } }
-		public override int AosSpeed{ get{ return 33; } }
-        	public override float MlSpeed { get { return 3.00f; } }
-
-		public override int OldStrengthReq{ get{ return 35; } }
-		public override int OldMinDamage{ get{ return 6; } }
-		public override int OldMaxDamage{ get{ return 33; } }
-		public override int OldSpeed{ get{ return 37; } }
-
-		public override int InitMinHits{ get{ return 31; } }
-		public override int InitMaxHits{ get{ return 70; } }
-
 		public override HarvestSystem HarvestSystem{ get{ return Lumberjacking.System; } }
 
 		[Constructable]
-		public EverlastingGargoylesAxe() : this( Utility.RandomMinMax( 101, 125 ) )
-		{
+		public EverlastingGargoylesAxe()
+            : base( 0xf45 )
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Gargoyles Axe";
+            Hue = 1153;
 		}
 
-		[Constructable]
-		public EverlastingGargoylesAxe( int uses ) : base( 0xf45 )
-		{
-			Weight = 4.0;
-			//Hue = 0x973; //removed in RunUO
-			Name = "Gargoyles Axe";
-		}
-
-		public EverlastingGargoylesAxe( Serial serial ) : base( serial )
+		public EverlastingGargoylesAxe( Serial serial )
+            : base( serial )
 		{
 		}
 

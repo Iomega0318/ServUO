@@ -5669,6 +5669,8 @@
     <Compile Include="Custom\Custom Systems\[ServUO.com]-Group Dungeon System 2.0 Beta\Group Dungeon System 2.0 Beta\GroupDungeonTelporters.cs" />
     <Compile Include="Custom\EnchantedDragon.cs" />
     <Compile Include="Custom\Everlasting Items\Arrow.cs" />
+    <Compile Include="Custom\Everlasting Items\BagOTools.cs" />
+    <Compile Include="Custom\Everlasting Items\BaseHarvestTool.cs" />
     <Compile Include="Custom\Everlasting Items\BaseTool.cs" />
     <Compile Include="Custom\Everlasting Items\Bolt.cs" />
     <Compile Include="Custom\Everlasting Items\EverlastingBandage.cs" />
@@ -5803,12 +5805,15 @@
     <Compile Include="Custom\Quests\ThePerfectCut.cs" />
     <Compile Include="Custom\Quests\Wood Key\Items\WoodTreefellowWood.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodChampions.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodGuardian.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodCorpser.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodDryad.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodGuardianTreeEvo.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodPixie.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodReaper.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreefellow.cs" />
+    <Compile Include="Custom\Quests\Wood Key\WoodKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Wood Key\WoodKeyQuester.cs" />
     <Compile Include="Custom\RewardItems.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardAvenger.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardElementWizard.cs" />

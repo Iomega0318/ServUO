@@ -4,12 +4,24 @@ using Server.Engines.Craft;
 namespace Server.Items
 {
     [FlipableAttribute(0x0FBF, 0x0FC0)]
-    public class EverlastingMapmakersPen : BaseTool
+    public class EverlastingMapmakersPen : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefCartography.CraftSystem;
+
         [Constructable]
         public EverlastingMapmakersPen()
-            : base(0x0FBF)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingMapmakersPen(int uses)
+            : base(uses, 0x0FBF)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Mapmakers Pen";
+            Hue = 1153;
         }
 
         public EverlastingMapmakersPen(Serial serial)
@@ -17,20 +29,6 @@ namespace Server.Items
         {
         }
 
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefCartography.CraftSystem;
-            }
-        }
-        public override int LabelNumber
-        {
-            get
-            {
-                return 1044167;
-            }
-        }// mapmaker's pen
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

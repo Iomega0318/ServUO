@@ -5,12 +5,24 @@ using Server.ContextMenus;
 namespace Server.Items
 {
     [Flipable(0x1EB8, 0x1EB9)]
-    public class EverlastingTinkerTools : BaseTool
+    public class EverlastingTinkerTools : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefTinkering.CraftSystem;
+
         [Constructable]
         public EverlastingTinkerTools()
-            : base(0x1EB8)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingTinkerTools(int uses)
+            : base(uses, 0x1EB8)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Tinkers Tools";
+            Hue = 1153;
         }
 
         public EverlastingTinkerTools(Serial serial)
@@ -18,13 +30,6 @@ namespace Server.Items
         {
         }
 
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefTinkering.CraftSystem;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

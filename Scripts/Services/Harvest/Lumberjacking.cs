@@ -12,7 +12,7 @@ namespace Server.Engines.Harvest
 		 //daat99 OWLTR start - gargoyle axe
         public override HarvestVein MutateVein(Mobile from, Item tool, HarvestDefinition def, HarvestBank bank, object toHarvest, HarvestVein vein)
         {
-            if (tool is GargoylesAxe)
+            if ((tool is GargoylesAxe) || (tool is EverlastingGargoylesAxe))
             {
                 int veinIndex = Array.IndexOf(def.Veins, vein);
 
@@ -37,7 +37,7 @@ namespace Server.Engines.Harvest
 
         public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
         {
-            if (tool is GargoylesAxe && 0.1 < Utility.RandomDouble())
+            if ((tool is GargoylesAxe) || (tool is EverlastingGargoylesAxe) && 0.1 < Utility.RandomDouble())
             {
                 HarvestResource res = vein.PrimaryResource;
 

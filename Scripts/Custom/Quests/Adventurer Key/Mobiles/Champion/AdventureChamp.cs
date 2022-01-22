@@ -36,7 +36,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return ChampionSkullType.Enlightenment;
+                return ChampionSkullType.None;
             }
         }
         public override Type[] UniqueList
@@ -88,11 +88,11 @@ namespace Server.Mobiles
             SetDex(72, 150);
             SetInt(505, 750);
 
-            SetHits(12000);
+            SetHits(21000);
             SetStam(102, 300);
             SetMana(505, 750);
 
-            SetDamage(29, 38);
+            SetDamage(129, 138);
 
             SetDamageType(ResistanceType.Physical, 100);
 

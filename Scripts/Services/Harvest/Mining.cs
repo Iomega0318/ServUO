@@ -346,7 +346,7 @@ namespace Server.Engines.Harvest
 		//daat99 added Type type
         public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
         {
-            if (tool is GargoylesPickaxe && def == OreAndStone && 0.1 > Utility.RandomDouble() && HarvestMap.CheckMapOnHarvest(from, harvested, def) == null)
+            if ((tool is GargoylesPickaxe) || (tool is EverlastingGargoylesPickaxe) && def == OreAndStone && 0.1 > Utility.RandomDouble() && HarvestMap.CheckMapOnHarvest(from, harvested, def) == null)
             {
                 HarvestResource res = vein.PrimaryResource;
 
