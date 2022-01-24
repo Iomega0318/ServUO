@@ -1921,6 +1921,19 @@
     <Compile Include="Custom\Custom Items\Resource Nodes\PlantHelper.cs" />
     <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\ReagentHarvester.cs" />
     <Compile Include="Custom\Custom Items\Recipebag.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomDeco.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomDock.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomMob.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomPet.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomSpawner.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomStealable.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomWeapon.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\HouseGate.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\Housing.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\MonsterBash.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\NPCVendor.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\Template.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\TravelGate.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AssassinSpikeOfEvolution.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AxeOfEvolution.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\BardicheOfEvolution.cs" />
@@ -18577,6 +18590,7 @@
     <None Include="Services\TreasureMaps\desktop.ini" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Custom\Custom Items\Misc Items\" />
     <Folder Include="Custom\Custom Systems\Hunger\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Output\" />
