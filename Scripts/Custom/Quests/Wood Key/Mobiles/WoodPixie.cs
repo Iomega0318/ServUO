@@ -3,14 +3,14 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a pixie corpse")]
+    [CorpseName("a wood pixie corpse")]
     public class WoodPixie : BaseCreature
     {
         [Constructable]
         public WoodPixie()
             : base(AIType.AI_Mage, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("pixie");
+            Name = NameList.RandomName("wood pixie");
             Body = 128;
             BaseSoundID = 0x467;
 
@@ -54,7 +54,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return true;
+                return false;
             }
         }
         public override HideType HideType

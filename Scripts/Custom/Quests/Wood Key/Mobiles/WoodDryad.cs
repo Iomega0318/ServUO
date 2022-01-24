@@ -1,182 +1,89 @@
 using System;
-using System.Collections.Generic;
+using Server;
 using Server.Items;
 using Server.Mobiles;
 
-namespace Server.Engines.Quests.Haven
+namespace Server.Mobiles
 {
-    public class WoodDryad : BaseQuester
+    [CorpseName("a wood dryad corpse")]
+    public class WoodDryad : BaseCreature
     {
         [Constructable]
-        public WoodDryad()
-            : base("the Dryad")
+        public WoodDryad() : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.SetSkill(SkillName.Peacemaking, 80.0, 100.0);
-            this.SetSkill(SkillName.Cooking, 80.0, 100.0);
-            this.SetSkill(SkillName.Provocation, 80.0, 100.0);
-            this.SetSkill(SkillName.Musicianship, 80.0, 100.0);
-            this.SetSkill(SkillName.Poisoning, 80.0, 100.0);
-            this.SetSkill(SkillName.Archery, 80.0, 100.0);
-            this.SetSkill(SkillName.Tailoring, 80.0, 100.0);
+            Name = "a wood dryad";
+            Body = 401;
+            Hue = 33770;
+            BaseSoundID = 0x4B0;
+
+            SetStr(200);
+            SetDex(200);
+            SetInt(100);
+
+            SetHits(175);
+            SetStam(50);
+
+            SetDamage(6, 9);
+
+            SetDamageType(ResistanceType.Physical, 50);
+            SetDamageType(ResistanceType.Energy, 50);
+
+            SetResistance(ResistanceType.Physical, 40, 50);
+            SetResistance(ResistanceType.Fire, 30, 40);
+            SetResistance(ResistanceType.Cold, 35, 45);
+            SetResistance(ResistanceType.Poison, 50, 60);
+            SetResistance(ResistanceType.Energy, 70, 80);
+
+            SetSkill(SkillName.Meditation, 110.0);
+            SetSkill(SkillName.EvalInt, 110.0);
+            SetSkill(SkillName.Magery, 110.0);
+            SetSkill(SkillName.MagicResist, 110.0);
+            SetSkill(SkillName.Tactics, 110.0);
+            SetSkill(SkillName.Wrestling, 110.0);
+
+            VirtualArmor = 45;
+            ControlSlots = 2;
+
+            Item hair = new Item(Utility.RandomList(0x203B, 0x203C, 0x203D, 0x2044, 0x2045, 0x2047, 0x2049, 0x204A));
+            hair.Hue = Utility.RandomHairHue();
+            hair.Layer = Layer.Hair;
+            hair.Movable = false;
+            AddItem(hair);
+
+            Item sash = new BodySash();
+            sash.Hue = Utility.RandomList(1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172);
+            sash.Movable = false;
+            AddItem(sash);
+
+            Item shoes = new Sandals();
+            shoes.Hue = Utility.RandomList(1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172);
+            shoes.Movable = false;
+            AddItem(shoes);
+
+            Item skirt = new LeatherSkirt();
+            skirt.Hue = Utility.RandomList(1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172);
+            skirt.Movable = false;
+            AddItem(skirt);
+
+            Item garland = new FlowerGarland();
+            garland.Hue = Utility.RandomList(1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172);
+            garland.Movable = false;
+            AddItem(garland);
         }
 
-        public WoodDryad(Serial serial)
-            : base(serial)
+        public WoodDryad(Serial serial) : base(serial)
         {
-        }
-
-        public override bool IsActiveVendor
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool DisallowAllMoves
-        {
-            get
-            {
-                return false;
-            }
-        }
-        public override bool ClickTitle
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CanTeach
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override void InitBody()
-        {
-            this.InitStats(100, 100, 25);
-
-            this.Hue = 0x85A7;
-
-            this.Female = true;
-            this.Body = 0x191;
-            this.Name = "Anwin Brenna";
-        }
-
-        public override void InitOutfit()
-        {
-            this.AddItem(new Kilt(0x301));
-            this.AddItem(new FancyShirt(0x300));
-
-            this.HairItemID = 0x203D; // Pony Tail
-            this.HairHue = 0x22;
-
-            Bow bow = new Bow();
-            bow.Movable = false;
-            this.AddItem(bow);
-        }
-
-        public override void InitSBInfo()
-        {
-            this.m_SBInfos.Add(new SBDryad());
-        }
-
-        public override int GetAutoTalkRange(PlayerMobile pm)
-        {
-            return 4;
-        }
-
-        public override bool CanTalkTo(PlayerMobile to)
-        {
-            UzeraanTurmoilQuest qs = to.Quest as UzeraanTurmoilQuest;
-
-            return (qs != null && qs.FindObjective(typeof(FindDryadObjective)) != null);
-        }
-
-        public override void OnTalk(PlayerMobile player, bool contextMenu)
-        {
-            QuestSystem qs = player.Quest;
-
-            if (qs is UzeraanTurmoilQuest)
-            {
-                if (UzeraanTurmoilQuest.HasLostFertileDirt(player))
-                {
-                    this.FocusTo(player);
-                    qs.AddConversation(new LostFertileDirtConversation(false));
-                }
-                else
-                {
-                    QuestObjective obj = qs.FindObjective(typeof(FindDryadObjective));
-
-                    if (obj != null && !obj.Completed)
-                    {
-                        this.FocusTo(player);
-
-                        Item fertileDirt = new QuestFertileDirt();
-
-                        if (!player.PlaceInBackpack(fertileDirt))
-                        {
-                            fertileDirt.Delete();
-                            player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
-                        }
-                        else
-                        {
-                            obj.Complete();
-                        }
-                    }
-                    else if (contextMenu)
-                    {
-                        this.FocusTo(player);
-                        this.SayTo(player, 1049357); // I have nothing more for you at this time.
-                    }
-                }
-            }
-        }
-
-        public override bool OnDragDrop(Mobile from, Item dropped)
-        {
-            PlayerMobile player = from as PlayerMobile;
-
-            if (player != null)
-            {
-                UzeraanTurmoilQuest qs = player.Quest as UzeraanTurmoilQuest;
-
-                if (qs != null && dropped is Apple && UzeraanTurmoilQuest.HasLostFertileDirt(from))
-                {
-                    this.FocusTo(from);
-
-                    Item fertileDirt = new QuestFertileDirt();
-
-                    if (!player.PlaceInBackpack(fertileDirt))
-                    {
-                        fertileDirt.Delete();
-                        player.SendLocalizedMessage(1046260); // You need to clear some space in your inventory to continue with the quest.  Come back here when you have more space in your inventory.
-                        return false;
-                    }
-                    else
-                    {
-                        dropped.Consume();
-                        qs.AddConversation(new DryadAppleConversation());
-                        return dropped.Deleted;
-                    }
-                }
-            }
-
-            return base.OnDragDrop(from, dropped);
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-
-            writer.Write((int)0); // version
+            writer.Write((int)0);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
-
             int version = reader.ReadInt();
         }
     }

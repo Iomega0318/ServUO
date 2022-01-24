@@ -11,32 +11,36 @@ namespace Server.Mobiles
             : base(AIType.AI_Melee, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
             Name = "Wood Guardian";
-            Body = 301;
+            Body = 234;//301 Trefellow
 
             SetStr(296, 320);
             SetDex(131, 155);
             SetInt(166, 190);
 
-            SetHits(11118, 11132);
+            SetHits(1118, 1132);
 
-            SetDamage(12, 16);
+            this.SetDamage(27, 38);
 
-            SetDamageType(ResistanceType.Physical, 100);
+            this.SetDamageType(ResistanceType.Physical, 75);
+            this.SetDamageType(ResistanceType.Cold, 25);
 
-            SetResistance(ResistanceType.Physical, 20, 25);
-            SetResistance(ResistanceType.Cold, 50, 60);
-            SetResistance(ResistanceType.Poison, 30, 35);
-            SetResistance(ResistanceType.Energy, 20, 30);
+            this.SetResistance(ResistanceType.Physical, 45, 55);
+            this.SetResistance(ResistanceType.Fire, 30, 40);
+            this.SetResistance(ResistanceType.Cold, 30, 40);
+            this.SetResistance(ResistanceType.Poison, 40, 50);
+            this.SetResistance(ResistanceType.Energy, 40, 50);
 
-            SetSkill(SkillName.MagicResist, 40.1, 55.0);
-            SetSkill(SkillName.Tactics, 65.1, 90.0);
-            SetSkill(SkillName.Wrestling, 65.1, 85.0);
+            this.SetSkill(SkillName.EvalInt, 100.0);
+            this.SetSkill(SkillName.Magery, 97.6, 107.5);
+            this.SetSkill(SkillName.Meditation, 100.0);
+            this.SetSkill(SkillName.MagicResist, 100.5, 150.0);
+            this.SetSkill(SkillName.Tactics, 97.6, 100.0);
+            this.SetSkill(SkillName.Wrestling, 97.6, 100.0);
 
-            Fame = 500;
-            Karma = 1500;
+            this.Fame = 20000;
+            this.Karma = 20000;
 
             VirtualArmor = 24;
-            PackItem(new Log(Utility.RandomMinMax(23, 34)));
             PackItem(new RavenwoodAxe());
 
             SetWeaponAbility(WeaponAbility.Dismount);

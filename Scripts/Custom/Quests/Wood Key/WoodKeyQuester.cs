@@ -27,7 +27,7 @@ namespace Server.Engines.Quests
 		}
 
 		[Constructable]
-		public WoodKeyQuester() : base("Footless Joe")
+		public WoodKeyQuester() : base("Lipswitch, The Kings Carpenter")
 		{
 			InitBody();
 		}

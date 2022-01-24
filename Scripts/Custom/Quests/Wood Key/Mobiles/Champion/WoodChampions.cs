@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Items;
 
@@ -153,7 +154,31 @@ namespace Server.Mobiles
         {
             SpawnRavenwoodTree();
 
-            return true;
+            return base.OnBeforeDeath();
+        }
+
+        public override void OnDeath(Container c)
+        {
+                //TODO: Confirm SE change or AoS one too?
+                List<DamageStore> rights = GetLootingRights();
+                List<Mobile> toGive = new List<Mobile>();
+
+                for (int i = rights.Count - 1; i >= 0; --i)
+                {
+                    DamageStore ds = rights[i];
+
+                    if (ds.m_HasRight)
+                        toGive.Add(ds.m_Mobile);
+                }
+                    if (toGive.Count > 0)
+                        toGive[Utility.Random(toGive.Count)].AddToBackpack(new RavenwoodAxe());
+                    else
+                        c.DropItem(new RavenwoodAxe());
+
+                if (Core.SA)
+                    RefinementComponent.Roll(c, 3, 0.10);
+
+            base.OnDeath(c);
         }
 
         public void SpawnPixies(Mobile target)
@@ -169,7 +194,7 @@ namespace Server.Mobiles
 
             for (int i = 0; i < newPixies; ++i)
             {
-                Pixie pixie = new Pixie();
+                WoodPixie pixie = new WoodPixie();
 
                 pixie.Team = Team;
                 pixie.FightMode = FightMode.Closest;
@@ -201,7 +226,7 @@ namespace Server.Mobiles
             if (map == null)
                 return;
 
-            int newRavenwoodTree = Utility.RandomMinMax(3, 6);
+            int newRavenwoodTree = Utility.RandomMinMax(20, 40);
 
             for (int i = 0; i < newRavenwoodTree; ++i)
             {
@@ -212,8 +237,8 @@ namespace Server.Mobiles
 
                 for (int j = 0; !validLocation && j < 10; ++j)
                 {
-                    int x = X + Utility.Random(30) - 1;
-                    int y = Y + Utility.Random(30) - 1;
+                    int x = X + Utility.Random(75) - 1;
+                    int y = Y + Utility.Random(75) - 1;
                     int z = map.GetAverageZ(x, y);
 
                     if (validLocation = map.CanFit(x, y, Z, 16, false, false))

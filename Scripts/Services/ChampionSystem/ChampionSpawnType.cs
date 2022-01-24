@@ -30,6 +30,7 @@ namespace Server.Engines.CannedEvil
         WinterSolstice,
         Brimstone,
         AdventureChamp,
+        WoodChamp,
         HorrorofKrynn
     }
 
@@ -195,7 +196,7 @@ namespace Server.Engines.CannedEvil
 			//daat99 OWLTR end - MotA champ mobs
             //Iomega0318 - Additional Champion Spawns
 			new ChampionSpawnInfo( "Ancient Blacksmith", typeof( AncientSmithy ), new string[]{ "Rival", "Challenger", "Antagonist" } , new Type[][]
-            {																											// Ancient Blacksmith
+            { // Ancient Blacksmith
 				new Type[]{ typeof( EarthElemental ), typeof( DullCopperElemental ) },
                 new Type[]{ typeof( BladeSpirits ), typeof( CopperElemental ) },
                 new Type[]{ typeof( Golem ), typeof( GolemController ) },
@@ -209,7 +210,7 @@ namespace Server.Engines.CannedEvil
                 new Type[] { typeof(IceDaemon), typeof(IceGiant) }
             }),
             new ChampionSpawnInfo("BrimStone", typeof(FireSpirit), new string[] { "Cleanser", "Expunger", "Depurator" }, new Type[][]
-            { // WinterSolstice
+            { // BrimStone
                 new Type[] { typeof(FireStorm), typeof(SalamanderOfFire) },
                 new Type[] { typeof(Fuerety), typeof(FireDemon) },
                 new Type[] { typeof(BurningEmberSpider), typeof(FieryDragon) },
@@ -222,9 +223,16 @@ namespace Server.Engines.CannedEvil
                 new Type[] { typeof(AdventureOrcishMage), typeof(AdventureOrcishShaman) },
                 new Type[] { typeof(AdventureOrcCaptain), typeof(AdventureOrcishLord) }
             }),
+            new ChampionSpawnInfo( "Wood Champion", typeof( WoodChamp ), new string[]{ "Enemy", "Curse", "Slaughterer" } , new Type[][]
+            { // WoodChamp
+				new Type[]{ typeof(WoodPixie), typeof(WoodCorpser) },
+				new Type[]{ typeof(WoodDryad), typeof(WoodTreeGuardian) },
+				new Type[]{ typeof(WoodReaper), typeof(WoodTreefellow) },
+				new Type[]{ typeof(WoodGuardian) }
+			} ),
             #region Horror of Krynn
             new ChampionSpawnInfo( "Horror of Krynn", typeof( LordSoth ), new string[]{ "Bane", "Challenger", "Slayer" } , new Type[][]
-            {	// Horror of Krynn Custom Champ Spawn Does cycele through Randoms in Fel T2A
+            {	// Horror of Krynn Custom Champ Spawn Does cycle through Randoms in Fel T2A
                 new Type[]{ typeof( Skeleton ), typeof( Wraith ) },
                 new Type[]{ typeof( Spectre ), typeof( BoneMagi  ) },
                 new Type[]{ typeof( UndeadKnight ), typeof( Lich ) },

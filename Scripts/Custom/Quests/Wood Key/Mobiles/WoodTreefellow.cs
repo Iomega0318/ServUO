@@ -3,14 +3,14 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a treefellow corpse")]
+    [CorpseName("a wood treefellow corpse")]
     public class WoodTreefellow : BaseCreature
     {
         [Constructable]
         public WoodTreefellow()
             : base(AIType.AI_Melee, FightMode.Evil, 10, 1, 0.2, 0.4)
         {
-            Name = "a treefellow";
+            Name = "a wood treefellow";
             Body = 301;
 
             SetStr(196, 220);

@@ -5821,10 +5821,10 @@
     <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodGuardian.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodCorpser.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodDryad.cs" />
-    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodGuardianTreeEvo.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodPixie.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodReaper.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreefellow.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreeGuardian.cs" />
     <Compile Include="Custom\Quests\Wood Key\WoodKeyQuest.cs" />
     <Compile Include="Custom\Quests\Wood Key\WoodKeyQuester.cs" />
     <Compile Include="Custom\RewardItems.cs" />

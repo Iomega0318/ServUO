@@ -16,34 +16,32 @@ namespace Server.Engines.Quests
         public override TimeSpan RestartDelay { get { return TimeSpan.FromMinutes(60); } }
 
         //This is the Quest Title the player sees at the top of the Gump
-        public override object Title { get { return "Footless Joe"; } }
+        public override object Title { get { return "Bed for the King"; } }
         //This tells the story of the quest
-        public override object Description { get { return "Please slay the Chieftan and rescue me.<br><br>" +
-                    "There was once a time when I could have done that myself. I used to be quite the adventurer. " +
-                    "Magic weapons, magic armor, the whole shebang, but you make one wrong move and you find yourself the butt of some sick ironic joke like me.<br><br>" +
-                    "You see, a few years back, I was hunting orcs in these caves as I often did back then, when I tripped over a damn rock and got caught by these brutes.<br>" +
-                    "They stripped off my armor, took my weapons, and cut off my feet so I couldn't run away. " +
-                    "Then they forced me to craft shoes day in and day out for the orcish horde.<br><br>" +
-                    "The funny thing is, I had these boots that were probably worth more than all of my weapons and armor combined. " +
-                    "After they cut them off they threw them in the ocean with my feet still in them.<br><br>" +
-                    "Kill the Orc Chieftan for me then bring me his key and I might tell you where they are."; } }
+        public override object Description { get { return "Ugh! The king has requested that I make him a new bed. Something worthy of a king.<br>" +
+                    "I’ve made a hundred of ‘em and they just don’t seem worthy to me. What I need is a special type of wood called “ravenwood” that comes from a grove of trees deep in the heart of the Yew forests.<br>" +
+                    "If I had just one log of ravenwood, I think I could make something truly special.<br>" +
+                    "Would you be willing to go find one for me? I could reward you handsomely for sure.<br><br>" +
+                    "You’re going to need a ravenwood axe to chop those trees though, I’m sure you’ll find one on the way.<br>" +
+                    "Oh, ravenwood trees produce a toxic sap that has a tendency to splash when you cut ‘em. Don’t say I didn’t warn you."; } }
         //This decides how the npc reacts in text the player refusing the quest
-        public override object Refuse { get { return "Please help me!"; } }
+        public override object Refuse { get { return "The King will not be pleased!"; } }
         //This is what the npc says when the player returns without completing the objective(s)
-        public override object Uncomplete { get { return "Please hurry!"; } }
+        public override object Uncomplete { get { return "Have you found the wood yet?"; } }
         //This is what the Quest Giver says when the player completes the quest.
-        public override object Complete { get { return "Hey! Since you rescued me and proved your worth, I think I could draw up a map to where they threw them.<br>" +
-                    "If you know a good fisherman, I'm willing to bet you could fish them up. Don't worry about the algae and barnacles, you know how magic stuff tends to resist such things.<br><br>*Scribbles out a crudely drawn map*"; } }
+        public override object Complete { get { return "This will make an excellent bed for the King, he will be pleased, have this token of my appreciation as a reward."; } }
 
         public WoodKeyQuest() : base()
         {
-            AddObjective(new ObtainObjective(typeof(AdventureKey), "Skull of the Orc Chieftan", 1));
+            AddObjective(new ObtainObjective(typeof(RavenwoodLog), "Ravenwood Log", 1));
+            //AddReward(new WoodKey());
+            AddReward(new BaseReward(typeof(WoodKey), "Wood Key"));
         }
 
-        public override void GiveRewards()
+        /*public override void GiveRewards()
         {
             Item bonusitem;
-            bonusitem = new SOS(Map.Trammel, 3, true);
+            bonusitem = new WoodKey();
             //Adding Bonus Item #1
             if (!Owner.AddToBackpack(bonusitem))
             {
@@ -51,6 +49,6 @@ namespace Server.Engines.Quests
             }
 
             base.GiveRewards();
-        }
+        }*/
     }
 }
