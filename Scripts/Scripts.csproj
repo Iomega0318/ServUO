@@ -5089,6 +5089,10 @@
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\UI\Scenarios\PvPScenarioUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\UI\Teams\PvPTeamUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\Utilities\Notoriety.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\DiscordBot.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\DiscordBot_Init.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\Options\DiscordBotOptions.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\UI\DiscordBotUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\EquipmentSets.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\EquipmentSets_Init.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Mods\HueOverride.cs" />
