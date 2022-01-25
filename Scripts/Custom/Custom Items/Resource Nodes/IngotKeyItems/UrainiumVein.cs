@@ -107,7 +107,7 @@ namespace Server.Items
                 if (.1 > Utility.RandomDouble())
                 {
                     from.SendMessage("You hear a disturbing rumble as elementals erupt from the ground.");
-                    var tiles = this.GetAllPointsInRange(from.Map, 6);
+                    var tiles = this.GetAllPointsInRange(from.Map, 3);
                     foreach (Point3D tile in tiles)
                     {
                         var lt = new LandTarget(tile, from.Map);
