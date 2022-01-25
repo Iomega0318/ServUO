@@ -137,6 +137,9 @@ namespace Server.Items
                             case 12: info = OreInfo.Electrum; break;
                             case 13: info = OreInfo.Platinum; break;
                             //daat99 OWLTR end - custom ores
+                            //Iomega0318 - Ingot Key Quest
+                            case 14: info = OreInfo.Uranium; break;
+                            //Iomega0318 - Ingot Key Quest
                             default:
                                 info = null;
                                 break;

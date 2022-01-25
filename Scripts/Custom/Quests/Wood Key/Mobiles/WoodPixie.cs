@@ -8,9 +8,9 @@ namespace Server.Mobiles
     {
         [Constructable]
         public WoodPixie()
-            : base(AIType.AI_Mage, FightMode.Evil, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("wood pixie");
+            Name = "wood pixie";
             Body = 128;
             BaseSoundID = 0x467;
 
@@ -79,7 +79,7 @@ namespace Server.Mobiles
             }
         }
 
-        public override TribeType Tribe { get { return TribeType.Fey; } }
+        /*public override TribeType Tribe { get { return TribeType.Fey; } }
 
         public override OppositionGroup OppositionGroup
         {
@@ -87,7 +87,7 @@ namespace Server.Mobiles
             {
                 return OppositionGroup.FeyAndUndead;
             }
-        }
+        }*/
         public override void GenerateLoot()
         {
             AddLoot(LootPack.LowScrolls);

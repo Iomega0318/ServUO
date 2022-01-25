@@ -5813,6 +5813,9 @@
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishMage.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishShaman.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\Champion\AdventureChamp.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\Mobiles\Champion\IngotChampions.cs" />
     <Compile Include="Custom\Quests\Name.cs" />
     <Compile Include="Custom\Quests\Ochen.cs" />
     <Compile Include="Custom\Quests\ThePerfectCut.cs" />
@@ -18113,6 +18116,8 @@
     <Content Include="Custom\OrbRemoteServer\ExportMobiles.txt" />
     <Content Include="Custom\OrbRemoteServer\UOArchitect\BuildDesignTarget Backup.txt" />
     <Content Include="Custom\Quests\Adventurer Key\Info.txt" />
+    <Content Include="Custom\Quests\Ingot Key\Mobiles\Info.txt" />
+    <Content Include="Custom\Quests\Wood Key\Mobiles\Info.txt" />
     <Content Include="Custom\TAAS\uo\Administrator.gif" />
     <Content Include="Custom\TAAS\uo\Counselor.gif" />
     <Content Include="Custom\TAAS\uo\Developer.gif" />
@@ -18592,6 +18597,7 @@
   <ItemGroup>
     <Folder Include="Custom\Custom Items\Misc Items\" />
     <Folder Include="Custom\Custom Systems\Hunger\" />
+    <Folder Include="Custom\Quests\Ingot Key\Items\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Output\" />
   </ItemGroup>

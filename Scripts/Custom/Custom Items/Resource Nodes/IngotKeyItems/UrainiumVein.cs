@@ -93,7 +93,7 @@ namespace Server.Items
                 from.SendMessage("You have broken your uranium pickaxe.");
             }
 
-            from.CheckSkill(SkillName.Lumberjacking, 80.0, 160.0);
+            from.CheckSkill(SkillName.Mining, 80.0, 160.0);
             from.Freeze(TimeSpan.FromMilliseconds(1500));
             from.PlayAttackAnimation(AttackAnimation.Slash1H);
             Timer.DelayCall(TimeSpan.FromMilliseconds(500), () => from.PlaySound(Utility.RandomMinMax(0x03AA, 0x03AD)));
@@ -126,10 +126,9 @@ namespace Server.Items
             //Success
             else
             {
-                from.AddToBackpack(new RavenwoodLog());
+                from.AddToBackpack(new UraniumOre());
                 from.SendMessage("You harvest some uranium ore and put it in your pack");
             }
-            //
         }
 
         private static BaseCreature GetRandomElemental()
@@ -164,10 +163,7 @@ namespace Server.Items
                     return new PlatinumOreElemental();
                 default:
                     return new ShameEarthElemental();
-
-            }
-                
-            
+            }  
         }
 
         public override void Serialize(GenericWriter writer)
