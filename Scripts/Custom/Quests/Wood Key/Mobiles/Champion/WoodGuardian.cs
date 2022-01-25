@@ -41,7 +41,6 @@ namespace Server.Mobiles
             this.Karma = 20000;
 
             VirtualArmor = 24;
-            PackItem(new RavenwoodAxe());
 
             SetWeaponAbility(WeaponAbility.Dismount);
         }
