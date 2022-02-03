@@ -1,10 +1,10 @@
+using System;
 using Server.OneTime.Timers;
 
 namespace Server.OneTime
 {
     public static class OneTimeStart
     {
-        public static Timer TimeTick { get; set; }     
         public static Timer TimeMillisecond { get; set; }    
         public static Timer TimeSecond { get; set; }         
         public static Timer TimeMinute { get; set; }
@@ -14,46 +14,79 @@ namespace Server.OneTime
         public static void Initialize()
         {
             EventSink.ServerStarted += OneTimeStarted;
-        }
+		}
 
         private static void OneTimeStarted()
-        {
-            if (TimeTick == null)
-            {
-                TimeTick = new OneTickTimer(); 
-            }
+		{
+			SendConsoleMsg("GD13 OneTime : [Started]", ConsoleColor.DarkCyan);
 
-            if (TimeMillisecond == null)
+			if (TimeMillisecond == null)
             {
-                TimeMillisecond = new OneMilliTimer(); 
-            }
+				TimeMillisecond = new OneMilliTimer
+				{
+					Priority = TimerPriority.TenMS
+				};
+
+				SendConsoleMsg("GD13 OneTime : MilliSecond => Running...", ConsoleColor.Cyan);
+
+			}
 
             if (TimeSecond == null)
             {
-                TimeSecond = new OneSecTimer(); 
-            }
+				TimeSecond = new OneSecTimer
+				{
+					Priority = TimerPriority.OneSecond
+				};
+
+				SendConsoleMsg("GD13 OneTime : Second => Running...", ConsoleColor.Cyan);
+			}
 
             if (TimeMinute == null)
             {
-                TimeMinute = new OneMinTimer();
-            }
+				TimeMinute = new OneMinTimer
+				{
+					Priority = TimerPriority.OneMinute
+				};
+
+				SendConsoleMsg("GD13 OneTime : Minute => Running...", ConsoleColor.Cyan);
+			}
 
             if (TimeHour == null)
             {
-                TimeHour = new OneHourTimer();
-            }
+				TimeHour = new OneHourTimer
+				{
+					Priority = TimerPriority.OneMinute
+				};
+
+				SendConsoleMsg("GD13 OneTime : Hour => Running...", ConsoleColor.Cyan);
+			}
 
             if (TimeDay == null)
             {
-                TimeDay = new OneDayTimer();
-            }
+				TimeDay = new OneDayTimer
+				{
+					Priority = TimerPriority.OneMinute
+				};
 
-            TimeTick.Start();
+				SendConsoleMsg("GD13 OneTime : Day => Running...", ConsoleColor.Cyan);
+			}
+
             TimeMillisecond.Start();
             TimeSecond.Start();
             TimeMinute.Start();
             TimeHour.Start();
             TimeDay.Start();
-        }
+
+			SendConsoleMsg("GD13 OneTime : System => Running...", ConsoleColor.DarkYellow);
+		}
+
+		static internal void SendConsoleMsg(string message, ConsoleColor color)
+		{
+			Console.ForegroundColor = color;
+
+			Console.WriteLine(message);
+
+			Console.ResetColor();
+		}
     }
 }

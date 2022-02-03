@@ -5817,8 +5817,12 @@
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishMage.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishShaman.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\Champion\AdventureChamp.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemRandomSpawner.cs" />
     <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuest.cs" />
     <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotRandomSpawner.cs" />
     <Compile Include="Custom\Quests\Ingot Key\Mobiles\Champion\IngotChampions.cs" />
     <Compile Include="Custom\Quests\Name.cs" />
     <Compile Include="Custom\Quests\Ochen.cs" />
@@ -18120,6 +18124,7 @@
     <Content Include="Custom\OrbRemoteServer\ExportMobiles.txt" />
     <Content Include="Custom\OrbRemoteServer\UOArchitect\BuildDesignTarget Backup.txt" />
     <Content Include="Custom\Quests\Adventurer Key\Info.txt" />
+    <Content Include="Custom\Quests\Gem Key\Info.txt" />
     <Content Include="Custom\Quests\Ingot Key\Mobiles\Info.txt" />
     <Content Include="Custom\Quests\Wood Key\Mobiles\Info.txt" />
     <Content Include="Custom\TAAS\uo\Administrator.gif" />

@@ -25,7 +25,7 @@ namespace Server.Items
             m_LastHarvested = DateTime.Now;
             m_Planter = planter;
 
-            var end = DateTime.UtcNow.AddSeconds(Utility.RandomMinMax(30, 300));
+            var end = DateTime.UtcNow.AddSeconds(Utility.RandomMinMax(180, 540));
             m_DeathTimer = new PlantHelper.DeathTimer(this, end);
             m_DeathTimer.Priority = TimerPriority.OneSecond;
             m_DeathTimer.Start();

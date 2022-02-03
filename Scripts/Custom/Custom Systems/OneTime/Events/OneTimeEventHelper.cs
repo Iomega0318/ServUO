@@ -5,39 +5,49 @@ namespace Server.OneTime.Events
 {
     public static class OneTimeEventHelper
     {
-        public static void SendIOneTime(int type)
+		private static IEnumerable<Item> items;
+		private static List<Item> itemList;
+
+		private static IEnumerable<Mobile> mobiles;
+		private static List<Mobile> mobileList;
+
+		public static void SendIOneTime(int type)
         {
-            IEnumerable<Item> items = from c in World.Items.Values
+            items = from c in World.Items.Values
                                       where c is IOneTime
                                       select c as Item;
 
-            List<Item> itms = new List<Item>(items);
+            itemList = new List<Item>(items);
 
-            foreach (Item item in itms)
-            {
-                if (item is IOneTime && item.Map != Map.Internal)
-                {
-                    IOneTime oneTime = item as IOneTime;
+			if (itemList.Count() > 0)
+			{
+				for (int i = 0; i < itemList.Count(); i++)
+				{
+					if (itemList[i] is IOneTime Iitem && itemList[i].Map != Map.Internal)
+					{
+						if (!itemList[i].Deleted)
+							SendTick(Iitem, type);
+					}
+				}
+			}
 
-                    SendTick(oneTime, type);
-                }
-            }
-
-            IEnumerable<Mobile> mobiles = from c in World.Mobiles.Values
+            mobiles = from c in World.Mobiles.Values
                                       where c is IOneTime
                                       select c as Mobile;
 
-            List<Mobile> mobs = new List<Mobile>(mobiles);
+            mobileList = new List<Mobile>(mobiles);
 
-            foreach (Mobile mobile in mobs)
-            {
-                if (mobile is IOneTime && mobile.Map != Map.Internal)
-                {
-                    IOneTime oneTime = mobile as IOneTime;
-
-                    SendTick(oneTime, type);
-                }
-            }
+			if (mobileList.Count() > 0)
+			{
+				for (int i = 0; i < mobileList.Count(); i++)
+				{
+					if (mobileList[i] is IOneTime Imobile && mobileList[i].Map != Map.Internal)
+					{
+						if (!mobileList[i].Deleted)
+							SendTick(Imobile, type);
+					}
+				}
+			}
         }
 
         private static void SendTick(IOneTime oneTime, int type)

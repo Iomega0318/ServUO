@@ -2,6 +2,8 @@
 using Server.Commands;
 using Server.Gumps;
 using Server.Network;
+using Server.Engines.Quests;
+using Server.Mobiles;
 
 namespace Server.Items
 {
@@ -21,8 +23,22 @@ namespace Server.Items
             {
                 from.SendGump(new MTSchematicsGump(from));
             }
-        }
-        
+
+            if (!(from is PlayerMobile))
+                return;
+
+            PlayerMobile pm = (PlayerMobile)from;
+
+            if (pm.ExploringTheDeepQuest == ExploringTheDeepQuestChain.HeplerPaulsonComplete)
+            {
+                if (!from.HasGump(typeof(MTSchematicsGump)))
+                {
+                    from.SendGump(new MTSchematicsGump(from));
+                    pm.ExploringTheDeepQuest = ExploringTheDeepQuestChain.CusteauPerronHouse;
+                }
+            }
+		}
+
 
         public MasterThinkerSchematics(Serial serial) : base(serial)
         {

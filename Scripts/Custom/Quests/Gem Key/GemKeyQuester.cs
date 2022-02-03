@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Server.Engines.Quests
 {
-	public class IngotKeyQuester : MondainQuester
+	public class GemKeyQuester : MondainQuester
 	{
 		//public override bool DisallowAllMoves { get { return true; } }
 
@@ -21,17 +21,17 @@ namespace Server.Engines.Quests
 			{
 				return new Type[]
 		   {
-				typeof( WoodKeyQuest )
+				typeof( GemKeyQuest )
 		   };
 			}
 		}
 
 		[Constructable]
-		public IngotKeyQuester() : base("Rusty the Old Miner")
+		public GemKeyQuester() : base("Lonely Traveler")
 		{
 			InitBody();
 		}
-		public IngotKeyQuester(Serial serial) : base(serial)
+		public GemKeyQuester(Serial serial) : base(serial)
 		{
 		}
 

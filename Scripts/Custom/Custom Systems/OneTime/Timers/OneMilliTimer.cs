@@ -5,23 +5,18 @@ namespace Server.OneTime.Timers
 {
     class OneMilliTimer : Timer
     {
-        private int LastTime { get; set; }
-
-        public OneMilliTimer() : base(TimeSpan.FromMilliseconds(1), TimeSpan.FromMilliseconds(1))
+		public OneMilliTimer() : base(TimeSpan.FromMilliseconds(1), TimeSpan.FromMilliseconds(1))
         {
-            LastTime = DateTime.UtcNow.Millisecond;
         }
 
         protected override void OnTick()
-        {
-            int dateTime = DateTime.UtcNow.Millisecond;
+		{
+			if (!OneTimerHelper.IsPaused)
+			{
+				OneTimeMilliEvent.SendTick(this, 1);
+			}
 
-            if (LastTime != dateTime && !OneTimerHelper.IsPaused)
-            {
-                LastTime = dateTime;
-
-                OneTimeMilliEvent.SendTick(this, 1);
-            }
-        }
+			OneTimerHelper.CountMilli++;
+		}
     }
 }

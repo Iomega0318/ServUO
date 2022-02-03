@@ -13,10 +13,10 @@ namespace Server.OneTime.Events
                 if (MilliTimerTick != null)
                 {
                     MilliTimerTick.Invoke(o, EventArgs.Empty);
+				}
 
-                    //OneTimeEventHelper.SendIOneTime(2); //CPU HOG <Left only for Reference>
-                }
-            }
-        }
+				//OneTimeEventHelper.SendIOneTime(1); //CPU HOG <Left only for Reference>
+			}
+		}
     }
 }

@@ -35,7 +35,7 @@ namespace Server.Engines.Harvest
 				1,  1
 			};
 
-        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
+        /*public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
         {
             if ((tool is GargoylesAxe) || (tool is EverlastingGargoylesAxe) && 0.1 < Utility.RandomDouble())
             {
@@ -104,8 +104,80 @@ namespace Server.Engines.Harvest
                 }
             }
         }
+        //daat99 OWLTR end - gargoyle axe*/
+        //      public virtual void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
+        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested/* , Type type */)
+        {
+            if ((tool is GargoylesAxe) || (tool is EverlastingGargoylesAxe) && 0.1 >= Utility.RandomDouble()) //0.1 > Utility.RandomDouble()
+            {
+                HarvestResource res = vein.PrimaryResource;
+
+                Map map = from.Map;
+                if (map == null)
+                    return;
+                BaseCreature spawned = null;
+
+                int i_Level = 0;
+
+                /* if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING))
+                    i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 301;
+                else if (res == resource) */
+
+                if (res == resource)
+                {
+                    try
+                    {
+                        i_Level = Array.IndexOf(def.Veins, vein) + 301;
+                    }
+                    catch { }
+                }
+                //        if (i_Level > 300 && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.HARVEST_GIVE_TOKENS))
+                //            TokenSystem.GiveTokensToPlayer(from as PlayerMobile, (i_Level - 300)*10);
+                if (i_Level > 301)
+                    spawned = new Elementals(i_Level);
+                else
+                    spawned = null;
+
+                try
+                {
+                    if (spawned != null)
+                    {
+                        int offset = Utility.Random(8) * 2;
+
+                        for (int i = 0; i < m_Offsets.Length; i += 2)
+                        {
+                            int x = from.X + m_Offsets[(offset + i) % m_Offsets.Length];
+                            int y = from.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+
+                            if (map.CanSpawnMobile(x, y, from.Z))
+                            {
+                                spawned.MoveToWorld(new Point3D(x, y, from.Z), map);
+                                spawned.Combatant = from;
+                                return;
+                            }
+                            else
+                            {
+                                int z = map.GetAverageZ(x, y);
+
+                                if (map.CanSpawnMobile(x, y, z))
+                                {
+                                    spawned.MoveToWorld(new Point3D(x, y, z), map);
+                                    spawned.Combatant = from;
+                                    return;
+                                }
+                            }
+                        }
+                        spawned.MoveToWorld(from.Location, from.Map);
+                        spawned.Combatant = from;
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
         //daat99 OWLTR end - gargoyle axe
-		
+
         private static Lumberjacking m_System;
 
         public static Lumberjacking System

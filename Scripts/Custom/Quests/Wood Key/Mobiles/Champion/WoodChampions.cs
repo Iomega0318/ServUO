@@ -188,7 +188,7 @@ namespace Server.Mobiles
             if (map == null)
                 return;
 
-            Say(1042154); // You shall never defeat me as long as I have my queen!
+            //Say(1042154); // You shall never defeat me as long as I have my queen!
 
             int newPixies = Utility.RandomMinMax(3, 6);
 
@@ -283,7 +283,7 @@ namespace Server.Mobiles
 
             if (!m_SpawnedGuardian)
             {
-                Say(1042153); // Come forth my queen!
+                //Say(1042153); // Come forth my queen!
 
                 m_Guardian = new WoodGuardian();
 

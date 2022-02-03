@@ -16,25 +16,24 @@ namespace Server.Engines.Quests
         public override TimeSpan RestartDelay { get { return TimeSpan.FromMinutes(60); } }
 
         //This is the Quest Title the player sees at the top of the Gump
-        public override object Title { get { return "Bed for the King"; } }
+        public override object Title { get { return "Smiths Competetion"; } }
         //This tells the story of the quest
-        public override object Description { get { return "Ugh! The king has requested that I make him a new bed. Something worthy of a king.<br>" +
-                    "I’ve made a hundred of ‘em and they just don’t seem worthy to me. What I need is a special type of wood called “ravenwood” that comes from a grove of trees deep in the heart of the Yew forests.<br>" +
-                    "If I had just one log of ravenwood, I think I could make something truly special.<br>" +
-                    "Would you be willing to go find one for me? I could reward you handsomely for sure.<br><br>" +
-                    "You’re going to need a ravenwood axe to chop those trees though, I’m sure you’ll find one on the way.<br>" +
-                    "Oh, ravenwood trees produce a toxic sap that has a tendency to splash when you cut ‘em. Don’t say I didn’t warn you."; } }
+        public override object Description { get { return "‘Ail! Ya look like ya’ve traveled around quite a bit, eh? ‘Ave ya ‘eard about the King’s blacksmithing competition?<br>" +
+                    "Aye, smiths from all ‘round Britainia are competin’ for who can make the best sword and I just gotta win you see.<br><br>" +
+                    "Me ol’ pa ‘ad some strange metal, ‘e called it uranium or something like dat, it glows green all by itself. ‘E ‘ad an ingot of it and kept it with ‘im at all times, I’ve seen it meself, we buried ‘im with it. If I only ‘ad a few ingots of of dat, I could win for sure.<br><br>" +
+                    "Before 'e passed he spoke of a mine deep in the lands of Tokuno where a rare elemental lives.<br><br>" +
+                    "Ya think ya could find it fer me? ‘E said elementals worship the stuff and ya need a fancy pickaxe to mine it, so be careful."; } }
         //This decides how the npc reacts in text the player refusing the quest
-        public override object Refuse { get { return "The King will not be pleased!"; } }
+        public override object Refuse { get { return "I'll bury you!"; } }
         //This is what the npc says when the player returns without completing the objective(s)
-        public override object Uncomplete { get { return "Have you found the wood yet?"; } }
+        public override object Uncomplete { get { return "Have you found the ingots yet?"; } }
         //This is what the Quest Giver says when the player completes the quest.
-        public override object Complete { get { return "This will make an excellent bed for the King, he will be pleased, have this token of my appreciation as a reward."; } }
+        public override object Complete { get { return "I'll win this competetion for sure!"; } }
 
         public IngotKeyQuest() : base()
         {
-            AddObjective(new ObtainObjective(typeof(RavenwoodLog), "Ravenwood Log", 1));
-            AddReward(new BaseReward(typeof(WoodKey), "Wood Key"));
+            AddObjective(new ObtainObjective(typeof(UraniumIngot), "Uranium Ingot", 4));
+            AddReward(new BaseReward(typeof(IngotKey), "Ingot Key"));
         }
     }
 }
