@@ -3,12 +3,24 @@ using Server.Engines.Craft;
 
 namespace Server.Items
 {
-    public class EverlastingSkillet : BaseTool
+    public class EverlastingSkillet : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefCooking.CraftSystem;
+
         [Constructable]
         public EverlastingSkillet()
-            : base(0x97F)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingSkillet(int uses)
+            : base(uses, 0x97F)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Skillet";
+            Hue = 1153;
         }
 
         public EverlastingSkillet(Serial serial)
@@ -16,20 +28,6 @@ namespace Server.Items
         {
         }
 
-        public override int LabelNumber
-        {
-            get
-            {
-                return 1044567;
-            }
-        }// skillet
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefCooking.CraftSystem;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

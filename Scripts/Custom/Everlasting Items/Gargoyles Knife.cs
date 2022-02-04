@@ -6,23 +6,6 @@ namespace Server.Items
 	[FlipableAttribute( 0x13F6, 0x13F7 )]
 	public class EverlastingGargoylesKnife : BaseKnife
 	{
-		public override WeaponAbility PrimaryAbility{ get{ return WeaponAbility.InfectiousStrike; } }
-		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.Disarm; } }
-
-		public override int AosStrengthReq{ get{ return 5; } }
-		public override int AosMinDamage{ get{ return 9; } }
-		public override int AosMaxDamage{ get{ return 11; } }
-		public override int AosSpeed{ get{ return 49; } }
-
-		public override int OldStrengthReq{ get{ return 5; } }
-		public override int OldMinDamage{ get{ return 2; } }
-		public override int OldMaxDamage{ get{ return 14; } }
-		public override int OldSpeed{ get{ return 40; } }
-		public override float MlSpeed { get { return 2.25f; } }
-
-		public override int InitMinHits{ get{ return 31; } }
-		public override int InitMaxHits{ get{ return 40; } }
-
 		private static int[] m_Offsets = new int[]
 			{
 				-1, -1,
@@ -36,10 +19,13 @@ namespace Server.Items
 			};
 
 		[Constructable]
-		public EverlastingGargoylesKnife() : base( 0x13F6 )
-		{
-			//Hue = 0x973; //removed in RunUO
-			Name = "Gargoyles Knife";
+		public EverlastingGargoylesKnife()
+            : base( 0x13F6 )
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Gargoyles Knife";
+            Hue = 1153;
 		}
 
 		public override void OnDoubleClick( Mobile from )

@@ -3,14 +3,14 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a pixie corpse")]
+    [CorpseName("a wood pixie corpse")]
     public class WoodPixie : BaseCreature
     {
         [Constructable]
         public WoodPixie()
-            : base(AIType.AI_Mage, FightMode.Evil, 10, 1, 0.2, 0.4)
+            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            Name = NameList.RandomName("pixie");
+            Name = "wood pixie";
             Body = 128;
             BaseSoundID = 0x467;
 
@@ -54,7 +54,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return true;
+                return false;
             }
         }
         public override HideType HideType
@@ -79,7 +79,7 @@ namespace Server.Mobiles
             }
         }
 
-        public override TribeType Tribe { get { return TribeType.Fey; } }
+        /*public override TribeType Tribe { get { return TribeType.Fey; } }
 
         public override OppositionGroup OppositionGroup
         {
@@ -87,7 +87,7 @@ namespace Server.Mobiles
             {
                 return OppositionGroup.FeyAndUndead;
             }
-        }
+        }*/
         public override void GenerateLoot()
         {
             AddLoot(LootPack.LowScrolls);

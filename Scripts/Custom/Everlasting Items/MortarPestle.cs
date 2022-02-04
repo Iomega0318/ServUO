@@ -3,12 +3,24 @@ using Server.Engines.Craft;
 
 namespace Server.Items
 {
-    public class EverlastingMortarPestle : BaseTool
+    public class EverlastingMortarPestle : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefAlchemy.CraftSystem;
+
         [Constructable]
         public EverlastingMortarPestle()
-            : base(0xE9B)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingMortarPestle(int uses)
+            : base(uses, 0xE9B)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Mortar and Pestle";
+            Hue = 1153;
         }
 
         public EverlastingMortarPestle(Serial serial)
@@ -16,13 +28,6 @@ namespace Server.Items
         {
         }
 
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefAlchemy.CraftSystem;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

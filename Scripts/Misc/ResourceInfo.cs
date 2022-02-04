@@ -23,6 +23,9 @@ namespace Server.Items
         Electrum,
         Platinum,
         //daat99 OWLTR end - custom ores
+        //Iomega0318 - Ingot Key Quest
+        Uranium,
+        //Iomega0318 - Ingot Key Quest
 
         RegularLeather = 101,
         SpinedLeather,
@@ -195,7 +198,7 @@ namespace Server.Items
 
         public static readonly CraftAttributeInfo Blank;
         //daat99 OWLTR start - custom resource
-        public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Blaze, Ice, Toxic, Electrum, Platinum;
+        public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Blaze, Ice, Toxic, Electrum, Platinum, Uranium;
         public static readonly CraftAttributeInfo Spined, Horned, Barbed, Polar, Synthetic, BlazeL, Daemonic, Shadow, Frost, Ethereal;
         public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales, CopperScales, SilverScales, GoldScales;
         public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood, Ebony, Bamboo, PurpleHeart, Redwood, Petrified;
@@ -932,6 +935,9 @@ namespace Server.Items
 			new CraftResourceInfo( 1278,	0,		"Electrum",		CraftAttributeInfo.Electrum,	CraftResource.Electrum,		typeof( ElectrumIngot ),	typeof( ElectrumOre ),		typeof( ElectrumGranite ) ),
 			new CraftResourceInfo( 1153,	0,		"Platinum",		CraftAttributeInfo.Platinum,	CraftResource.Platinum,		typeof( PlatinumIngot ),	typeof( PlatinumOre ),		typeof( PlatinumGranite ) ),
 			//daat99 OWLTR end - custom ores
+            //Iomega0318 - Ingot Key Quest
+            new CraftResourceInfo( 268,    0,      "Uranium",     CraftAttributeInfo.Uranium,    CraftResource.Uranium,     typeof( UraniumIngot ),    typeof( UraniumOre )),
+            //Iomega0318 - Ingot Key Quest
 		};
 
         private static readonly CraftResourceInfo[] m_ScaleInfo = new CraftResourceInfo[]
@@ -1079,7 +1085,7 @@ namespace Server.Items
         public static CraftResourceType GetType(CraftResource resource)
         {
 			// OWLTR
-			if (resource >= CraftResource.Iron && resource <= CraftResource.Platinum)
+			if (resource >= CraftResource.Iron && resource <= CraftResource.Uranium)
                 return CraftResourceType.Metal;
 
             if (resource >= CraftResource.RegularLeather && resource <= CraftResource.EtherealLeather)
@@ -1219,6 +1225,9 @@ namespace Server.Items
         public static readonly OreInfo Electrum = new OreInfo(12, 1278, "Electrum");
         public static readonly OreInfo Platinum = new OreInfo(13, 1153, "Platinum");
         //daat99 OWLTR end - custom ores
+        //Iomega0318 - Ingot Key Quest
+        public static readonly OreInfo Uranium = new OreInfo(14, 268, "Uranium");
+        //Iomega0318 - Ingot Key Quest
 
         private readonly int m_Level;
         private readonly int m_Hue;

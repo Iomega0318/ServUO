@@ -25,7 +25,7 @@ namespace Server.Items
             m_LastHarvested = DateTime.Now;
             m_Planter = planter;
 
-            var end = DateTime.UtcNow.AddSeconds(Utility.RandomMinMax(30, 300));
+            var end = DateTime.UtcNow.AddSeconds(Utility.RandomMinMax(180, 540));
             m_DeathTimer = new PlantHelper.DeathTimer(this, end);
             m_DeathTimer.Priority = TimerPriority.OneSecond;
             m_DeathTimer.Start();
@@ -93,7 +93,7 @@ namespace Server.Items
                 from.SendMessage("You have broken your uranium pickaxe.");
             }
 
-            from.CheckSkill(SkillName.Lumberjacking, 80.0, 160.0);
+            from.CheckSkill(SkillName.Mining, 80.0, 160.0);
             from.Freeze(TimeSpan.FromMilliseconds(1500));
             from.PlayAttackAnimation(AttackAnimation.Slash1H);
             Timer.DelayCall(TimeSpan.FromMilliseconds(500), () => from.PlaySound(Utility.RandomMinMax(0x03AA, 0x03AD)));
@@ -107,7 +107,7 @@ namespace Server.Items
                 if (.1 > Utility.RandomDouble())
                 {
                     from.SendMessage("You hear a disturbing rumble as elementals erupt from the ground.");
-                    var tiles = this.GetAllPointsInRange(from.Map, 6);
+                    var tiles = this.GetAllPointsInRange(from.Map, 3);
                     foreach (Point3D tile in tiles)
                     {
                         var lt = new LandTarget(tile, from.Map);
@@ -126,10 +126,9 @@ namespace Server.Items
             //Success
             else
             {
-                from.AddToBackpack(new RavenwoodLog());
+                from.AddToBackpack(new UraniumOre());
                 from.SendMessage("You harvest some uranium ore and put it in your pack");
             }
-            //
         }
 
         private static BaseCreature GetRandomElemental()
@@ -164,10 +163,7 @@ namespace Server.Items
                     return new PlatinumOreElemental();
                 default:
                     return new ShameEarthElemental();
-
-            }
-                
-            
+            }  
         }
 
         public override void Serialize(GenericWriter writer)

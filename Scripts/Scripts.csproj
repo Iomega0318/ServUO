@@ -1921,6 +1921,19 @@
     <Compile Include="Custom\Custom Items\Resource Nodes\PlantHelper.cs" />
     <Compile Include="Custom\Custom Items\Resource Nodes\Reagents\ReagentHarvester.cs" />
     <Compile Include="Custom\Custom Items\Recipebag.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomDeco.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomDock.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomMob.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomPet.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomSpawner.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomStealable.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\CustomWeapon.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\HouseGate.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\Housing.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\MonsterBash.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\NPCVendor.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\Template.cs" />
+    <Compile Include="Custom\Custom Items\Reward Deeds\TravelGate.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AssassinSpikeOfEvolution.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\AxeOfEvolution.cs" />
     <Compile Include="Custom\Custom Items\Sean%27s Evolution Weapons Pack\BardicheOfEvolution.cs" />
@@ -5077,6 +5090,10 @@
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\UI\Scenarios\PvPScenarioUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\UI\Teams\PvPTeamUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\AutoPVP\Utilities\Notoriety.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\DiscordBot.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\DiscordBot_Init.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\Options\DiscordBotOptions.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\DiscordBot\UI\DiscordBotUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\EquipmentSets.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\EquipmentSets_Init.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Mods\HueOverride.cs" />
@@ -5088,6 +5105,14 @@
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Objects\Set.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\Options\SystemOpts.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\EquipmentSets\UI\Admin.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTrade.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeBox.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeContainer.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeOptions.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeProfile.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeRecord.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeState.cs" />
+    <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\GlobalTrade\GlobalTradeUI.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\CastBars.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\CastBars_Init.cs" />
     <Compile Include="Custom\Custom Systems\Vite Core-5.2.0.0\Modules\SpellCastBars\Objects\CastBarRequestEventArgs.cs" />
@@ -5662,6 +5687,8 @@
     <Compile Include="Custom\Custom Systems\[ServUO.com]-Group Dungeon System 2.0 Beta\Group Dungeon System 2.0 Beta\GroupDungeonTelporters.cs" />
     <Compile Include="Custom\EnchantedDragon.cs" />
     <Compile Include="Custom\Everlasting Items\Arrow.cs" />
+    <Compile Include="Custom\Everlasting Items\BagOTools.cs" />
+    <Compile Include="Custom\Everlasting Items\BaseHarvestTool.cs" />
     <Compile Include="Custom\Everlasting Items\BaseTool.cs" />
     <Compile Include="Custom\Everlasting Items\Bolt.cs" />
     <Compile Include="Custom\Everlasting Items\EverlastingBandage.cs" />
@@ -5791,17 +5818,27 @@
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishMage.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\AdventureOrcishShaman.cs" />
     <Compile Include="Custom\Quests\Adventurer Key\Mobiles\Champion\AdventureChamp.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Gem Key\GemRandomSpawner.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotKeyQuester.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\IngotRandomSpawner.cs" />
+    <Compile Include="Custom\Quests\Ingot Key\Mobiles\Champion\IngotChampions.cs" />
     <Compile Include="Custom\Quests\Name.cs" />
     <Compile Include="Custom\Quests\Ochen.cs" />
     <Compile Include="Custom\Quests\ThePerfectCut.cs" />
     <Compile Include="Custom\Quests\Wood Key\Items\WoodTreefellowWood.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodChampions.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\Champion\WoodGuardian.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodCorpser.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodDryad.cs" />
-    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodGuardianTreeEvo.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodPixie.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodReaper.cs" />
     <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreefellow.cs" />
+    <Compile Include="Custom\Quests\Wood Key\Mobiles\WoodTreeGuardian.cs" />
+    <Compile Include="Custom\Quests\Wood Key\WoodKeyQuest.cs" />
+    <Compile Include="Custom\Quests\Wood Key\WoodKeyQuester.cs" />
     <Compile Include="Custom\RewardItems.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardAvenger.cs" />
     <Compile Include="Custom\SkywardReach\Mobiles\SkywardElementWizard.cs" />
@@ -18088,6 +18125,9 @@
     <Content Include="Custom\OrbRemoteServer\ExportMobiles.txt" />
     <Content Include="Custom\OrbRemoteServer\UOArchitect\BuildDesignTarget Backup.txt" />
     <Content Include="Custom\Quests\Adventurer Key\Info.txt" />
+    <Content Include="Custom\Quests\Gem Key\Info.txt" />
+    <Content Include="Custom\Quests\Ingot Key\Mobiles\Info.txt" />
+    <Content Include="Custom\Quests\Wood Key\Mobiles\Info.txt" />
     <Content Include="Custom\TAAS\uo\Administrator.gif" />
     <Content Include="Custom\TAAS\uo\Counselor.gif" />
     <Content Include="Custom\TAAS\uo\Developer.gif" />
@@ -18565,6 +18605,9 @@
     <None Include="Services\TreasureMaps\desktop.ini" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Custom\Custom Items\Misc Items\" />
+    <Folder Include="Custom\Custom Systems\Hunger\" />
+    <Folder Include="Custom\Quests\Ingot Key\Items\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Output\" />
   </ItemGroup>

@@ -66,7 +66,7 @@ namespace Server.Gumps
             this.AddImage(10, 20, 10440);
             
             this.AddBackground(144, 20, 249, 42, 9270);
-            this.AddLabel(173, 31, 394, @"Grove Character Information");
+            this.AddLabel(173, 31, 394, @"Character Information");
                                           
             /*********** STATS *****************/
             this.AddLabel(75, 74, 394, @"Stats");

@@ -105,6 +105,11 @@ namespace Server.Items
 								info = OreInfo.Platinum; 
 								break;
                             //daat99 OWLTR end - custom ores
+                            //Iomega0318 - Ingot Key Quest
+                            case 14:
+                                info = OreInfo.Uranium;
+                                break;
+                            //Iomega0318 - Ingot Key Quest
                             default:
                                 info = null;
                                 break;
@@ -384,6 +389,9 @@ namespace Server.Items
                         case CraftResource.Electrum: difficulty = 115.0; break;
                         case CraftResource.Platinum: difficulty = 119.0; break;
                         //daat99 OWLTR end - custom ores difficulty
+                        //Iomega0318 - Ingot Key Quest
+                        case CraftResource.Uranium: difficulty = 0; break;
+                        //Iomega0318 - Ingot Key Quest
                     }
 
                     double minSkill = difficulty - 25.0;

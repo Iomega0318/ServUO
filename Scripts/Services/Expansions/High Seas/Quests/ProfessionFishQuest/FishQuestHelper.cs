@@ -105,8 +105,8 @@ namespace Server.Engines.Quests
 	            new Type[] { typeof(Bait),  typeof(JunkProofHook) },
 	            new Type[] { typeof(OracleOfTheSea), typeof(LavaHook), typeof(FishingPole) },
 	            new Type[] { typeof(FishingGuideBook4), typeof(FishingGuideBook5), typeof(FishingGuideBook6) },
-	            new Type[] { typeof(PowerScroll), typeof(PermanentBoatPaint) },
-	        }
+	            new Type[] { typeof(PowerScroll), typeof(PermanentBoatPaint), typeof(FishKey) },
+            }
 	    };
 
         public static void GiveRewards(Mobile from, PlayerFishingEntry entry, double points)

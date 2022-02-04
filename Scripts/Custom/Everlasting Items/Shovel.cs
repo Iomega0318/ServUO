@@ -1,27 +1,36 @@
-using System;
 using Server.Engines.Harvest;
 
 namespace Server.Items
 {
-    public class EverlastingShovel : BaseHarvestTool
+    public class EverlastingShovel : BaseEverlastingHarvestTool
     {
-		public override HarvestSystem HarvestSystem { get { return Mining.System; } }
-		
+        public override HarvestSystem HarvestSystem => Mining.System;
+
         [Constructable]
         public EverlastingShovel()
-            : base(0xF39)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingShovel(int uses)
+            : base(uses, 0xF39)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Shovel";
+            Hue = 1153;
         }
 
         public EverlastingShovel(Serial serial)
             : base(serial)
         {
         }
-        
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
-            writer.Write((int)0); // version
+            writer.Write(0); // version
         }
 
         public override void Deserialize(GenericReader reader)

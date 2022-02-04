@@ -4,7 +4,7 @@ namespace Server.OneTime.Events
 {
     public static class OneTimeDayEvent
     {
-        public static event EventHandler DayTimerTick;
+		public static event EventHandler DayTimerTick;
 
         public static void SendTick(object o, int time)
         {
@@ -13,10 +13,10 @@ namespace Server.OneTime.Events
                 if (DayTimerTick != null)
                 {
                     DayTimerTick.Invoke(o, EventArgs.Empty);
+				}
 
-                    OneTimeEventHelper.SendIOneTime(6);
-                }
-            }
+				OneTimeEventHelper.SendIOneTime(5);
+			}
         }
     }
 }

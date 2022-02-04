@@ -1,4 +1,3 @@
-using Server.Items;
 using Server.Mobiles;
 using Server.OneTime;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace Server
         {
             Hue = 1175;
 
-            OneTimeType = 3; //second : <Do Not Use>1 = tick, 2 = millisecond<Do Not Use>, 3 = second, 4 = minute, 5 = hour, 6 = day (Pick a time interval 3-6) <Tick and Milli Removed - CPU HOGS>
+            OneTimeType = 2; //second : <Do Not Use>1 = millisecond<Do Not Use>, 2 = second, 3 = minute, 4 = hour, 5 = day (Pick a time interval 2-6) <Tick and Milli Removed - CPU HOGS>
         }
 
         public ITimeTest(Serial serial) : base(serial)
@@ -23,7 +22,7 @@ namespace Server
         }
 
         private Point3D PlayerOldLoc;
-        private List<Item> itms = new List<Item>();
+        private List<Item> items = new List<Item>();
 
         public void OneTimeTick() //This is the method that will run when the timer event is raised and is needed for the Interface
         {
@@ -35,12 +34,9 @@ namespace Server
 
             //the following code is another example of how to add control to the PlayerMobile without editing the PlayerMobile.cs
             //When you spawn a ITimeTest into the world, place it into your backpack to invoke the code!
-            if (itms.Count > 0)
+            if (items.Count > 0)
             {
-                foreach (Item item in itms)
-                {
-                    item.Delete();
-                }
+				items.Clear();
             }
 
             if (RootParent != null)
@@ -61,7 +57,7 @@ namespace Server
                                                   where c.Visible
                                                   select c as Item;
 
-                        itms.AddRange(items);
+                        this.items.AddRange(items);
                     }
                     else
                     {
@@ -75,7 +71,7 @@ namespace Server
         {
             base.Serialize(writer);
 
-            writer.Write((int)0);
+            writer.Write(0);
 
             writer.Write(OneTimeType); //Save One Time Type
         }
@@ -86,7 +82,10 @@ namespace Server
 
             int version = reader.ReadInt();
 
-            OneTimeType = reader.ReadInt(); //Load One Time Type
+			if (version > 0)
+			{
+				OneTimeType = reader.ReadInt(); //Load One Time Type
+			}
         }
     }
 }

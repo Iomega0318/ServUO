@@ -3,14 +3,14 @@ using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a reapers corpse")]
+    [CorpseName("a wood reapers corpse")]
     public class WoodReaper : BaseCreature
     {
         [Constructable]
         public WoodReaper()
             : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            this.Name = "a reaper";
+            this.Name = "a wood reaper";
             this.Body = 47;
             this.BaseSoundID = 442;
 

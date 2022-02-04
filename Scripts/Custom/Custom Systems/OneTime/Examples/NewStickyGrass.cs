@@ -45,9 +45,7 @@ namespace Server
         {
             if (Count >= Time)
             {
-                bool IsPlayer = IsPlayerClose();
-
-                if (IsPlayer)
+                if (IsPlayerClose())
                 {
                     Visible = true;
 
@@ -56,9 +54,7 @@ namespace Server
                     else
                         ItemID = 3378;
 
-                    int Grab = Utility.Random(1, 5);
-
-                    if (Grab == 1)
+                    if (Utility.Random(1, 5) == 1)
                     {
                         if (Z > OrgZ)
                         {
@@ -92,47 +88,22 @@ namespace Server
 
         private bool IsPlayerClose()
         {
-            IPooledEnumerable<Mobile> Mobs = GetMobilesInRange(2);
+			foreach (Mobile mobile in GetMobilesInRange(2))
+			{
+				if (mobile is PlayerMobile)
+				{
+					return true;
+				}
+			}
 
-            bool IsPlayer = false;
-
-            if (Mobs != null)
-            {
-                foreach (var mob in Mobs)
-                {
-                    if (mob is PlayerMobile)
-                    {
-                        bool GoodLoad = true;
-
-                        if (X == mob.X)
-                        {
-                            if (Y == mob.Y)
-                                GoodLoad = false;
-                        }
-
-                        if (X == mob.X + 2 || X == mob.X - 2)
-                        {
-                            if (Y == mob.Y + 2 || Y == mob.Y - 2)
-                            {
-                                GoodLoad = false;
-                            }
-                        }
-
-                        if (GoodLoad)
-                            IsPlayer = true;
-                    }
-                }
-                Mobs.Free();
-            }
-
-            return IsPlayer;
+			return false;
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)0);
+            writer.Write(0);
 
             writer.Write(Time);
 
@@ -145,9 +116,12 @@ namespace Server
 
             int version = reader.ReadInt();
 
-            Time = reader.ReadInt();
+			if (version > 0)
+			{
+				Time = reader.ReadInt();
 
-            OrgZ = reader.ReadInt();
+				OrgZ = reader.ReadInt();
+			}
         }
     }
 }

@@ -1,28 +1,29 @@
 using System;
+using System.Collections.Generic;
 using Server.Engines.CannedEvil;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    public class WoodLordOaks : BaseChampion
+    public class WoodChamp : BaseChampion
     {
-        private Mobile m_Queen;
-        private bool m_SpawnedQueen;
+        private Mobile m_Guardian;
+        private bool m_SpawnedGuardian;
         [Constructable]
-        public WoodLordOaks()
+        public WoodChamp()
             : base(AIType.AI_Paladin, FightMode.Evil)
         {
-            Body = 175;
-            Name = "Lord Oaks";
+            Body = 47;
+            Name = "Guardian of the Forest";
 
             SetStr(403, 850);
             SetDex(101, 150);
             SetInt(503, 800);
 
-            SetHits(12000);
+            SetHits(21000);
             SetStam(202, 400);
 
-            SetDamage(21, 33);
+            SetDamage(121, 133);
 
             SetDamageType(ResistanceType.Physical, 75);
             SetDamageType(ResistanceType.Fire, 25);
@@ -48,7 +49,7 @@ namespace Server.Mobiles
             VirtualArmor = 100;
         }
 
-        public WoodLordOaks(Serial serial)
+        public WoodChamp(Serial serial)
             : base(serial)
         {
         }
@@ -57,7 +58,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return ChampionSkullType.Enlightenment;
+                return ChampionSkullType.None;
             }
         }
         public override Type[] UniqueList
@@ -73,12 +74,6 @@ namespace Server.Mobiles
             {
                 return new Type[]
                 {
-                    typeof(RoyalGuardSurvivalKnife),
-                    typeof(DjinnisRing),
-                    typeof(LieutenantOfTheBritannianRoyalGuard),
-                    typeof(SamaritanRobe),
-                    typeof(DetectiveBoots),
-                    typeof(TheMostKnowledgePerson)
                 };
             }
         }
@@ -88,9 +83,6 @@ namespace Server.Mobiles
             {
                 return new Type[]
                 {
-                    typeof(WaterTile),
-                    typeof(WindSpirit),
-                    typeof(Pier),
                 };
             }
         }
@@ -158,6 +150,37 @@ namespace Server.Mobiles
             AddLoot(LootPack.UltraRich, 5);
         }
 
+        public override bool OnBeforeDeath()
+        {
+            SpawnRavenwoodTree();
+
+            return base.OnBeforeDeath();
+        }
+
+        public override void OnDeath(Container c)
+        {
+                //TODO: Confirm SE change or AoS one too?
+                List<DamageStore> rights = GetLootingRights();
+                List<Mobile> toGive = new List<Mobile>();
+
+                for (int i = rights.Count - 1; i >= 0; --i)
+                {
+                    DamageStore ds = rights[i];
+
+                    if (ds.m_HasRight)
+                        toGive.Add(ds.m_Mobile);
+                }
+                    if (toGive.Count > 0)
+                        toGive[Utility.Random(toGive.Count)].AddToBackpack(new RavenwoodAxe());
+                    else
+                        c.DropItem(new RavenwoodAxe());
+
+                if (Core.SA)
+                    RefinementComponent.Roll(c, 3, 0.10);
+
+            base.OnDeath(c);
+        }
+
         public void SpawnPixies(Mobile target)
         {
             Map map = Map;
@@ -165,13 +188,13 @@ namespace Server.Mobiles
             if (map == null)
                 return;
 
-            Say(1042154); // You shall never defeat me as long as I have my queen!
+            //Say(1042154); // You shall never defeat me as long as I have my queen!
 
             int newPixies = Utility.RandomMinMax(3, 6);
 
             for (int i = 0; i < newPixies; ++i)
             {
-                Pixie pixie = new Pixie();
+                WoodPixie pixie = new WoodPixie();
 
                 pixie.Team = Team;
                 pixie.FightMode = FightMode.Closest;
@@ -193,6 +216,38 @@ namespace Server.Mobiles
 
                 pixie.MoveToWorld(loc, map);
                 pixie.Combatant = target;
+            }
+        }
+
+        public void SpawnRavenwoodTree()
+        {
+            Map map = Map;
+
+            if (map == null)
+                return;
+
+            int newRavenwoodTree = Utility.RandomMinMax(20, 40);
+
+            for (int i = 0; i < newRavenwoodTree; ++i)
+            {
+                RavenwoodTree ravenwoodtree = new RavenwoodTree();
+
+                bool validLocation = false;
+                Point3D loc = Location;
+
+                for (int j = 0; !validLocation && j < 10; ++j)
+                {
+                    int x = X + Utility.Random(75) - 1;
+                    int y = Y + Utility.Random(75) - 1;
+                    int z = map.GetAverageZ(x, y);
+
+                    if (validLocation = map.CanFit(x, y, Z, 16, false, false))
+                        loc = new Point3D(x, y, Z);
+                    else if (validLocation = map.CanFit(x, y, z, 16, false, false))
+                        loc = new Point3D(x, y, z);
+                }
+
+                ravenwoodtree.MoveToWorld(loc, map);
             }
         }
 
@@ -221,34 +276,34 @@ namespace Server.Mobiles
             return 0x2F7;
         }
 
-        public void CheckQueen()
+        public void CheckGuardian()
         {
             if (Map == null)
                 return;
 
-            if (!m_SpawnedQueen)
+            if (!m_SpawnedGuardian)
             {
-                Say(1042153); // Come forth my queen!
+                //Say(1042153); // Come forth my queen!
 
-                m_Queen = new Silvani();
+                m_Guardian = new WoodGuardian();
 
-                ((BaseCreature)m_Queen).Team = Team;
+                ((BaseCreature)m_Guardian).Team = Team;
 
-                m_Queen.MoveToWorld(Location, Map);
+                m_Guardian.MoveToWorld(Location, Map);
 
-                m_SpawnedQueen = true;
+                m_SpawnedGuardian = true;
             }
-            else if (m_Queen != null && m_Queen.Deleted)
+            else if (m_Guardian != null && m_Guardian.Deleted)
             {
-                m_Queen = null;
+                m_Guardian = null;
             }
         }
 
         public override void AlterDamageScalarFrom(Mobile caster, ref double scalar)
         {
-            CheckQueen();
+            CheckGuardian();
 
-            if (m_Queen != null)
+            if (m_Guardian != null)
             {
                 scalar *= 0.1;
 
@@ -291,9 +346,9 @@ namespace Server.Mobiles
         {
             base.OnGotMeleeAttack(attacker);
 
-            CheckQueen();
+            CheckGuardian();
 
-            if (m_Queen != null && 0.1 >= Utility.RandomDouble())
+            if (m_Guardian != null && 0.1 >= Utility.RandomDouble())
                 SpawnPixies(attacker);
 
             /*attacker.Damage(Utility.Random(20, 10), this);
@@ -307,8 +362,8 @@ namespace Server.Mobiles
 
             writer.Write((int)0); // version
 
-            writer.Write(m_Queen);
-            writer.Write(m_SpawnedQueen);
+            writer.Write(m_Guardian);
+            writer.Write(m_SpawnedGuardian);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -321,8 +376,8 @@ namespace Server.Mobiles
             {
                 case 0:
                     {
-                        m_Queen = reader.ReadMobile();
-                        m_SpawnedQueen = reader.ReadBool();
+                        m_Guardian = reader.ReadMobile();
+                        m_SpawnedGuardian = reader.ReadBool();
 
                         break;
                     }

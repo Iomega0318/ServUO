@@ -3,12 +3,24 @@ using Server.Engines.Craft;
 
 namespace Server.Items
 {
-    public class EverlastingSewingKit : BaseTool
+    public class EverlastingSewingKit : BaseEverlastingTool
     {
+        public override CraftSystem CraftSystem => DefTailoring.CraftSystem;
+
         [Constructable]
         public EverlastingSewingKit()
-            : base(0xF9D)
+            : this(1)
         {
+        }
+
+        [Constructable]
+        public EverlastingSewingKit(int uses)
+            : base(uses, 0xF9D)
+        {
+            Weight = 0.0;
+            LootType = LootType.Blessed;
+            Name = "Everlasting Sewing Kit";
+            Hue = 1153;
         }
 
         public EverlastingSewingKit(Serial serial)
@@ -16,13 +28,6 @@ namespace Server.Items
         {
         }
 
-        public override CraftSystem CraftSystem
-        {
-            get
-            {
-                return DefTailoring.CraftSystem;
-            }
-        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

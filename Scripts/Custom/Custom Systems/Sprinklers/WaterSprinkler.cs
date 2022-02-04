@@ -55,7 +55,7 @@ namespace Server.Items
         }
 
 		[Constructable]
-		public WaterSprinkler() : base(0x14E7)//0x14E7
+		public WaterSprinkler() : base(0xE7A)//0x14E7
         {
             Movable = true;
             Weight = 1.0;
@@ -66,7 +66,7 @@ namespace Server.Items
 
         [Constructable]
         public WaterSprinkler(int uses, int storageLimit)
-            : base(0x14E7)//0xE7A
+            : base(0xE7A)//0xE7A
         {
             Weight = 1.0;
             Name = "a watering sprinkler";
