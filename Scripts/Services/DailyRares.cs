@@ -325,6 +325,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public DailyMeatPie(Serial serial)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Server.Items
 {   
@@ -11,6 +11,8 @@ namespace Server.Items
             : base(0x9e9)
         {
             Hue = 0x3E4;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public CreepyCake(Serial serial)

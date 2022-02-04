@@ -1,4 +1,4 @@
-﻿using Server;
+using Server;
 using System;
 
 namespace Server.Items
@@ -14,6 +14,8 @@ namespace Server.Items
             Weight = 1.0;
             FillFactor = 1;
             Stackable = false;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public GrapeBunch(Serial serial)

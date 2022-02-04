@@ -69,6 +69,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfCarrots(Serial serial)
@@ -109,6 +111,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfCorn(Serial serial)
@@ -149,6 +153,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfLettuce(Serial serial)
@@ -189,6 +195,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfPeas(Serial serial)
@@ -229,6 +237,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PewterBowlOfCarrots(Serial serial)
@@ -269,6 +279,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PewterBowlOfCorn(Serial serial)
@@ -309,6 +321,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PewterBowlOfLettuce(Serial serial)
@@ -349,6 +363,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PewterBowlOfPeas(Serial serial)
@@ -389,6 +405,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PewterBowlOfPotatos(Serial serial)
@@ -491,6 +509,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 2.0;
             FillFactor = 1;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public BowlOfRotwormStew(Serial serial)
@@ -522,6 +542,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 2.0;
             FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfStew(Serial serial)
@@ -562,6 +584,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 2.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WoodenBowlOfTomatoSoup(Serial serial)
@@ -604,6 +628,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 2.0;
             FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 0;
 
             Hue = 1954;
         }

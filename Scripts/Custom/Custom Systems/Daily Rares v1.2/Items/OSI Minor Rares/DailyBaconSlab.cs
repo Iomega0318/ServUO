@@ -20,7 +20,9 @@ namespace Server.Items
 			Stackable = true;
 			Weight = 1.0;
 			Amount = amount;
-		}
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
+        }
 
 		/*public override Item Dupe( int amount )
 		{

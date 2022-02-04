@@ -11,7 +11,10 @@ namespace Server.Items
 		{
 			Name = "Plate Of Cookies";
 			Weight = 1.0;
-		}
+            FillFactor = 1;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
+        }
 
 		public DailyPlateOfCookies( Serial serial ) : base( serial )
 		{

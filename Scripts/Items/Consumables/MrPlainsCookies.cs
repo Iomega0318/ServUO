@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Server.Items
 {
@@ -12,6 +12,8 @@ namespace Server.Items
             FillFactor = 4;
             Hue = 0xF4;
             Stackable = false;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public MrPlainsCookies(Serial serial)

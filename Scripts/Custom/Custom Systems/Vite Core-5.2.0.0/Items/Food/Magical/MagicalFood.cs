@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 //   Vorspire    _,-'/-'/  MagicalFood.cs
 //   .      __,-; ,'( '/
 //    \.    `-.__`-._`:_,-._       _ , . ``
@@ -97,7 +97,7 @@ namespace VitaNex.Items
 
 		public override bool CheckHunger(Mobile m)
 		{
-			return FillFactor <= 0 || FillHunger(m, FillFactor);
+			return FillFactor <= 0 || FillHunger(m, this);
 		}
 
 		protected virtual void OnEaten(Mobile m)

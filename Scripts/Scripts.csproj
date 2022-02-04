@@ -4247,6 +4247,7 @@
     <Compile Include="Custom\Custom Systems\MythikAchievmentSystem-master\MythikAchievmentSystem-master\Gumps\AchievementGump.cs" />
     <Compile Include="Custom\Custom Systems\MythikAchievmentSystem-master\MythikAchievmentSystem-master\Gumps\AchievementObtainedGump.cs" />
     <Compile Include="Custom\Custom Systems\MythikAchievmentSystem-master\MythikAchievmentSystem-master\Items\AcheivmentSystemMemoryStone.cs" />
+    <Compile Include="Custom\Custom Systems\NIWHungerSystem\Hunger.cs" />
     <Compile Include="Custom\Custom Systems\OneTime\Events\OneTimeDayEvent.cs" />
     <Compile Include="Custom\Custom Systems\OneTime\Events\OneTimeEventHelper.cs" />
     <Compile Include="Custom\Custom Systems\OneTime\Events\OneTimeHourEvent.cs" />
@@ -18564,7 +18565,6 @@
     <None Include="Services\TreasureMaps\desktop.ini" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Custom\Custom Systems\Hunger\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Output\" />
   </ItemGroup>

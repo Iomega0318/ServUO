@@ -1318,8 +1318,19 @@ namespace Server.Items
                     if (m_Drunk.BAC > 60)
                         m_Drunk.BAC = 60;
 
+                    //Empty Stomach Contents
+                    if (m_Drunk is PlayerMobile p)
+                    {
+                        if (p.Hunger > 0 && p.BAC > 30)
+                        {
+                            p.StomachContents.Clear();
+                            NIWHunger.ApplyStarvation(p);
+                            p.Hunger = NIWHunger.CalculateHunger(p);
+                        }
+                    }
+
                     // chance to get sober
-                    if (10 > Utility.Random(100))
+                    if (20 > Utility.Random(100))
                         --m_Drunk.BAC;
 
                     // lose some stats

@@ -24,7 +24,9 @@ namespace Server.Items
 			this.Amount = amount;
 			this.Weight = 1;
 			this.FillFactor = 1;
-		}
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
+        }
 
 		public CandyHalloweenCostume( Serial serial ) : base( serial )
 		{

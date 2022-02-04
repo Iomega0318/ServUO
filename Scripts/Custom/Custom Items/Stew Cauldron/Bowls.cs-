@@ -64,6 +64,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -102,6 +104,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -140,6 +144,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -178,6 +184,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -216,6 +224,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -254,6 +264,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -292,6 +304,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -330,6 +344,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -368,6 +384,8 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 1.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -654,6 +672,8 @@ public override void OnDoubleClick( Mobile from )
 			Stackable = false;
 			Weight = 2.0;
 			FillFactor = 10;
+			BuffStat = StatType.Str;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )
@@ -692,6 +712,8 @@ public override void OnDoubleClick( Mobile from )
 			Stackable = false;
 			Weight = 2.0;
 			FillFactor = 2;
+			BuffStat = StatType.Int;
+            BuffIntensity = 1;
 		}
 
 		public override bool Eat( Mobile from )

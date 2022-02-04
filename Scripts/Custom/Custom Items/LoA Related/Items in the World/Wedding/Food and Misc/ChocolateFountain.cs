@@ -84,6 +84,8 @@ namespace Server.Items
             this.Weight = 1.0;
             this.FillFactor = 1;
             this.Name = "Chocolate Covered Strawberry";
+            BuffStat = StatType.Int;
+            BuffIntensity = 2;
         }
 
         public ChocolateCoveredStrawberry(Serial serial)

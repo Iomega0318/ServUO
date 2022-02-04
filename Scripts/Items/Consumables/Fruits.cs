@@ -33,6 +33,8 @@ namespace Server.Items
             Weight = 2.0;
             FillFactor = 5;
             Stackable = false;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
 
             DailyRare = rare;
         }
@@ -131,6 +133,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Banana(Serial serial)
@@ -168,6 +172,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Bananas(Serial serial)
@@ -204,6 +210,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public SplitCoconut(Serial serial)
@@ -240,6 +248,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Lemon(Serial serial)
@@ -276,6 +286,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Lemons(Serial serial)
@@ -312,6 +324,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Lime(Serial serial)
@@ -348,6 +362,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Limes(Serial serial)
@@ -384,6 +400,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Coconut(Serial serial)
@@ -420,6 +438,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public OpenCoconut(Serial serial)
@@ -456,6 +476,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Dates(Serial serial)
@@ -492,6 +514,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Grapes(Serial serial)
@@ -528,6 +552,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Peach(Serial serial)
@@ -564,6 +590,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Pear(Serial serial)
@@ -600,6 +628,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Apple(Serial serial)
@@ -636,6 +666,8 @@ namespace Server.Items
         {
             Weight = 5.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Watermelon(Serial serial)
@@ -681,6 +713,8 @@ namespace Server.Items
         {
             Weight = 5.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public SmallWatermelon(Serial serial)
@@ -718,6 +752,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Squash(Serial serial)
@@ -755,6 +791,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Cantaloupe(Serial serial)
@@ -793,6 +831,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Plum(Serial serial)

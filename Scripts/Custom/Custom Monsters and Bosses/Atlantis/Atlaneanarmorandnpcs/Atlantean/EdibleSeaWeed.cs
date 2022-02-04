@@ -23,8 +23,10 @@ namespace Server.Items
             Layer = Layer.OneHanded;
 			this.Amount = amount;
 			this.Weight = 1;
-			this.FillFactor = 25;
-		}
+			this.FillFactor = 10;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
+        }
 
 		public EdibleSeaWeed( Serial serial ) : base( serial )
 		{

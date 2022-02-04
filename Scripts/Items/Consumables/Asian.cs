@@ -40,6 +40,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public WasabiClumps(Serial serial)
@@ -100,6 +102,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 5.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public BentoBox(Serial serial)
@@ -139,7 +143,9 @@ namespace Server.Items
         {
             Stackable = false;
             Weight = 3.0;
-            FillFactor = 2;
+            FillFactor = 10;
+            BuffStat = StatType.Int;
+            BuffIntensity = 2;
         }
 
         public SushiRolls(Serial serial)
@@ -171,6 +177,8 @@ namespace Server.Items
             Stackable = Core.ML;
             Weight = 3.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 2;
         }
 
         public SushiPlatter(Serial serial)
@@ -231,7 +239,9 @@ namespace Server.Items
         {
             Stackable = false;
             Weight = 4.0;
-            FillFactor = 2;
+            FillFactor = 4;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 2;
         }
 
         public GreenTea(Serial serial)
@@ -263,6 +273,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 4.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 2;
         }
 
         public MisoSoup(Serial serial)
@@ -294,6 +306,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 4.0;
             FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 2;
         }
 
         public WhiteMisoSoup(Serial serial)
@@ -325,6 +339,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 4.0;
             FillFactor = 2;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 2;
         }
 
         public RedMisoSoup(Serial serial)
@@ -356,6 +372,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 4.0;
             FillFactor = 2;
+            BuffStat = StatType.Int;
+            BuffIntensity = 2;
         }
 
         public AwaseMisoSoup(Serial serial)

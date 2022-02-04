@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Craft;
+using Server.Mobiles;
 
 using CustomsFramework;
 
@@ -9,9 +10,12 @@ namespace Server.Items
 {
     public abstract class Food : Item, IEngravable, IQuality
     {
+        private StatType m_BuffStat;
+        private int m_BuffIntensity;
         private Mobile m_Poisoner;
         private Poison m_Poison;
         private int m_FillFactor;
+        
         private bool m_PlayerConstructed;
         private ItemQuality _Quality;
 
@@ -69,6 +73,32 @@ namespace Server.Items
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
+        public StatType BuffStat
+        {
+            get
+            {
+                return m_BuffStat;
+            }
+            set
+            {
+                m_BuffStat = value;
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int BuffIntensity
+        {
+            get
+            {
+                return m_BuffIntensity;
+            }
+            set
+            {
+                m_BuffIntensity = value;
+            }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
         public virtual ItemQuality Quality { get { return _Quality; } set { _Quality = value; InvalidateProperties(); } }
 
 		private string m_EngravedText = string.Empty;
@@ -117,6 +147,9 @@ namespace Server.Items
             food.Poisoner = m_Poisoner;
             food.Poison = m_Poison;
             food.Quality = _Quality;
+            food.FillFactor = m_FillFactor;
+            food.BuffStat = m_BuffStat;
+            food.BuffIntensity = m_BuffIntensity;
 
             base.OnAfterDuped(newItem);
         }
@@ -124,7 +157,10 @@ namespace Server.Items
         public virtual int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, ITool tool, CraftItem craftItem, int resHue)
         {
             Quality = (ItemQuality)quality;
-
+            if (Quality == ItemQuality.Exceptional)
+            {
+                BuffIntensity += 1;
+            }
             return quality;
         }
 
@@ -150,6 +186,7 @@ namespace Server.Items
             {
                 list.Add(1060636); // Exceptional
             }
+            list.Add($"Effect: +{BuffIntensity} {BuffStat} for {FillFactor * 5} minutes");
         }
 
         public override void OnDoubleClick(Mobile from)
@@ -165,7 +202,10 @@ namespace Server.Items
 
         public override bool WillStack(Mobile from, Item dropped)
         {
-            return dropped is Food && ((Food)dropped).PlayerConstructed == PlayerConstructed && base.WillStack(from, dropped);
+            return dropped is Food
+                && ((Food)dropped).PlayerConstructed == PlayerConstructed
+                && ((Food)dropped).Quality == Quality
+                && base.WillStack(from, dropped);            
         }
 
 		public override void AddNameProperty(ObjectPropertyList list)
@@ -213,49 +253,106 @@ namespace Server.Items
 
         public virtual bool CheckHunger(Mobile from)
         {
-            return FillHunger(from, m_FillFactor);
+            return FillHunger(from, this);
         }
 
-        public static bool FillHunger(Mobile from, int fillFactor)
-        {
-            if (from.Hunger >= 20)
-            {
-                from.SendLocalizedMessage(500867); // You are simply too full to eat any more!
-                return false;
+        public static bool FillHunger(Mobile from, Food food)
+        {            
+            if (from is PlayerMobile f)
+            #region NIW Hunger System
+            {                
+                if (f.StomachContents == null)
+                {
+                    f.StomachContents = new List<StomachContentsEntry>();
+                }                
+
+                if (f.StomachContents.Count >= 4)
+                {
+                    from.SendLocalizedMessage(500867); // You are simply too full to eat any more!
+                    return false;
+                }
+
+                if (f.BAC > 15)
+                {
+                    from.SendMessage("You are too drunk to eat right now.");
+                    return false;
+                }
+
+                var entry = new StomachContentsEntry(food.GetType().Name, food.FillFactor, food.BuffStat, food.BuffIntensity);
+                f.StomachContents.Add(entry);
+                
+                f.Hunger = NIWHunger.CalculateHunger(f);
+
+                if (f.StomachContents.Count == 1)
+                {
+                    f.RemoveStatMod("food");
+                    from.SendMessage("You are no longer starving!");
+                    f.SendLocalizedMessage(500868); // You eat the food, but are still extremely hungry.
+                    NIWHunger.ApplyFoodBuff(f, f.StomachContents[0].Stat, f.StomachContents[0].Intensity);
+                }
+                if (f.StomachContents.Count == 2)
+                {
+                    f.SendLocalizedMessage(500870); // After eating the food, you feel much less hungry.
+                }
+                if (f.StomachContents.Count == 3)
+                {
+                    f.SendLocalizedMessage(500871); // You feel quite full after consuming the food.
+                }
+                if (f.StomachContents.Count == 4)
+                {
+                    f.SendLocalizedMessage(500872); // You manage to eat the food, but you are stuffed!
+                }
+                return true;
             }
-
-            int iHunger = from.Hunger + fillFactor;
-
-            if (from.Stam < from.StamMax)
-                from.Stam += Utility.Random(6, 3) + fillFactor / 5;
-
-            if (iHunger >= 20)
-            {
-                from.Hunger = 20;
-                from.SendLocalizedMessage(500872); // You manage to eat the food, but you are stuffed!
-            }
+            #endregion
             else
+            #region Old System
             {
-                from.Hunger = iHunger;
 
-                if (iHunger < 5)
-                    from.SendLocalizedMessage(500868); // You eat the food, but are still extremely hungry.
-                else if (iHunger < 10)
-                    from.SendLocalizedMessage(500869); // You eat the food, and begin to feel more satiated.
-                else if (iHunger < 15)
-                    from.SendLocalizedMessage(500870); // After eating the food, you feel much less hungry.
+                if (from.Hunger >= 20)
+                {
+                    from.SendLocalizedMessage(500867); // You are simply too full to eat any more!
+                    return false;
+                }
+
+                int iHunger = from.Hunger + food.FillFactor;
+
+                if (from.Stam < from.StamMax)
+                    from.Stam += Utility.Random(6, 3) + food.FillFactor / 5;
+
+                if (iHunger >= 20)
+                {
+                    from.Hunger = 20;
+                    from.SendLocalizedMessage(500872); // You manage to eat the food, but you are stuffed!
+                }
                 else
-                    from.SendLocalizedMessage(500871); // You feel quite full after consuming the food.
-            }
+                {
+                    from.Hunger = iHunger;
 
-            return true;
+                    if (iHunger < 5)
+                        from.SendLocalizedMessage(500868); // You eat the food, but are still extremely hungry.
+                    else if (iHunger < 10)
+                        from.SendLocalizedMessage(500869); // You eat the food, and begin to feel more satiated.
+                    else if (iHunger < 15)
+                        from.SendLocalizedMessage(500870); // After eating the food, you feel much less hungry.
+                    else
+                        from.SendLocalizedMessage(500871); // You feel quite full after consuming the food.
+                }
+
+                return true;                
+            }
+            #endregion
         }
 
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
-            writer.Write((int)7); // version
+            writer.Write((int)8); // version
+
+            //writer.Write((int)m_BuffStat);
+            //writer.Write(m_BuffIntensity);
+
 
             writer.Write((int)_Quality);
 
@@ -266,6 +363,7 @@ namespace Server.Items
 
             Poison.Serialize(m_Poison, writer);
             writer.Write(m_FillFactor);
+            
         }
 
         public override void Deserialize(GenericReader reader)
@@ -326,6 +424,9 @@ namespace Server.Items
                 case 7:
                     _Quality = (ItemQuality)reader.ReadInt();
                     goto case 6;
+                case 8:
+                    
+                    goto case 7;
             }
         }
     }
@@ -346,6 +447,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 3;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public BreadLoaf(Serial serial)
@@ -382,6 +485,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 3;
         }
 
         public Bacon(Serial serial)
@@ -418,6 +523,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 3;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public SlabOfBacon(Serial serial)
@@ -462,7 +569,9 @@ namespace Server.Items
         public FishSteak(int amount)
             : base(amount, 0x97B)
         {
-            FillFactor = 3;
+            FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 0;
         }
 
         public FishSteak(Serial serial)
@@ -506,6 +615,8 @@ namespace Server.Items
             : base(amount, 0x97E)
         {
             FillFactor = 3;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public CheeseWheel(Serial serial)
@@ -548,7 +659,9 @@ namespace Server.Items
         public CheeseWedge(int amount)
             : base(amount, 0x97D)
         {
-            FillFactor = 3;
+            FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public CheeseWedge(Serial serial)
@@ -592,6 +705,8 @@ namespace Server.Items
             : base(amount, 0x97C)
         {
             FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public CheeseSlice(Serial serial)
@@ -627,7 +742,9 @@ namespace Server.Items
             : base(amount, 0x98C)
         {
             Weight = 2.0;
-            FillFactor = 3;
+            FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public FrenchBread(Serial serial)
@@ -666,6 +783,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 4;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public FriedEggs(Serial serial)
@@ -704,6 +823,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public CookedBird(Serial serial)
@@ -740,6 +861,8 @@ namespace Server.Items
         {
             Weight = 45.0;
             FillFactor = 20;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public RoastPig(Serial serial)
@@ -776,6 +899,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 4;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Sausage(Serial serial)
@@ -812,6 +937,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Ham(Serial serial)
@@ -843,6 +970,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 10;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public Cake(Serial serial)
@@ -880,7 +1009,9 @@ namespace Server.Items
             : base(amount, 0x9F2)
         {
             Weight = 1.0;
-            FillFactor = 5;
+            FillFactor = 4;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Ribs(Serial serial)
@@ -912,6 +1043,8 @@ namespace Server.Items
             Stackable = Core.ML;
             Weight = 1.0;
             FillFactor = 4;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public Cookies(Serial serial)
@@ -943,6 +1076,8 @@ namespace Server.Items
             Stackable = true;
             Weight = 1.0;
             FillFactor = 4;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public Muffins(Serial serial)
@@ -986,6 +1121,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 6;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public CheesePizza(Serial serial)
@@ -1025,6 +1162,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 6;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public SausagePizza(Serial serial)
@@ -1095,6 +1234,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public FruitPie(Serial serial)
@@ -1134,6 +1275,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public MeatPie(Serial serial)
@@ -1173,6 +1316,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PumpkinPie(Serial serial)
@@ -1212,6 +1357,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public ApplePie(Serial serial)
@@ -1251,6 +1398,8 @@ namespace Server.Items
             Stackable = false;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public PeachCobbler(Serial serial)
@@ -1290,6 +1439,8 @@ namespace Server.Items
             Stackable = Core.ML;
             Weight = 1.0;
             FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Quiche(Serial serial)
@@ -1328,6 +1479,8 @@ namespace Server.Items
         {
             Weight = 2.0;
             FillFactor = 5;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public LambLeg(Serial serial)
@@ -1366,6 +1519,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 4;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public ChickenLeg(Serial serial)
@@ -1403,6 +1558,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public HoneydewMelon(Serial serial)
@@ -1440,6 +1597,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public YellowGourd(Serial serial)
@@ -1477,6 +1636,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public GreenGourd(Serial serial)
@@ -1514,6 +1675,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public EarOfCorn(Serial serial)
@@ -1550,6 +1713,8 @@ namespace Server.Items
         {
             Weight = 1.0;
             FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public Turnip(Serial serial)
@@ -1707,6 +1872,8 @@ namespace Server.Items
             : base(amount, 0xA0DA)
         {
             FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Hamburger(Serial serial)
@@ -1745,6 +1912,8 @@ namespace Server.Items
             : base(amount, 0xA0D8)
         {
             FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public HotDog(Serial serial)
@@ -1777,6 +1946,8 @@ namespace Server.Items
             : base(0xA0D6)
         {
             FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public CookableSausage(Serial serial)
@@ -1810,6 +1981,8 @@ namespace Server.Items
             FillFactor = 5;
             Stackable = false;
             Hue = 1157;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public PulledPorkPlatter(Serial serial)
@@ -1841,6 +2014,8 @@ namespace Server.Items
         {
             FillFactor = 3;
             Stackable = false;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public PulledPorkSandwich(Serial serial)

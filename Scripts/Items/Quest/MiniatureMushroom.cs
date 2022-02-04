@@ -10,6 +10,8 @@ namespace Server.Items
         {
             this.LootType = LootType.Blessed;
             this.Weight = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public MiniatureMushroom(Serial serial)

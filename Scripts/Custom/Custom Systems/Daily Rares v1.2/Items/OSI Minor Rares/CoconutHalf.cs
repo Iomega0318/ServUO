@@ -12,7 +12,9 @@ namespace Server.Items
 		{
 			ItemID = Utility.RandomList( 5923, 5924 );
 			Weight = 1.0;
-		}
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
+        }
 
 		public CoconutHalf( Serial serial ) : base( serial )
 		{

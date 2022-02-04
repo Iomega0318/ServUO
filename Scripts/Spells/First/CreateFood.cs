@@ -46,6 +46,10 @@ namespace Server.Spells.First
 
                 if (food != null)
                 {
+                    if (food is Food f)
+                    {
+                        f.BuffIntensity = 0;
+                    }
                     this.Caster.AddToBackpack(food);
 
                     // You magically create food in your backpack:

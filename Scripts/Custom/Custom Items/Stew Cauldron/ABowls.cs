@@ -11,7 +11,9 @@ namespace Server.Items
 			Stackable = false;
 			Weight = 2.0;
 			FillFactor = 10;
-		}
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
+        }
 
 		public override bool Eat( Mobile from )
 		{

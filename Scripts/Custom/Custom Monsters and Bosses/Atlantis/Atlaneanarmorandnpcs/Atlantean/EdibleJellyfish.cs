@@ -23,8 +23,10 @@ namespace Server.Items
             Layer = Layer.OneHanded;
 			this.Amount = amount;
 			this.Weight = 2;
-			this.FillFactor = 35;
-		}
+			this.FillFactor = 10;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
+        }
 
 		public EdibleJellyfish( Serial serial ) : base( serial )
 		{

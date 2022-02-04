@@ -278,6 +278,7 @@ namespace Server.Mobiles
 
 		private DesignContext m_DesignContext;
 
+        private List<StomachContentsEntry> m_StomachContents;
 		private NpcGuild m_NpcGuild;
 		private DateTime m_NpcGuildJoinTime;
 		private TimeSpan m_NpcGuildGameTime;
@@ -676,7 +677,13 @@ namespace Server.Mobiles
 
         private DateTime m_AnkhNextUse;
 
-		[CommandProperty(AccessLevel.GameMaster)]
+        public List<StomachContentsEntry> StomachContents
+        {
+            get { return m_StomachContents; }
+            set { m_StomachContents = value; }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
 		public DateTime AnkhNextUse { get { return m_AnkhNextUse; } set { m_AnkhNextUse = value; } }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -4627,6 +4634,14 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
+                case 44:
+                    int sceCount = reader.ReadInt();
+                    StomachContents = new List<StomachContentsEntry>();
+                    for (int i = 0; i < sceCount; i++)
+                    {
+                        StomachContents.Add(StomachContentsEntry.Deserialize(reader));
+                    }
+                    goto case 41;
 				case 43: // Version 43, moved gauntlet points, virtua artys and TOT turn ins to PointsSystem
                 case 42: // Version 42, removed ML quest save/load
                 case 41:
@@ -5128,7 +5143,19 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(43); // version
+			writer.Write(44); // version
+
+            //version 44 NIW Hunger System
+
+            if(StomachContents == null)
+            {
+                StomachContents = new List<StomachContentsEntry>();
+            }
+            writer.Write(m_StomachContents.Count);
+            foreach (var sce in m_StomachContents)
+            {
+                sce.Serialize(writer);
+            }
 
             writer.Write((DateTime)NextGemOfSalvationUse);
 

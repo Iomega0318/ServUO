@@ -19,8 +19,10 @@ namespace Server.Items
             : base(itemID)
         {
             Weight = 1.0;
-            FillFactor = 0;
+            FillFactor = 1;
             Stackable = false;
+            BuffStat = StatType.Str;
+            BuffIntensity = 0;
         }
 
         public BaseMagicalFood(Serial serial)

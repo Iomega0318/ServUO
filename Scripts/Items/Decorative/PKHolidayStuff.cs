@@ -75,6 +75,9 @@ namespace Server.Items
         {
             Stackable = false;
             LootType = LootType.Blessed;
+            FillFactor = 2;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public Spam(Serial serial)

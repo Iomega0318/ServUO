@@ -40,6 +40,9 @@ namespace Server.Items
         {
             Weight = 1.0;
             LootType = LootType.Blessed;
+            FillFactor = 1;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
 
             switch (Utility.Random(3))
             {

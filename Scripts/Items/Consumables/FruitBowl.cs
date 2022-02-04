@@ -9,7 +9,9 @@ namespace Server.Items
             : base(0x2D4F)
         {
             this.Weight = 1.0;
-            this.FillFactor = 20;
+            this.FillFactor = 10;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public FruitBowl(Serial serial)
@@ -29,7 +31,7 @@ namespace Server.Items
         }// fruit bowl
         public override bool Eat(Mobile from)
         {
-            if (FillHunger(from, this.FillFactor))
+            if (FillHunger(from, this))
             {
                 string modName = this.Serial.ToString();
 				

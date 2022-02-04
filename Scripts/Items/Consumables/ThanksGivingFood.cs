@@ -101,6 +101,8 @@ namespace Server.Items
         {
             Stackable = false;
             this.Weight = 1.0;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public override void OnChanged()
@@ -141,6 +143,8 @@ namespace Server.Items
             Stackable = false;
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public SliceOfPie(Serial serial)
@@ -173,7 +177,9 @@ namespace Server.Items
         {
             Stackable = false;
             this.Weight = 1.0;
-            this.FillFactor = 1;
+            this.FillFactor = 3;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public MashedSweetPotatoes(Serial serial)
@@ -210,6 +216,8 @@ namespace Server.Items
         {
             Stackable = false;
             this.Weight = 1.0;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public BasketOfRolls(Serial serial)
@@ -242,6 +250,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Int;
+            BuffIntensity = 1;
         }
 
         public DinnerRoll(Serial serial)
@@ -294,6 +304,8 @@ namespace Server.Items
         {
             Stackable = false;
             this.Weight = 1.0;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public TurkeyPlatter(Serial serial)
@@ -326,6 +338,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public TurkeyDinner(Serial serial)
@@ -359,6 +373,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public RoastDuck(Serial serial)
@@ -392,6 +408,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public RoastTurkey(Serial serial)
@@ -425,6 +443,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public RoastChicken(Serial serial)
@@ -457,6 +477,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Str;
+            BuffIntensity = 1;
         }
 
         public TurkeyLeg(Serial serial)
@@ -489,6 +511,8 @@ namespace Server.Items
         {
             this.Weight = 1.0;
             this.FillFactor = 1;
+            BuffStat = StatType.Dex;
+            BuffIntensity = 1;
         }
 
         public GibletGravey(Serial serial)
