@@ -14,10 +14,14 @@ namespace Server.Engines
     {
         private static readonly Point3D[] _Points =
         {
-            new Point3D(1420, 1548, 30),//Britain
-            new Point3D(2635, 2083, 10),//Bucs
-            new Point3D(5226, 4005, 37),//Delucia
-            new Point3D(1420, 1548, 30),
+            new Point3D(1453, 1687, 0),//Britain
+            new Point3D(3508, 2547, 20),//New Haven
+            new Point3D(1444, 3980, 0),//Jhelom
+            new Point3D(2502, 430, 15),//Minoc
+            new Point3D(3774, 1120, 0),//Nujel'm
+            new Point3D(5661, 3148, 13),//Papua
+            new Point3D(1901, 2806, 20),//Trinsic
+            new Point3D(2874, 723, 0),//Vesper
         };
 
         private static readonly Type[] _Types =
