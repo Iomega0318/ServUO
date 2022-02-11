@@ -106,7 +106,7 @@ namespace Server.Engines.Harvest
         }
         //daat99 OWLTR end - gargoyle axe*/
         //      public virtual void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
-        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested/* , Type type */)
+        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested, Type type)
         {
             if ((tool is GargoylesAxe) || (tool is EverlastingGargoylesAxe) && 0.1 >= Utility.RandomDouble()) //0.1 > Utility.RandomDouble()
             {
@@ -127,12 +127,15 @@ namespace Server.Engines.Harvest
                 {
                     try
                     {
+                        i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 301;
                         i_Level = Array.IndexOf(def.Veins, vein) + 301;
                     }
                     catch { }
                 }
-                //        if (i_Level > 300 && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.HARVEST_GIVE_TOKENS))
-                //            TokenSystem.GiveTokensToPlayer(from as PlayerMobile, (i_Level - 300)*10);
+
+                if (i_Level > 300 && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.HARVEST_GIVE_TOKENS))
+                    TokenSystem.GiveTokensToPlayer(from as PlayerMobile, (i_Level - 300) * 10);
+
                 if (i_Level > 301)
                     spawned = new Elementals(i_Level);
                 else

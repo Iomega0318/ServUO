@@ -220,8 +220,39 @@ namespace Server.Items
         #region Iomega0318 - Captcha
         public override void OnDoubleClick(Mobile from)
         {
-            CaptchaGump.sendCaptcha(from, BaseTool.OnDoubleClickRedirected, this);
-            //OnDoubleClickRedirected(from, this);
+			if (from.AccessLevel == AccessLevel.Player)
+			{
+				CaptchaGump.sendCaptcha(from, BaseTool.OnDoubleClickRedirected, this);
+			}
+			else
+			{
+				if (IsChildOf(from.Backpack) || Parent == from)
+				{
+					CraftSystem system = CraftSystem;
+
+					if (Core.TOL && m_RepairMode)
+					{
+						Repair.Do(from, system, this);
+					}
+					else
+					{
+						int num = system.CanCraft(from, this, null);
+
+						if (num > 0 && (num != 1044267 || !Core.SE)) // Blacksmithing shows the gump regardless of proximity of an anvil and forge after SE
+						{
+							from.SendLocalizedMessage(num);
+						}
+						else
+						{
+							from.SendGump(new CraftGump(from, system, this, null));
+						}
+					}
+				}
+				else
+				{
+					from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+				}
+			}
         }
 
         public static void OnDoubleClickRedirected(Mobile from, object o)

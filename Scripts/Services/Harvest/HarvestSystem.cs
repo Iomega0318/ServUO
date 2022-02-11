@@ -95,15 +95,20 @@ namespace Server.Engines.Harvest
         {
             if (!CheckHarvest(from, tool))
                 return false;
-
+			
             #region Iomega0318 - Captcha
+			if (from.AccessLevel == AccessLevel.Player)
             /* Begin Captcha Mod */
-            CaptchaGump.sendCaptcha(from, HarvestSystem.SendHarvestTarget, new object[] { tool, this });
+            {
+				CaptchaGump.sendCaptcha(from, HarvestSystem.SendHarvestTarget, new object[] { tool, this });
+			}
+			else
+			{
             /* End Captcha Mod */
+				EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
+				from.Target = new HarvestTarget(tool, this);
+			}
             #endregion
-
-            //EventSink.InvokeResourceHarvestAttempt(new ResourceHarvestAttemptEventArgs(from, tool, this));
-            //from.Target = new HarvestTarget(tool, this);
             return true;
         }
 
