@@ -127,8 +127,15 @@ namespace Server.Engines.Harvest
                 {
                     try
                     {
-                        i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 301;
-                        i_Level = Array.IndexOf(def.Veins, vein) + 301;
+                        if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING))
+                        {
+                            i_Level = CraftResources.GetIndex(CraftResources.GetFromType(type)) + 301;
+                            i_Level = Array.IndexOf(def.Veins, vein) + 301;
+                        }
+                        else
+                        {
+                            i_Level = Array.IndexOf(def.Veins, vein) + 301;
+                        }
                     }
                     catch { }
                 }

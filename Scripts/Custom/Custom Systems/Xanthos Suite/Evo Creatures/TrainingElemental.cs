@@ -55,8 +55,9 @@ namespace Xanthos.Evo
 			SetSkill( SkillName.Anatomy, 100.0, 120.00 );
 
 			CantWalk = !kCanWalk;
+            CantWalk = true;
 
-			VirtualArmor = 50;
+            VirtualArmor = 50;
 		}
 
 		public override void GenerateLoot()
