@@ -10,33 +10,20 @@ using System.Collections;
 
 namespace Server.Items 
 { 
-   	public class PetLeash : Item 
+   	public class UnbreakablePetLeash : Item 
    	{ 
-    	private int m_Charges = 100;
-
-		[CommandProperty( AccessLevel.GameMaster )]
-		public int Charges
-		{
-			get{ return m_Charges; }
-			set{ m_Charges = value; InvalidateProperties(); }
-		}
 
       	[Constructable] 
-      	public PetLeash() : base( 0x1374 ) 
+      	public UnbreakablePetLeash() : base( 0x1374 ) 
       	{ 
          	Weight = 1.0;  
          	Movable = true; 
-         	Name="a pet leash"; 
-         } 
+         	Name="an everlasting pet leash";
+            LootType = LootType.Blessed;
+            Hue = 1153;
+        }
 
-		public override void AddNameProperties( ObjectPropertyList list )
-		{
-			base.AddNameProperties( list );
-
-			list.Add( 1060658, "Charges\t{0}", m_Charges.ToString() );
-		}
-
-      	public PetLeash( Serial serial ) : base( serial ) 
+      	public UnbreakablePetLeash( Serial serial ) : base( serial ) 
       	{ 
       	} 
 		
@@ -58,7 +45,7 @@ namespace Server.Items
 			}
 			else
 			{
-				from.SendMessage("You must have 75 animal taming to use a pet leash.");
+				from.SendMessage( "You must have 75 animal taming to use a pet leash." );
 				from.SendMessage( "Try using a pet shriking potion." );
 			}
 
@@ -69,8 +56,6 @@ namespace Server.Items
          	base.Serialize( writer ); 
 
          	writer.Write( (int) 0 );
-
-			writer.Write( m_Charges ); 
       	} 
 
       	public override void Deserialize( GenericReader reader ) 
@@ -78,20 +63,14 @@ namespace Server.Items
          	base.Deserialize( reader ); 
 
          	int version = reader.ReadInt(); 
-
-			m_Charges = reader.ReadInt();
       	} 
-
 
 		private class LeashTarget : Target 
       	{ 
          	private Mobile m_Owner; 
-      
-         	private PetLeash m_Powder; 
 
-         	public LeashTarget( PetLeash charge ) : base ( 10, false, TargetFlags.None ) 
+         	public LeashTarget( UnbreakablePetLeash charge ) : base ( 10, false, TargetFlags.None ) 
          	{ 
-            	m_Powder=charge; 
          	} 
           
          	protected override void OnTarget( Mobile from, object target ) 
@@ -186,10 +165,6 @@ namespace Server.Items
 						c.OwnerAbandonTime = DateTime.MinValue;
 
 						c.IsStabled = true;
-
-						m_Powder.Charges -= 1;
-						if ( m_Powder.Charges == 0 )
-						m_Powder.Delete();
 					}
             	}
          	} 

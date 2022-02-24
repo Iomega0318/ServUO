@@ -89,12 +89,16 @@ namespace daat99
 		{
 #if RunUO2_2
             CommandSystem.Register("Loot", AccessLevel.Player, new CommandEventHandler(Loot_OnCommand));
+            CommandSystem.Register("Grab", AccessLevel.Player, new CommandEventHandler(Loot_OnCommand));
+            CommandSystem.Register("Claim", AccessLevel.Player, new CommandEventHandler(Loot_OnCommand));
 #else
-            CommandHandlers.Register( "Loot", AccessLevel.Player, new CommandEventHandler( Loot_OnCommand ) );
+            CommandHandlers.Register("Loot", AccessLevel.Player, new CommandEventHandler( Loot_OnCommand ) );
+            CommandHandlers.Register("Grab", AccessLevel.Player, new CommandEventHandler( Loot_OnCommand ) );
+            CommandSystem.Register("Claim", AccessLevel.Player, new CommandEventHandler(Loot_OnCommand));
 #endif
-		}
-		
-		public static void Loot_OnCommand( CommandEventArgs e )
+        }
+
+        public static void Loot_OnCommand( CommandEventArgs e )
 		{
 			PlayerMobile player = e.Mobile as PlayerMobile;
 			if (  player == null || !CanPlayerLoot(player) )

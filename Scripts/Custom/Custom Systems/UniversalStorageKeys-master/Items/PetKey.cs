@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Server;
 using Solaris.ItemStore;							
 using Server.Mobiles;
-using Xanthos.ShrinkSystem;
+//using Xanthos.ShrinkSystem;
 
 
 namespace Server.Items
@@ -90,8 +90,8 @@ namespace Server.Items
 			ItemID = 17037;
 			Hue = 0;
 			Name = "Pet Key";
-			LootType = LootType.Blessed;
-		}
+            LootType = LootType.Cursed;
+        }
 		
 		protected override ItemStore GenerateItemStore()
 		{

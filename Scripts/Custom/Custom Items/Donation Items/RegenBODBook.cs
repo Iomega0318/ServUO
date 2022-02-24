@@ -64,7 +64,7 @@ namespace Server.Items
 				from.LocalOverheadMessage( MessageType.Regular, 0x3B2, 1019045 ); // I can't reach that.
 			}
 			
-			else if ( m_Deed > 0 )
+			else if ( m_Deed > 100 )
 			{
 				Item Deed = null;
 

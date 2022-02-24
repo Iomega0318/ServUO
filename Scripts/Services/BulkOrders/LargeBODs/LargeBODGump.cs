@@ -86,8 +86,9 @@ namespace Server.Engines.BulkOrders
 			{
 				//daat99 OWLTR start - custom resources
 				AddHtml(75, y, 400, 25, "<basefont color=#FF0000>All items must be crafted with " + GetMaterialStringFor(deed.Material), false, false);
-				//daat99 OWLTR end - custom resources
-			}
+                y += 24;
+                //daat99 OWLTR end - custom resources
+            }
 
             if (BulkOrderSystem.NewSystemEnabled)
             {

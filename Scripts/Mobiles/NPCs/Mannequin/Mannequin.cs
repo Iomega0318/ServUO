@@ -320,7 +320,15 @@ namespace Server.Mobiles
 
                 protected override void OnTarget(Mobile from, object targeted)
                 {
-                    from.SendGump(new MannequinCompareGump(_Mannequin, (Item)targeted));
+                    if (targeted is Item item)
+                    {
+                        from.SendGump(new MannequinCompareGump(_Mannequin, item));
+                    }
+                    else
+                    {
+                        from.SendLocalizedMessage(1149667); // Invalid target.
+                    }
+
                 }
             }
         }

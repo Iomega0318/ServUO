@@ -1,48 +1,31 @@
-/*Script Modded by: Leonel Strouse A.K.A. AlphaDragon
- * 11/09/2019 18:00 HRS
- * Version 0.002
- */
-using Server;
-using Server.Gumps;
+using System;
 using System.Linq;
+using Server.Gumps;
 using Server.Multis;
 using Server.Network;
-using Server.Regions;
 using Server.Targeting;
-using System;
 
 namespace Server.Items
 {
     public enum DecorateCommand
     {
         None,
-        Secure,
-        Lockdown,
-        Release,
         Turn,
         Up,
         Down,
-        North,
-        East,
-        South,
-        West,
-        GetHue,
-        Close
+        GetHue
     }
 
     public class InteriorDecorator : Item
     {
-//        public override int LabelNumber { get { return 1041280; } } // an interior decorator
-
-        private DecorateCommand m_Command;
+        public override int LabelNumber { get { return 1041280; } } // an interior decorator
 
         [Constructable]
         public InteriorDecorator()
             : base(0xFC1)
         {
-            Name = " An Advance Interior Decorator";
             Weight = 1.0;
-            LootType = LootType.Regular;
+            LootType = LootType.Blessed;
         }
 
         public InteriorDecorator(Serial serial)
@@ -51,21 +34,13 @@ namespace Server.Items
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public DecorateCommand Command
-        {
-            get { return m_Command; }
-            set
-            {
-                m_Command = value;
-                InvalidateProperties();
-            }
-        }
+        public DecorateCommand Command { get; set; }
 
         public static bool InHouse(Mobile from)
         {
             BaseHouse house = BaseHouse.FindHouseAt(from);
 
-            return (house != null && house.IsFriend(from));
+            return (house != null && house.IsCoOwner(from));
         }
 
         public static bool CheckUse(InteriorDecorator tool, Mobile from)
@@ -77,14 +52,6 @@ namespace Server.Items
 
             return false;
         }
-
-        //public override void GetProperties(ObjectPropertyList list)
-        //{
-        //    base.GetProperties(list);
-
-        //    if (m_Command != DecorateCommand.None)
-        //        list.Add(1018322 + (int)m_Command); // Turn/Up/Down
-        //}
 
         public override void Serialize(GenericWriter writer)
         {
@@ -100,16 +67,13 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            //if (!CheckUse(this, from))
-            //    return;
-
             if (!InHouse(from))
-                m_Command = DecorateCommand.GetHue;
+                Command = DecorateCommand.GetHue;
 
             if (from.FindGump(typeof(InternalGump)) == null)
                 from.SendGump(new InternalGump(from, this));
 
-            if (m_Command != DecorateCommand.None)
+            if (Command != DecorateCommand.None)
                 from.Target = new InternalTarget(this);
         }
 
@@ -122,46 +86,29 @@ namespace Server.Items
             {
                 m_Decorator = decorator;
 
-
-                AddBackground(0, 0, 170, 559 , 2600);
+                AddBackground(0, 0, 170, 260, 2600);
 
                 AddPage(0);
 
-                AddButton(40, 45, (decorator.Command == DecorateCommand.Secure ? 2154 : 2152), 2154, 1, GumpButtonType.Reply, 0);
-                AddLabel(80, 50, 0, @"Secure"); //secure
+                if (!InHouse(from))
+                {
+                    AddButton(40, 36, (decorator.Command == DecorateCommand.GetHue ? 2154 : 2152), 2154, 4, GumpButtonType.Reply, 0);
+                    AddHtmlLocalized(80, 41, 100, 20, 1158863, false, false); // Get Hue   
+                }
+                else
+                {
+                    AddButton(40, 36, (decorator.Command == DecorateCommand.Turn ? 2154 : 2152), 2154, 1, GumpButtonType.Reply, 0);
+                    AddHtmlLocalized(80, 41, 100, 20, 1018323, false, false); // Turn
 
-                AddButton(40, 85, (decorator.Command == DecorateCommand.Lockdown ? 2154 : 2152), 2154, 2, GumpButtonType.Reply, 0);
-                AddLabel(80, 90, 0, @"Lockdown"); // lockdown
+                    AddButton(40, 86, (decorator.Command == DecorateCommand.Up ? 2154 : 2152), 2154, 2, GumpButtonType.Reply, 0);
+                    AddHtmlLocalized(80, 91, 100, 20, 1018324, false, false); // Up
 
-                AddButton(40, 125, (decorator.Command == DecorateCommand.Release ? 2154 : 2152), 2154, 3, GumpButtonType.Reply, 0);
-                AddLabel(80, 130, 0, @"Release"); // release
+                    AddButton(40, 136, (decorator.Command == DecorateCommand.Down ? 2154 : 2152), 2154, 3, GumpButtonType.Reply, 0);
+                    AddHtmlLocalized(80, 141, 100, 20, 1018325, false, false); // Down
 
-                AddButton(40, 165, (decorator.Command == DecorateCommand.Turn ? 2154 : 2152), 2154, 4, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 170, 70, 40, 1018323, false, false); // Turn
-
-                AddButton(40, 205, (decorator.Command == DecorateCommand.Up ? 2154 : 2152), 2154, 5, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 210, 70, 40, 1018324, false, false); // Up
-
-                AddButton(40, 245, (decorator.Command == DecorateCommand.Down ? 2154 : 2152), 2154, 6, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 250, 70, 40, 1018325, false, false); // Down
-
-                AddButton(40, 285, (decorator.Command == DecorateCommand.North ? 2154 : 2152), 2154, 7, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 290, 70, 40, 1075389, false, false); // north
-
-                AddButton(40, 325, (decorator.Command == DecorateCommand.East ? 2154 : 2152), 2154, 8, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 330, 70, 40, 1075387, false, false); // east
-
-                AddButton(40, 365, (decorator.Command == DecorateCommand.South ? 2154 : 2152), 2154, 9, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 370, 70, 40, 1075386, false, false); // south
-
-                AddButton(40, 405, (decorator.Command == DecorateCommand.West ? 2154 : 2152), 2154, 10, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 410, 70, 40, 1075390, false, false); // west
-
-                AddButton(40, 445, (decorator.Command == DecorateCommand.GetHue ? 2154 : 2152), 2154, 11, GumpButtonType.Reply, 0);
-                AddHtmlLocalized(80, 450, 100, 20, 1158863, false, false); // Get Hue
-
-                AddButton(40, 485, (decorator.Command == DecorateCommand.Close ? 2154 : 2152), 2154, 13, GumpButtonType.Reply, 0);
-                AddLabel(80, 490, 0, @"Close"); // close
+                    AddButton(40, 186, (decorator.Command == DecorateCommand.GetHue ? 2154 : 2152), 2154, 4, GumpButtonType.Reply, 0);
+                    AddHtmlLocalized(80, 191, 100, 20, 1158863, false, false); // Get Hue                    
+                }
 
                 AddHtmlLocalized(0, 0, 0, 0, 4, false, false);
             }
@@ -172,69 +119,34 @@ namespace Server.Items
                 Mobile m = sender.Mobile;
 
                 int cliloc = 0;
-                string c_String = null;
 
                 switch (info.ButtonID)
                 {
-                    case 1://secure
-                        c_String = "Select an object to secure."; // Select an object to secure.
-                        command = DecorateCommand.Secure;
-                        break;
-                    case 2://lockdown
-                        c_String = "Select an object to lock down."; // Select an object to lock down.
-                        command = DecorateCommand.Lockdown;
-                        break;
-                    case 3://release
-                        c_String = "Select an object to release."; // Select an object to release.
-                        command = DecorateCommand.Release;
-                        break;
-                    case 4://turn
+                    case 1:
                         cliloc = 1073404; // Select an object to turn.
                         command = DecorateCommand.Turn;
                         break;
-                    case 5://up
+                    case 2:
                         cliloc = 1073405; // Select an object to increase its height.
                         command = DecorateCommand.Up;
                         break;
-                    case 6://down
+                    case 3:
                         cliloc = 1073406; // Select an object to lower its height.
                         command = DecorateCommand.Down;
                         break;
-                    case 7://north
-                        c_String = "Select an object to move north."; // Select an object to move north.
-                        command = DecorateCommand.North;
-                        break;
-                    case 8://east
-                        c_String = "Select an object to move east."; // Select an object to move east.
-                        command = DecorateCommand.East;
-                        break;
-                    case 9://south
-                        c_String = "Select an object to move south."; // Select an object to move south.
-                        command = DecorateCommand.South;
-                        break;
-                    case 10://west
-                        c_String = "Select an object to move west."; // Select an object to move west.
-                        command = DecorateCommand.West;
-                        break;
-                    case 11://get hue
+                    case 4:
                         cliloc = 1158864; // Select an object to get the hue.
                         command = DecorateCommand.GetHue;
                         break;
-                    case 12://Close
-                        c_String = "Close"; // Close
-                        command = DecorateCommand.Close;
-                        break;
                 }
 
-                if (command != DecorateCommand.None & command != DecorateCommand.Close)
+                if (command != DecorateCommand.None)
                 {
                     m_Decorator.Command = command;
                     m.SendGump(new InternalGump(m, m_Decorator));
 
                     if (cliloc != 0)
                         m.SendLocalizedMessage(cliloc);
-                    if (c_String != null)
-                        m.SendMessage(c_String);
 
                     m.Target = new InternalTarget(m_Decorator);
                 }
@@ -345,9 +257,9 @@ namespace Server.Items
                         isDecorableComponent = true;
                     }
 
-                    if (house == null || /*!house.IsCoOwner(from)*/ !house.IsFriend(from))
+                    if (house == null || !house.IsCoOwner(from))
                     {
-                        from.SendLocalizedMessage(502092); // You must be in your house to do
+                        from.SendLocalizedMessage(502092); // You must be in your house to do 
                     }
                     else if (item.Parent != null || !house.IsInside(item))
                     {
@@ -361,12 +273,8 @@ namespace Server.Items
                             from.SendLocalizedMessage(1042274); // You cannot raise it up any higher.
                         else if (item is AddonComponent && m_Decorator.Command == DecorateCommand.Down)
                             from.SendLocalizedMessage(1042275); // You cannot lower it down any further.
-                        else if (m_Decorator.Command == DecorateCommand.Secure)
-                            Secure(item, from);
-                        else if (m_Decorator.Command == DecorateCommand.Lockdown)
-                            Lockdown(item, from);
                         else
-                            from.SendMessage("That is not locked down or secured.");
+                            from.SendLocalizedMessage(1042271); // That is not locked down.
                     }
                     else if (item is VendorRentalContract)
                     {
@@ -380,44 +288,14 @@ namespace Server.Items
                     {
                         switch (m_Decorator.Command)
                         {
-                            case DecorateCommand.None:
-                                None(item, from);
-                                break;
-                            case DecorateCommand.Secure:
-                                Secure(item, from);
-                                break;
-                            case DecorateCommand.Lockdown:
-                                Lockdown(item, from);
-                                break;
-                            case DecorateCommand.Release:
-                                Release(item, from);
-                                break;
-                            case DecorateCommand.Turn:
-                                Turn(item, from);
-                                break;
                             case DecorateCommand.Up:
                                 Up(item, from);
                                 break;
                             case DecorateCommand.Down:
                                 Down(item, from);
                                 break;
-                            case DecorateCommand.North:
-                                North(item, from);
-                                break;
-                            case DecorateCommand.East:
-                                East(item, from);
-                                break;
-                            case DecorateCommand.South:
-                                South(item, from);
-                                break;
-                            case DecorateCommand.West:
-                                West(item, from);
-                                break;
-                            case DecorateCommand.GetHue:
-                                GetHue(item, from);
-                                break;
-                            case DecorateCommand.Close:
-                                Close(item, from);
+                            case DecorateCommand.Turn:
+                                Turn(item, from);
                                 break;
                         }
                     }
@@ -432,86 +310,47 @@ namespace Server.Items
                     from.CloseGump(typeof(InteriorDecorator.InternalGump));
             }
 
-            private static void None(Item item, Mobile from)
-            {
-            }
-
-            private static void Secure(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(from);
-                if (house.IsLockedDown(item))
-                    from.SendMessage("That is already locked down.");
-                else if (house.IsSecure(item))
-                    from.SendMessage("That is already secured.");
-                else if (house.IsFriend(from)&&!house.IsCoOwner(from))
-                { from.SendMessage("Only Owners and CoOwners are allowed to secure things in a house.");
-                    return;
-                }
-                else
-                    house.AddSecure(from, item);
-            }
-
-            private static void Lockdown(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(from);
-                if (house.IsLockedDown(item))
-                    from.SendMessage("That is already locked down.");
-                else if (house.IsSecure(item))
-                    from.SendMessage("That is already secured.");
-                else
-                    house.LockDown(from, item, true);
-            }
-
-            private static void Release(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(from);
-                if (!house.IsLockedDown(item) && !house.IsSecure(item) && (item.Movable))
-                    from.SendMessage("That is not locked down or secured.");
-                else
-                    house.Release(from, item);
-            }
-
             private static void Turn(Item item, Mobile from)
             {
-                    if (item is IFlipable)
+                if (item is IFlipable)
+                {
+                    ((IFlipable)item).OnFlip(from);
+                    return;
+                }
+
+                if (item is AddonComponent || item is AddonContainerComponent || item is BaseAddonContainer)
+                {
+                    object addon = null;
+
+                    if (item is AddonComponent)
+                        addon = ((AddonComponent)item).Addon;
+                    else if (item is AddonContainerComponent)
+                        addon = ((AddonContainerComponent)item).Addon;
+                    else if (item is BaseAddonContainer)
+                        addon = (BaseAddonContainer)item;
+
+                    FlipableAddonAttribute[] aAttributes = (FlipableAddonAttribute[])addon.GetType().GetCustomAttributes(typeof(FlipableAddonAttribute), false);
+
+                    if (aAttributes.Length > 0)
                     {
-                        ((IFlipable)item).OnFlip(from);
+                        aAttributes[0].Flip(from, (Item)addon);
                         return;
                     }
+                }
 
-                    if (item is AddonComponent || item is AddonContainerComponent || item is BaseAddonContainer)
-                    {
-                        object addon = null;
+                FlipableAttribute[] attributes = (FlipableAttribute[])item.GetType().GetCustomAttributes(typeof(FlipableAttribute), false);
 
-                        if (item is AddonComponent)
-                            addon = ((AddonComponent)item).Addon;
-                        else if (item is AddonContainerComponent)
-                            addon = ((AddonContainerComponent)item).Addon;
-                        else if (item is BaseAddonContainer)
-                            addon = (BaseAddonContainer)item;
-
-                        FlipableAddonAttribute[] aAttributes = (FlipableAddonAttribute[])addon.GetType().GetCustomAttributes(typeof(FlipableAddonAttribute), false);
-
-                        if (aAttributes.Length > 0)
-                        {
-                            aAttributes[0].Flip(from, (Item)addon);
-                            return;
-                        }
-                    }
-
-                    FlipableAttribute[] attributes = (FlipableAttribute[])item.GetType().GetCustomAttributes(typeof(FlipableAttribute), false);
-
-                    if (attributes.Length > 0)
-                        attributes[0].Flip(item);
-                    else
-                        from.SendLocalizedMessage(1042273); // You cannot turn that.                
+                if (attributes.Length > 0)
+                    attributes[0].Flip(item);
+                else
+                    from.SendLocalizedMessage(1042273); // You cannot turn that.
             }
 
             private static void Up(Item item, Mobile from)
             {
                 int floorZ = GetFloorZ(item);
 
-                if (floorZ > int.MinValue && item.Z < (floorZ + 14)) // Confirmed : no height checks here
+                if (floorZ > int.MinValue && item.Z < (floorZ + 15)) // Confirmed : no height checks here
                     item.Location = new Point3D(item.Location, item.Z + 1);
                 else
                     from.SendLocalizedMessage(1042274); // You cannot raise it up any higher.
@@ -527,72 +366,6 @@ namespace Server.Items
                     from.SendLocalizedMessage(1042275); // You cannot lower it down any further.
             }
 
-            private static void North(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(item);
-
-                Point3D ourLoc = item.GetWorldLocation();
-                Point3D goingLoc = new Point3D(ourLoc.X, ourLoc.Y -2, ourLoc.Z);
-
-                if (house.IsInside(goingLoc, ourLoc.Z))
-                    item.Y = (item.Y -1);
-                else
-                    from.SendMessage("You cannot move it to the north any further.");
-
-            }
-
-            private static void East(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(item);
-
-                Point3D ourLoc = item.GetWorldLocation();
-                Point3D goingLoc = new Point3D(ourLoc.X +1, ourLoc.Y, ourLoc.Z);
-
-                if (house.IsInside(goingLoc, ourLoc.Z))
-                    item.X = (item.X +1);
-                else
-                    from.SendMessage("You cannot move it to the east any further.");
-
-            }
-
-            private static void South(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(item);
-
-                Point3D ourLoc = item.GetWorldLocation();
-                Point3D goingLoc = new Point3D(ourLoc.X, ourLoc.Y +1, ourLoc.Z);
-
-                if (house.IsInside(goingLoc, ourLoc.Z))
-                     item.Y = (item.Y +1); 
-                else
-                    from.SendMessage("You cannot move it to the south any further.");
-            }
-
-            private static void West(Item item, Mobile from)
-            {
-                BaseHouse house = BaseHouse.FindHouseAt(item);
-
-                Point3D ourLoc = item.GetWorldLocation();
-                Point3D goingLoc = new Point3D(ourLoc.X -2, ourLoc.Y, ourLoc.Z);
-
-                if (house.IsInside(goingLoc, ourLoc.Z))
-                    item.X = (item.X -1);
-                else
-                    from.SendMessage("You cannot move it to the west any further.");
-            }
-
-            private static void GetHue(Item item, Mobile from)
-            {
-            }
-
-            private static void Close(Item item, Mobile from)
-            {
-                from.CloseGump(typeof(InteriorDecorator.InternalGump));
-                Target.Cancel(from);
-            }
-            private static void Command(Item item, Mobile from)
-            {
-            }
             private static int GetFloorZ(Item item)
             {
                 Map map = item.Map;
@@ -607,16 +380,13 @@ namespace Server.Items
                 for (int i = 0; i < tiles.Length; ++i)
                 {
                     StaticTile tile = tiles[i];
-                    ItemData id = TileData.ItemTable[tile.ID & 0x3FFF];
+                    ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
                     int top = tile.Z; // Confirmed : no height checks here
 
                     if (id.Surface && !id.Impassable && top > z && top <= item.Z)
                         z = top;
                 }
-
-                if (z == int.MinValue)
-                    z = map.Tiles.GetLandTile(item.X, item.Y).Z;
 
                 return z;
             }

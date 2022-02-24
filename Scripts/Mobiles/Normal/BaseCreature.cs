@@ -2843,7 +2843,7 @@ namespace Server.Mobiles
 				}
 			}
 
-			m_MaxLevel = Utility.RandomMinMax( 10, 30 );
+			m_MaxLevel = Utility.RandomMinMax( 1, 30 );
 			#endregion
 			
             PhysicalDamage = 100;
@@ -6490,9 +6490,16 @@ namespace Server.Mobiles
 					else
 						list.Add( 1060658, "Gender\tMale" );
 
-					if ( this.Controlled == false )
+                    #region Iomega0318 FS Edits
+                    if ( this.Controlled == false )
 						list.Add( 1060659, "Max Level\t{0}", this.MaxLevel );
-				}
+                    else
+                    {
+                        list.Add(1060659, "Level\t{0}/{1}", this.m_Level, this.MaxLevel);
+                        list.Add(1060659, "Loyalty\t{0}", ((this.m_Loyalty == 0) ? 1061643 : 1049595 + (this.m_Loyalty / 10)));
+                    }
+                    #endregion
+                }
 			}
 			#endregion
 
@@ -6510,27 +6517,27 @@ namespace Server.Mobiles
 
                 if (m_ControlOrder == OrderType.Guard)
                 {
-                    list.Add(1080078); // guarding
+                    list.Add(1060659, "Status\tGuarding"); //list.Add(1080078); // guarding
                 }
             }
 
             if (Summoned && !IsAnimatedDead && !IsNecroFamiliar && !(this is Clone))
             {
-                list.Add(1049646); // (summoned)
+                list.Add(1060659, "Status\tSummoned"); //list.Add(1049646); // (summoned)
             }
             else if (Controlled && Commandable)
             {
                 if (this is BaseHire)
                 {
-                    list.Add(1062030); // (hired)
+                    list.Add(1060659, "Status\tHired"); //list.Add(1062030); // (hired)
                 }
                 else if (IsBonded) //Intentional difference (showing ONLY bonded when bonded instead of bonded & tame)
                 {
-                    list.Add(1049608); // (bonded)
+                    list.Add(1060659, "Status\tBonded"); //list.Add(1049608); // (bonded)
                 }
                 else
                 {
-                    list.Add(502006); // (tame)
+                    list.Add(1060659, "Status\tTame"); //list.Add(502006); // (tame)
                 }
             }
 
@@ -8179,7 +8186,7 @@ namespace Server.Mobiles
 
 				if ( this.MaxLevel == 0 )
 				{
-					this.MaxLevel = Utility.RandomMinMax( 10, 30 );
+					this.MaxLevel = Utility.RandomMinMax( 1, 30 );
 				}
 			}
 			//FS:ATS END (modified by Regnak)

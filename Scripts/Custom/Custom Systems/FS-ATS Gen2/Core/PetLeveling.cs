@@ -233,7 +233,7 @@ namespace Server
 
 						if ( attacker.ControlMaster != null )
 						{
-							attacker.ControlMaster.SendMessage( 38, "Your pet {0} has gained some ability points.", gain );
+							attacker.ControlMaster.SendMessage( 38, "Your pet has gained {0} ability points.", gain );
 						}
 
 						if ( attacker.Level == 9 )

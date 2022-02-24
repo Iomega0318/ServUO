@@ -1510,21 +1510,33 @@ namespace Server.Items
 				{
 					string secondhalf = s.Substring( capsbreak );
  					string firsthalf = s.Substring(0, capsbreak );
-
-					list.Add( 1060663, "Name\t{0} Breed: {1} {2}", m_PetName, firsthalf, secondhalf );
-				}
+                    if (m_IsFemale == true)
+					    list.Add( 1060663, "Name\t{0} Breed: {1} {2} Sex: Female", m_PetName, firsthalf, secondhalf );
+                    else if (m_IsFemale == false)
+                        list.Add(1060663, "Name\t{0} Breed: {1} {2} Sex: Male", m_PetName, firsthalf, secondhalf);
+                    else
+                        list.Add(1060663, "Name\t{0} Breed: {1} {2}", m_PetName, firsthalf, secondhalf);
+                }
 				else
-				{
-					list.Add( 1060663, "Name\t{0} Breed: {1}", m_PetName, m_MobTypeString );
-				}
+                {
+                    if (m_IsFemale == true)
+                        list.Add(1060663, "Name\t{0} Breed: {1} Sex: Female", m_PetName, m_MobTypeString);
+                    else if (m_IsFemale == false)
+                        list.Add(1060663, "Name\t{0} Breed: {1} Sex: Male", m_PetName, m_MobTypeString);
+                    else
+                        list.Add(1060663, "Name\t{0} Breed: {1}", m_PetName, m_MobTypeString);
+                }
 
-				list.Add( 1061640, (m_PetOwner == null ) ? "nobody" : m_PetOwner.Name ); // Owner: ~1_OWNER~
+                list.Add(1060659, "HP\t{0}/{1}, Level {2}/{3}", m_PetHitsNow, m_PetHits, m_Level, m_MaxLevel);
+                list.Add( 1061640, (m_PetOwner == null ) ? "nobody" : m_PetOwner.Name ); // Owner: ~1_OWNER~
 				list.Add( 1060659, "Stats\tStrength {0}, Dexterity {1}, Intelligence {2}", m_PetStr, m_PetDex, m_PetInt );
 				list.Add( 1060660, "Combat Skills\tWrestling {0}, Tactics {1}, Anatomy {2}, Poisoning {3}", m_PetWrestling, m_PetTactics, m_PetAnatomy, m_PetPoisoning );
 				list.Add( 1060661, "Magic Skills\tMagery {0}, Eval Intel {1}, Magic Resist {2}, Meditation {3}", m_PetMagery, m_PetEvalInt, m_PetResist, m_PetMed );
-				
-				if ( m_Level != 0 )
-					list.Add( 1060662, "Exp\t{0}, Level: {1}", m_Exp, m_Level );
+                //list.Add(1060661, "\t:{0},{1}", m_AllowMating, m_PetAllowMating);
+                //list.Add(1060661, "\t:{0},{1},{2},{3}", m_Evolves, m_Gen, m_PetStage, m_PetKP);
+
+                if ( m_Level != 0 )
+					list.Add( 1060662, "Exp\t{0}, Level: {1}, Generation: {2}", m_Exp, m_Level, m_Gen);
 			}
 		}
 

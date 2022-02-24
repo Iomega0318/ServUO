@@ -234,9 +234,9 @@ namespace Server.Engines.BulkOrders
                 list.Add(1045141); // All items must be exceptional.
 
             if (m_Material != BulkMaterialType.None)
-                list.Add(SmallBODGump.GetMaterialNumberFor(m_Material)); // All items must be made with x material.
+                //list.Add(SmallBODGump.GetMaterialNumberFor(m_Material)); // All items must be made with x material.
 				//daat99 OWLTR start - custom resource
-                //list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(Material));
+                list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(Material));
             	//daat99 OWLTR end - custom resource
 
             list.Add(1060656, m_AmountMax.ToString()); // amount to make: ~1_val~
@@ -248,14 +248,20 @@ namespace Server.Engines.BulkOrders
             if (IsChildOf(from.Backpack) || InSecureTrade || RootParent is PlayerVendor)
             {
                 #region Iomega0318 - Captcha
-                /* Being Captcha Mod */
-                Gump bod_gump = new SmallBODGump(from, this);
-                CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
-                /* End Captcha Mod */
+                if (from.AccessLevel == AccessLevel.Player)
+                /* Begin Captcha Mod */
+                {
+                    Gump bod_gump = new SmallBODGump(from, this);
+                    CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
+                }
+                else
+                {
+                    /* End Captcha Mod */
+                    EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
+                    from.SendGump(new SmallBODGump(from, this));
+                }
                 #endregion
-                //EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
-				//from.SendGump(new SmallBODGump(from, this));
-			}
+            }
             else
 			{
 				from.SendLocalizedMessage(1045156); // You must have the deed in your backpack to use it.

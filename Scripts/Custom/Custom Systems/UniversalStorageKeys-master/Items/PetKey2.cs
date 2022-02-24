@@ -80,8 +80,8 @@ namespace Server.Items
 			ItemID = 8928;
 			Hue = 1365;
 			Name = "Personal Bestiary Catalog";
-			LootType = LootType.Blessed;
-		}
+            LootType = LootType.Cursed;
+        }
 		
 		protected override ItemStore GenerateItemStore()
 		{
@@ -91,12 +91,11 @@ namespace Server.Items
 			return store;
 		}
 
-		/*
 		public override bool OnDragDrop( Mobile from, Item dropped )
 		{
-			if ( dropped is ShrinkItemX ) 
+			if ( dropped is ShrinkItem ) 
 			{
-				new StashEntry( typeof( ShrinkItemX ), "Pets", 500 );	//Not quite right.
+				new StashEntry( typeof( ShrinkItem ), "Pets", 500 );	//Not quite right.
 				return true;
 			}
 			else
@@ -105,7 +104,6 @@ namespace Server.Items
 				return false;	
 			}
 		}
-		*/
 		
 		public PetKey2( Serial serial ) : base( serial )
 		{

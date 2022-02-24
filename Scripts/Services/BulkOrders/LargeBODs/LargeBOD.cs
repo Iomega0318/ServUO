@@ -201,13 +201,19 @@ namespace Server.Engines.BulkOrders
             if (IsChildOf(from.Backpack) || InSecureTrade || RootParent is PlayerVendor)
             {
                 #region Iomega0318 - Captcha
-                /* Being Captcha Mod */
-                Gump bod_gump = new LargeBODGump(from, this);
-                CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
-                /* End Captcha Mod */
+                if (from.AccessLevel == AccessLevel.Player)
+                /* Begin Captcha Mod */
+                {
+                    Gump bod_gump = new LargeBODGump(from, this);
+                    CaptchaGump.sendCaptcha(from, CaptchaGump.SendGumpAfterCaptcha, bod_gump);
+                }
+                else
+                {
+                    /* End Captcha Mod */
+                    EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
+                    from.SendGump(new LargeBODGump(from, this));
+                }
                 #endregion
-                //EventSink.InvokeBODUsed(new BODUsedEventArgs(from, this));
-                //from.SendGump(new LargeBODGump(from, this));
             }
             else
 			{

@@ -313,6 +313,8 @@
     <Compile Include="Custom\Custom Commands\New folder\TeleGen.cs" />
     <Compile Include="Custom\Custom Commands\SetSkillCap.cs" />
     <Compile Include="Custom\Custom Items\10Skillball.cs" />
+    <Compile Include="Custom\Custom Items\AdvancedInteriorDecorator.cs" />
+    <Compile Include="Custom\Custom Items\AdvancedInteriorDecoratorStaff.cs" />
     <Compile Include="Custom\Custom Items\Armor and Weapons\Aprons\AlchemyHalf.cs" />
     <Compile Include="Custom\Custom Items\Armor and Weapons\Aprons\BaseWorldArty.cs" />
     <Compile Include="Custom\Custom Items\Armor and Weapons\Aprons\BunnySlipper.cs" />
@@ -18430,7 +18432,6 @@
     <None Include="Custom\Custom Items\Custom Deco and Addons\Addons\UOAR\Water_Dungon.uoa" />
     <None Include="Custom\Custom Items\Custom Deco and Addons\Addons\UOAR\WindMill.uoa" />
     <None Include="Custom\Custom Items\Custom Deco and Addons\Addons\UOAR\Zeus.uoa" />
-    <None Include="Custom\Custom Items\Custom Deco and Addons\Addons\[ServUO.com]-DockAddon.rar" />
     <None Include="Custom\Custom Items\Deeds\Slayer Deeds\Slayer Deed Notes.docx" />
     <None Include="Custom\Custom Items\SkillTrainer - Copy.cs.old" />
     <None Include="Custom\Custom Items\Stew Cauldron\Bowls.cs-" />
