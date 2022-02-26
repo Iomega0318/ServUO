@@ -4804,6 +4804,10 @@
     <Compile Include="Custom\Custom Systems\Oz%27Thoth%27s Static Gump\Side Gumps\Tiled\Walls\WallPt5.cs" />
     <Compile Include="Custom\Custom Systems\Oz%27Thoth%27s Static Gump\Side Gumps\Tiled\Walls\WallPt6.cs" />
     <Compile Include="Custom\Custom Systems\Oz%27Thoth%27s Static Gump\StaticGump%28Alternative%29.cs" />
+    <Compile Include="Custom\Custom Systems\Player House Gates\GateHueTicket.cs" />
+    <Compile Include="Custom\Custom Systems\Player House Gates\HouseGate.cs" />
+    <Compile Include="Custom\Custom Systems\Player House Gates\HouseGateConfirm.cs" />
+    <Compile Include="Custom\Custom Systems\Player House Gates\HouseGateTile.cs" />
     <Compile Include="Custom\Custom Systems\PSExchange\PowerScrollExchange.cs" />
     <Compile Include="Custom\Custom Systems\PSExchange\PSCredits.cs" />
     <Compile Include="Custom\Custom Systems\PSExchange\PSCreditsGump.cs" />
